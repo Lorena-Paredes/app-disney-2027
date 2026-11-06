@@ -1,0 +1,8 @@
+{
+  "name": "Remix Orlando 2027: Itinerario \u0026 Guía del Viaje",
+  "description": "Itinerario interactivo día por día, atracciones de adrenalina y simuladores, logística UberXL, compras de tecnología y outlets, y clima para el grupo de 10 personas en Celebration Suites.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
