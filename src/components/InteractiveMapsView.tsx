@@ -84,16 +84,16 @@ export const InteractiveMapsView: React.FC = () => {
         center: activePark.center,
         zoom: activePark.defaultZoom,
         zoomControl: false,
-        attributionControl: false,
+        attributionControl: true,
       });
 
       // Add Zoom control on top-right
       L.control.zoom({ position: 'topright' }).addTo(map);
 
-      // Add CartoDB Voyager tiles (Clear, high-contrast, theme-park friendly)
-      L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+      // Capa base OpenStreetMap libre y gratuita (sin marcas de agua ni API Key)
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
-        subdomains: 'abcd',
+        attribution: '&copy; OpenStreetMap contributors',
       }).addTo(map);
 
       mapInstanceRef.current = map;
