@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { 
   Calendar, Users, MapPin, Printer, Compass, Sparkles, 
-  ShoppingBag, Car, CloudSun, Utensils, Mic, MessageCircle, Share2 
+  ShoppingBag, Car, CloudSun, Utensils, Mic, MessageCircle, Share2,
+  Map as MapIcon, Trophy
 } from 'lucide-react';
 import { TRAVELERS } from '../data/tripData';
 
-export type AppTab = 'itinerary' | 'attractions' | 'uber' | 'shopping' | 'weather' | 'notes';
+export type AppTab = 'itinerary' | 'attractions' | 'maps' | 'sports' | 'uber' | 'shopping' | 'notes' | 'weather';
 
 interface HeaderProps {
   activeTab: AppTab;
@@ -77,6 +78,30 @@ export const Header: React.FC<HeaderProps> = ({
               >
                 <Sparkles className="w-3.5 h-3.5" />
                 Atracciones
+              </button>
+
+              <button
+                onClick={() => setActiveTab('maps')}
+                className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg transition-colors whitespace-nowrap shrink-0 ${
+                  activeTab === 'maps'
+                    ? 'bg-indigo-50 text-indigo-700'
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+                }`}
+              >
+                <MapIcon className="w-3.5 h-3.5" />
+                Mapas
+              </button>
+
+              <button
+                onClick={() => setActiveTab('sports')}
+                className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg transition-colors whitespace-nowrap shrink-0 ${
+                  activeTab === 'sports'
+                    ? 'bg-orange-50 text-orange-700'
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+                }`}
+              >
+                <Trophy className="w-3.5 h-3.5" />
+                NBA & Inter
               </button>
 
               <button
@@ -204,6 +229,24 @@ export const Header: React.FC<HeaderProps> = ({
             }`}
           >
             Atracciones
+          </button>
+          <button
+            onClick={() => setActiveTab('maps')}
+            className={`px-3 py-1.5 text-xs font-medium rounded-lg whitespace-nowrap shrink-0 transition-colors flex items-center gap-1 ${
+              activeTab === 'maps' ? 'bg-white text-indigo-700 shadow-xs border border-slate-200 font-bold' : 'text-slate-600'
+            }`}
+          >
+            <MapIcon className="w-3 h-3 text-indigo-600" />
+            <span>Mapas</span>
+          </button>
+          <button
+            onClick={() => setActiveTab('sports')}
+            className={`px-3 py-1.5 text-xs font-medium rounded-lg whitespace-nowrap shrink-0 transition-colors flex items-center gap-1 ${
+              activeTab === 'sports' ? 'bg-white text-orange-700 shadow-xs border border-slate-200 font-bold' : 'text-slate-600'
+            }`}
+          >
+            <Trophy className="w-3 h-3 text-orange-600" />
+            <span>NBA & Inter</span>
           </button>
           <button
             onClick={() => setActiveTab('uber')}

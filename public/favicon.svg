@@ -1,22 +1,106 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
   <defs>
-    <linearGradient id="disneyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+    <!-- Fondo gradiente azul clásico Disney -->
+    <linearGradient id="disneySky" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#2563eb" />
+      <stop offset="50%" stop-color="#1d4ed8" />
       <stop offset="100%" stop-color="#1e3a8a" />
     </linearGradient>
+
+    <!-- Resplandor dorado para destellos mágicos -->
+    <radialGradient id="goldGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fef08a" />
+      <stop offset="60%" stop-color="#facc15" />
+      <stop offset="100%" stop-color="#eab308" />
+    </radialGradient>
   </defs>
-  
+
   <!-- Círculo base azul Disney -->
-  <circle cx="50" cy="50" r="48" fill="url(#disneyGrad)" stroke="#ffffff" stroke-width="2.5" />
-  
-  <!-- Estructura del Castillo / Tiara en blanco -->
-  <path d="M50 18 L55 32 L62 32 L62 46 L68 46 L68 64 L76 64 L76 82 L24 82 L24 64 L32 64 L32 46 L38 46 L38 32 L45 32 Z" fill="#ffffff" />
-  
-  <!-- Puerta arqueada central -->
-  <path d="M44 82 A6 6 0 0 1 56 82 Z" fill="#1e3a8a" />
-  
-  <!-- Destellos dorados en las puntas (estilo tiara mágica) -->
-  <circle cx="50" cy="14" r="3.5" fill="#facc15" />
-  <circle cx="35" cy="28" r="2.5" fill="#facc15" />
-  <circle cx="65" cy="28" r="2.5" fill="#facc15" />
+  <circle cx="256" cy="256" r="248" fill="url(#disneySky)" stroke="#ffffff" stroke-width="8" />
+
+  <!-- Arco de estrellas mágicas superiores -->
+  <path d="M 80 250 A 180 180 0 0 1 432 250" fill="none" stroke="#facc15" stroke-width="3" stroke-dasharray="4 12" opacity="0.6" />
+
+  <!-- Castillo Clásico de Disney (Silueta arquitectónica en blanco) -->
+  <g fill="#ffffff">
+    <!-- Base inferior y murallas -->
+    <rect x="136" y="360" width="240" height="70" rx="4" />
+    
+    <!-- Almenas base -->
+    <rect x="136" y="348" width="24" height="16" />
+    <rect x="176" y="348" width="24" height="16" />
+    <rect x="216" y="348" width="24" height="16" />
+    <rect x="272" y="348" width="24" height="16" />
+    <rect x="312" y="348" width="24" height="16" />
+    <rect x="352" y="348" width="24" height="16" />
+
+    <!-- Torres laterales inferiores -->
+    <!-- Torre izquierda -->
+    <rect x="146" y="270" width="46" height="90" />
+    <polygon points="138,270 169,190 200,270" /> <!-- Techo piramidal izquierdo -->
+    
+    <!-- Torre derecha -->
+    <rect x="320" y="270" width="46" height="90" />
+    <polygon points="312,270 343,190 374,270" /> <!-- Techo piramidal derecho -->
+
+    <!-- Muros intermedios y ventanas -->
+    <rect x="202" y="270" width="108" height="90" />
+    <rect x="202" y="258" width="20" height="14" />
+    <rect x="246" y="258" width="20" height="14" />
+    <rect x="290" y="258" width="20" height="14" />
+
+    <!-- Torre central mediana -->
+    <rect x="220" y="190" width="72" height="80" />
+    <rect x="220" y="180" width="16" height="12" />
+    <rect x="248" y="180" width="16" height="12" />
+    <rect x="276" y="180" width="16" height="12" />
+
+    <!-- Aguja / Torre principal más alta -->
+    <rect x="238" y="130" width="36" height="60" />
+    <polygon points="230,130 256,60 282,130" /> <!-- Aguja central suprema -->
+
+    <!-- Banderines en las agujas -->
+    <polygon points="256,60 274,70 256,80" />
+    <polygon points="169,190 183,198 169,206" />
+    <polygon points="343,190 357,198 343,206" />
+  </g>
+
+  <!-- Gran arco del portal central (en azul oscuro profundo) -->
+  <path d="M 230 430 L 230 380 A 26 26 0 0 1 282 380 L 282 430 Z" fill="#1e3a8a" />
+  <!-- Reja dorada del portal -->
+  <line x1="256" y1="360" x2="256" y2="430" stroke="#facc15" stroke-width="3" />
+  <line x1="242" y1="380" x2="270" y2="380" stroke="#facc15" stroke-width="2" />
+  <line x1="240" y1="400" x2="272" y2="400" stroke="#facc15" stroke-width="2" />
+
+  <!-- Ventanas en las torres (azul oscuro) -->
+  <path d="M 161 310 A 8 8 0 0 1 177 310 L 177 330 L 161 330 Z" fill="#1e3a8a" />
+  <path d="M 335 310 A 8 8 0 0 1 351 310 L 351 330 L 335 330 Z" fill="#1e3a8a" />
+  <path d="M 248 215 A 8 8 0 0 1 264 215 L 264 235 L 248 235 Z" fill="#1e3a8a" />
+
+  <!-- Destellos dorados (#facc15) mágicos -->
+  <!-- Destello central sobre la aguja principal -->
+  <g transform="translate(256, 46)">
+    <path d="M 0 -18 Q 0 0 18 0 Q 0 0 0 18 Q 0 0 -18 0 Q 0 0 0 -18 Z" fill="url(#goldGlow)" />
+    <circle cx="0" cy="0" r="4" fill="#ffffff" />
+  </g>
+
+  <!-- Destello superior izquierdo -->
+  <g transform="translate(140, 140)">
+    <path d="M 0 -14 Q 0 0 14 0 Q 0 0 0 14 Q 0 0 -14 0 Q 0 0 0 -14 Z" fill="url(#goldGlow)" />
+    <circle cx="0" cy="0" r="3" fill="#ffffff" />
+  </g>
+
+  <!-- Destello superior derecho -->
+  <g transform="translate(372, 140)">
+    <path d="M 0 -14 Q 0 0 14 0 Q 0 0 0 14 Q 0 0 -14 0 Q 0 0 -14 0 Q 0 0 0 -14 Z" fill="url(#goldGlow)" />
+    <circle cx="0" cy="0" r="3" fill="#ffffff" />
+  </g>
+
+  <!-- Pequeños destellos de estrellas mágicas dispersos -->
+  <circle cx="95" cy="205" r="5" fill="#facc15" />
+  <circle cx="415" cy="205" r="5" fill="#facc15" />
+  <circle cx="195" cy="115" r="4" fill="#facc15" />
+  <circle cx="318" cy="115" r="4" fill="#facc15" />
+  <circle cx="120" cy="285" r="3.5" fill="#facc15" />
+  <circle cx="392" cy="285" r="3.5" fill="#facc15" />
 </svg>

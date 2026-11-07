@@ -7,13 +7,15 @@ import {
 import { SHOPPING_SPOTS, ShoppingSpot, SUPERMARKETS, SupermarketOption } from '../data/tripData';
 
 interface ShoppingTechGuideViewProps {
-  initialTab?: 'cleats' | 'tech' | 'supermarkets' | 'destinations';
+  initialTab?: 'cleats' | 'tech' | 'supermarkets' | 'destinations' | 'coupons';
 }
 
 export const ShoppingTechGuideView: React.FC<ShoppingTechGuideViewProps> = ({ 
   initialTab = 'cleats' 
 }) => {
-  const [activeTab, setActiveTab] = useState<'cleats' | 'tech' | 'supermarkets' | 'destinations'>(initialTab);
+  const [activeTab, setActiveTab] = useState<'cleats' | 'tech' | 'supermarkets' | 'destinations'>(
+    initialTab === 'coupons' ? 'destinations' : initialTab
+  );
   const [selectedUsSize, setSelectedUsSize] = useState<string>('9.5');
 
   // Shoe size conversion table (US vs Argentina / EUR vs CM)

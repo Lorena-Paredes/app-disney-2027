@@ -1,0 +1,18 @@
+{
+  "name": "Orlando 2027 · Itinerario & Guía del Viaje",
+  "short_name": "Orlando 2027",
+  "description": "Itinerario interactivo día por día, atracciones de adrenalina, mapas funcionales, NBA Miami Heat, logística 2x UberXL y notas de voz para 10 personas.",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0f172a",
+  "theme_color": "#1e3a8a",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

@@ -194,12 +194,18 @@ export default function App() {
         </button>
 
         <button onClick={() => setActiveTab('maps')} className={`flex-shrink-0 flex flex-col items-center justify-center py-1 min-w-[50px] transition-colors ${activeTab === 'maps' ? 'text-indigo-600 font-bold' : 'text-slate-500 hover:text-slate-900'}`}>
+          <Map className="w-5 h-5" />
           <span className="text-[9px] mt-0.5 tracking-tight">Mapas</span>
         </button>
 
         <button onClick={() => setActiveTab('sports')} className={`flex-shrink-0 flex flex-col items-center justify-center py-1 min-w-[50px] transition-colors ${activeTab === 'sports' ? 'text-orange-600 font-bold' : 'text-slate-500 hover:text-slate-900'}`}>
           <Trophy className="w-5 h-5" />
-          <span className="text-[9px] mt-0.5 tracking-tight">Deportes</span>
+          <span className="text-[9px] mt-0.5 tracking-tight">NBA & Inter</span>
+        </button>
+
+        <button onClick={() => setActiveTab('notes')} className={`flex-shrink-0 flex flex-col items-center justify-center py-1 min-w-[50px] transition-colors ${activeTab === 'notes' ? 'text-rose-600 font-bold' : 'text-slate-500 hover:text-slate-900'}`}>
+          <Mic className="w-5 h-5 text-rose-500" />
+          <span className="text-[9px] mt-0.5 tracking-tight">Notas</span>
         </button>
 
         <button onClick={() => setActiveTab('uber')} className={`flex-shrink-0 flex flex-col items-center justify-center py-1 min-w-[50px] transition-colors ${activeTab === 'uber' ? 'text-emerald-600 font-bold' : 'text-slate-500 hover:text-slate-900'}`}>
