@@ -48,7 +48,7 @@ export const Header: React.FC<HeaderProps> = ({
                     Orlando 2027
                   </span>
                   <span className="text-[11px] text-slate-500 font-medium whitespace-nowrap hidden sm:inline">
-                    19 al 30 de Enero · 10 Pasajeros
+                    19 al 30 de Enero · 11 Pasajeros
                   </span>
                 </div>
               </button>
@@ -96,12 +96,12 @@ export const Header: React.FC<HeaderProps> = ({
                 onClick={() => setActiveTab('sports')}
                 className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg transition-colors whitespace-nowrap shrink-0 ${
                   activeTab === 'sports'
-                    ? 'bg-orange-50 text-orange-700'
+                    ? 'bg-blue-50 text-blue-700'
                     : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
                 }`}
               >
                 <Trophy className="w-3.5 h-3.5" />
-                NBA & Inter
+                NBA Kia Center
               </button>
 
               <button
@@ -184,7 +184,7 @@ export const Header: React.FC<HeaderProps> = ({
                 <button
                   onClick={onOpenQuickService}
                   className="hidden xl:flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-semibold text-amber-800 bg-amber-50 border border-amber-200 rounded-lg hover:bg-amber-100 transition-colors whitespace-nowrap"
-                  title="Lugares de comida rápida con Mobile Order para 10"
+                  title="Lugares de comida rápida con Mobile Order para 11"
                 >
                   <Utensils className="w-3.5 h-3.5 text-amber-600" />
                   <span>Comida Rápida</span>
@@ -194,11 +194,11 @@ export const Header: React.FC<HeaderProps> = ({
               <button
                 onClick={() => setShowTravelersModal(true)}
                 className="flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-medium text-slate-700 bg-slate-100 rounded-lg hover:bg-slate-200 transition-colors whitespace-nowrap"
-                title="Ver lista de los 10 integrantes"
+                title="Ver lista de los 11 integrantes"
               >
                 <Users className="w-3.5 h-3.5 text-blue-600" />
-                <span className="hidden sm:inline">10 Viajeros</span>
-                <span className="sm:hidden">10 Pax</span>
+                <span className="hidden sm:inline">11 Viajeros</span>
+                <span className="sm:hidden">11 Pax</span>
               </button>
 
               <button
@@ -242,11 +242,11 @@ export const Header: React.FC<HeaderProps> = ({
           <button
             onClick={() => setActiveTab('sports')}
             className={`px-3 py-1.5 text-xs font-medium rounded-lg whitespace-nowrap shrink-0 transition-colors flex items-center gap-1 ${
-              activeTab === 'sports' ? 'bg-white text-orange-700 shadow-xs border border-slate-200 font-bold' : 'text-slate-600'
+              activeTab === 'sports' ? 'bg-white text-blue-700 shadow-xs border border-slate-200 font-bold' : 'text-slate-600'
             }`}
           >
-            <Trophy className="w-3 h-3 text-orange-600" />
-            <span>NBA & Inter</span>
+            <Trophy className="w-3 h-3 text-blue-600" />
+            <span>NBA Kia Center</span>
           </button>
           <button
             onClick={() => setActiveTab('uber')}
@@ -291,7 +291,7 @@ export const Header: React.FC<HeaderProps> = ({
             <MapPin className="w-3.5 h-3.5 text-blue-400 shrink-0" />
             <span className="text-slate-300">Base:</span>
             <span className="font-semibold text-white">Celebration Suites (Kissimmee)</span>
-            <span className="text-slate-400 hidden md:inline">· 10 Pasajeros · Distancias en km</span>
+            <span className="text-slate-400 hidden md:inline">· 11 Pasajeros · Distancias en km</span>
           </div>
 
           <div className="flex items-center gap-3 text-[11px] sm:text-xs text-slate-300 overflow-x-auto scrollbar-none">
@@ -320,7 +320,7 @@ export const Header: React.FC<HeaderProps> = ({
           <div className="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-slate-200 max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between pb-4 border-b border-slate-100">
               <div>
-                <h3 className="text-lg font-bold text-slate-900">Grupo de Viaje (10 Personas)</h3>
+                <h3 className="text-lg font-bold text-slate-900">Grupo de Viaje (11 Personas)</h3>
                 <p className="text-xs text-slate-500">Celebration Suites · 19 al 30 de Enero 2027</p>
               </div>
               <button
@@ -348,7 +348,7 @@ export const Header: React.FC<HeaderProps> = ({
 
               <div>
                 <div className="text-xs font-bold text-amber-700 uppercase tracking-wider mb-2">
-                  5 Adolescentes (Foco Adrenalina & Montañas Rusas)
+                  6 Adolescentes (Renato, Tuto, José, Máximo, Josefina y Luisina)
                 </div>
                 <div className="grid grid-cols-2 gap-2">
                   {teens.map(teen => (
@@ -360,12 +360,15 @@ export const Header: React.FC<HeaderProps> = ({
                 </div>
               </div>
 
-              <div className="p-3.5 bg-slate-50 rounded-xl border border-slate-200 text-xs text-slate-600 space-y-1">
-                <div className="font-semibold text-slate-900">Distribución de Vehículos para UberXL:</div>
-                <p>• <strong>Auto 1:</strong> Lorena, Renato, Máximo, Celia, Carolina (5 personas)</p>
-                <p>• <strong>Auto 2:</strong> Fofi, Juan, Augusto, José, Luisina (5 personas)</p>
+              <div className="p-3.5 bg-slate-50 rounded-xl border border-slate-200 text-xs text-slate-600 space-y-1.5">
+                <div className="font-semibold text-slate-900">Distribución de Vehículos para 2x UberXL:</div>
+                <p>• <strong>Auto 1 (5 pax):</strong> Lorena, Celia, Juan, Renato, Máximo</p>
+                <p>• <strong>Auto 2 (6 pax):</strong> Carolina, Fofi, Tuto, José, Josefina, Luisina</p>
+                <div className="mt-2 pt-1.5 border-t border-slate-200 text-[11px] text-slate-600">
+                  🏠 <strong>Hospedaje de Josefina:</strong> Ya resuelto, va en el departamento junto con la familia de Caro, Fofi, Tuto y Luisina.
+                </div>
                 <p className="text-indigo-700 font-semibold pt-1">
-                  • <strong>Traslado Orlando ➔ Miami (30 Ene):</strong> Combi/Trafic privada ya contratada para los 10 con equipaje.
+                  • <strong>Traslado Orlando ➔ Miami (30 Ene):</strong> Combi/Trafic privada ya contratada para los 11 con equipaje.
                 </p>
               </div>
             </div>

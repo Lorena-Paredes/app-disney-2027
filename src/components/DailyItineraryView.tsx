@@ -70,7 +70,7 @@ export const DailyItineraryView: React.FC<DailyItineraryViewProps> = ({
               Ritmo Balanceado: Parques Intensos intercalados con Descanso y Compras
             </h2>
             <p className="text-sm text-slate-600 mt-1 max-w-3xl">
-              Diseñado para que los 5 adultos no se agoten físicamente, mientras que los 5 adolescentes de 13 a 15 años disfrutan al máximo de las montañas rusas más extremas de Orlando. Distancias calculadas en kilómetros (km) desde Celebration Suites.
+              Diseñado para que los 5 adultos no se agoten físicamente, mientras que los 6 adolescentes de 13 a 15 años disfrutan al máximo de las montañas rusas más extremas de Orlando. Distancias calculadas en kilómetros (km) desde Celebration Suites.
             </p>
           </div>
 

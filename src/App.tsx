@@ -156,7 +156,7 @@ export default function App() {
             <button onClick={() => setActiveTab('itinerary')} className="hover:text-blue-600 transition-colors">Itinerario</button>
             <button onClick={() => setActiveTab('attractions')} className="hover:text-blue-600 transition-colors">Atracciones</button>
             <button onClick={() => setActiveTab('maps')} className="hover:text-blue-600 transition-colors font-semibold">Mapas</button>
-            <button onClick={() => setActiveTab('sports')} className="hover:text-blue-600 transition-colors font-semibold">NBA & Inter</button>
+            <button onClick={() => setActiveTab('sports')} className="hover:text-blue-600 transition-colors font-semibold">NBA Kia Center</button>
             <button onClick={() => setActiveTab('uber')} className="hover:text-blue-600 transition-colors">UberXL (2 Autos)</button>
             <button 
               onClick={() => {
@@ -176,7 +176,7 @@ export default function App() {
           </div>
 
           <div className="text-slate-400 text-center sm:text-right">
-            10 Pasajeros · 5 Adultos & 5 Adolescentes · Combi a Miami
+            11 Pasajeros · 5 Adultos & 6 Adolescentes · Combi a Miami
           </div>
         </div>
       </footer>
@@ -198,9 +198,9 @@ export default function App() {
           <span className="text-[9px] mt-0.5 tracking-tight">Mapas</span>
         </button>
 
-        <button onClick={() => setActiveTab('sports')} className={`flex-shrink-0 flex flex-col items-center justify-center py-1 min-w-[50px] transition-colors ${activeTab === 'sports' ? 'text-orange-600 font-bold' : 'text-slate-500 hover:text-slate-900'}`}>
+        <button onClick={() => setActiveTab('sports')} className={`flex-shrink-0 flex flex-col items-center justify-center py-1 min-w-[50px] transition-colors ${activeTab === 'sports' ? 'text-blue-600 font-bold' : 'text-slate-500 hover:text-slate-900'}`}>
           <Trophy className="w-5 h-5" />
-          <span className="text-[9px] mt-0.5 tracking-tight">NBA & Inter</span>
+          <span className="text-[9px] mt-0.5 tracking-tight">NBA Magic</span>
         </button>
 
         <button onClick={() => setActiveTab('notes')} className={`flex-shrink-0 flex flex-col items-center justify-center py-1 min-w-[50px] transition-colors ${activeTab === 'notes' ? 'text-rose-600 font-bold' : 'text-slate-500 hover:text-slate-900'}`}>

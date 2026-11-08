@@ -14,7 +14,7 @@ import { useLiveWaitTimes } from '../utils/useLiveWaitTimes';
 
 export const InteractiveMapsView: React.FC = () => {
   const [selectedParkId, setSelectedParkId] = useState<string>('magic-kingdom');
-  const [brandFilter, setBrandFilter] = useState<'all' | 'disney' | 'universal' | 'miami'>('all');
+  const [brandFilter, setBrandFilter] = useState<'all' | 'disney' | 'universal' | 'nba'>('all');
   const [categoryFilter, setCategoryFilter] = useState<'all' | RideCategory>('all');
   const [intensityFilter, setIntensityFilter] = useState<'all' | RideIntensity>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
@@ -250,7 +250,7 @@ export const InteractiveMapsView: React.FC = () => {
           <p class="text-xs text-slate-600 leading-relaxed">${ride.description}</p>
 
           <div class="mt-2.5 p-2 bg-blue-50/80 rounded-xl text-[11px] text-blue-900 border border-blue-100">
-            <strong>Consejo para los 10:</strong> ${ride.groupTip}
+            <strong>Consejo para los 11:</strong> ${ride.groupTip}
           </div>
 
           ${ride.minHeightCm ? `<div class="mt-1 text-[10px] text-slate-400">📏 Altura mínima requerida: <strong>${ride.minHeightCm} cm</strong></div>` : ''}
@@ -363,12 +363,12 @@ export const InteractiveMapsView: React.FC = () => {
                 Universal (2)
               </button>
               <button
-                onClick={() => setBrandFilter('miami')}
+                onClick={() => setBrandFilter('nba')}
                 className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition-colors whitespace-nowrap ${
-                  brandFilter === 'miami' ? 'bg-orange-600 text-white shadow-xs' : 'text-slate-600 hover:text-slate-900'
+                  brandFilter === 'nba' ? 'bg-blue-600 text-white shadow-xs' : 'text-slate-600 hover:text-slate-900'
                 }`}
               >
-                Miami NBA
+                Kia Center NBA
               </button>
             </div>
           </div>
@@ -395,9 +395,9 @@ export const InteractiveMapsView: React.FC = () => {
                   <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded border ${
                     park.brand === 'disney' ? 'bg-blue-100 text-blue-800 border-blue-200' :
                     park.brand === 'universal' ? 'bg-indigo-100 text-indigo-800 border-indigo-200' :
-                    'bg-orange-100 text-orange-800 border-orange-200'
+                    'bg-blue-100 text-blue-900 border-blue-300'
                   }`}>
-                    {park.brand === 'disney' ? 'Disney World' : park.brand === 'universal' ? 'Universal' : 'Miami'}
+                    {park.brand === 'disney' ? 'Disney World' : park.brand === 'universal' ? 'Universal' : 'Kia Center NBA'}
                   </span>
                   <span className="text-[10px] text-slate-500 font-mono">
                     {park.rides.length} puntos

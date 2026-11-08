@@ -1,6 +1,6 @@
 /**
  * Base de datos completa del viaje a Orlando 2027
- * Grupo de 10 personas (5 adultos + 5 adolescentes)
+ * Grupo de 11 personas (5 adultos + 6 adolescentes)
  * Alojamiento: Celebration Suites (Kissimmee)
  * Fechas: 19 al 30 de Enero 2027
  * Unidades: Kilómetros (km), grados Celsius / Fahrenheit
@@ -123,15 +123,16 @@ export interface ShoppingSpot {
 
 export const TRAVELERS: Traveler[] = [
   { id: '1', name: 'Lorena', role: 'adult', relation: 'Mamá coordinadora' },
-  { id: '2', name: 'Carolina', role: 'adult', relation: 'Mamá' },
+  { id: '2', name: 'Carolina', role: 'adult', relation: 'Mamá (Depto Familia Caro)' },
   { id: '3', name: 'Celia', role: 'adult', relation: 'Madrina de Renato' },
   { id: '4', name: 'Fofi', role: 'adult', relation: 'Papá' },
   { id: '5', name: 'Juan', role: 'adult', relation: 'Papá' },
   { id: '6', name: 'Renato', role: 'teen', age: 15, relation: 'Adolescente (15 años)' },
-  { id: '7', name: 'Máximo', role: 'teen', age: 15, relation: 'Sobrino (15 años)' },
-  { id: '8', name: 'Augusto', role: 'teen', age: 15, relation: 'Amigo de Renato (15 años)' },
-  { id: '9', name: 'José', role: 'teen', age: 15, relation: 'Adolescente (15 años)' },
-  { id: '10', name: 'Luisina', role: 'teen', age: 13, relation: 'Adolescente (13 años)' },
+  { id: '7', name: 'Tuto', role: 'teen', age: 15, relation: 'Adolescente (15 años - Depto Caro)' },
+  { id: '8', name: 'José', role: 'teen', age: 15, relation: 'Adolescente (15 años)' },
+  { id: '9', name: 'Máximo', role: 'teen', age: 15, relation: 'Sobrino (15 años)' },
+  { id: '10', name: 'Josefina', role: 'teen', age: 15, relation: 'Adolescente (15 años - Depto Caro)' },
+  { id: '11', name: 'Luisina', role: 'teen', age: 13, relation: 'Adolescente (13 años - Depto Caro)' },
 ];
 
 export const SUPERMARKETS: SupermarketOption[] = [
@@ -314,7 +315,7 @@ export const ITINERARY: ItineraryDay[] = [
     schedule: [
       { time: '15:35', activity: 'Aterrizaje en Orlando International Airport (MCO). Trámite de aduana y recogida de equipajes.', type: 'transport' },
       { time: '17:00', activity: 'Solicitar 2x UberXL en el área designada de Rideshare del Aeropuerto MCO hacia Celebration Suites (Kissimmee, 33.8 km).', type: 'transport' },
-      { time: '18:00', activity: 'Check-in en Celebration Suites. Distribución de habitaciones para las 10 personas.', notes: 'Revisar wi-fi y enchufes para cargar todos los celulares.' },
+      { time: '18:00', activity: 'Check-in en Celebration Suites. Distribución de habitaciones para las 11 personas (Josefina en el depto de Caro, Fofi, Tuto y Luisina).', notes: 'Revisar wi-fi y enchufes para cargar todos los celulares.' },
       { time: '19:15', activity: 'Salida de abastecimiento a Walmart Supercenter #5214 Vine St (a solo 4.5 km / 6 min de Celebration Suites).', notes: 'Comprar packs de agua mineral (40 botellas), snacks, frutas, barritas de cereal y desayunos para los parques.', type: 'shopping' },
       { time: '21:00', activity: 'Cena distendida en Old Town Kissimmee (al lado del hotel, se puede ir caminando) o pizza en el suite.', type: 'food' },
       { time: '22:30', activity: 'Descanso temprano: ¡mañana arranca el primer gran día de parque!', type: 'tip' }
@@ -327,7 +328,7 @@ export const ITINERARY: ItineraryDay[] = [
       distanceKm: 33.8,
       estMinutes: 28,
       recommendedDropoff: 'Lobby principal de Celebration Suites (5820 W Irlo Bronson Memorial Hwy)',
-      returnTip: 'Esperar a tener las 10 valijas antes de pedir los UberXL.'
+      returnTip: 'Esperar a tener las valijas de los 11 antes de pedir los 2x UberXL.'
     },
     mealsTip: 'Comprar snacks tipo Oreo, frutos secos, barritas y botellitas de agua en Walmart: en Disney y Universal se permite ingresar comida sellada y botellas de agua.'
   },
@@ -785,11 +786,11 @@ export const ITINERARY: ItineraryDay[] = [
     dateFull: '30 de Enero de 2027',
     type: 'travel',
     title: 'Check-out en Orlando & Traslado a Miami en Combi Privada',
-    highlight: 'Combi/Trafic privada contratada para el grupo de 10 personas: salida desde Celebration Suites y llegada a Seacoast (Miami Beach).',
+    highlight: 'Combi/Trafic privada contratada para el grupo de 11 personas: salida desde Celebration Suites y llegada a Seacoast (Miami Beach).',
     schedule: [
       { time: '09:00', activity: 'Desayuno final en Celebration Suites. Revisar armarios, enchufes y cajas de seguridad.', type: 'tip' },
       { time: '10:30', activity: 'Check-out formal en recepción de Celebration Suites.', type: 'tip' },
-      { time: '10:45', activity: 'Encuentro en el lobby con la combi/trafic privada ya contratada. Carga de las 10 valijas y bolsos.', type: 'transport' },
+      { time: '10:45', activity: 'Encuentro en el lobby con la combi/trafic privada ya contratada. Carga de los equipajes de los 11.', type: 'transport' },
       { time: '11:00', activity: 'Inicio del viaje en combi privada rumbo a Miami Beach (380 km por Florida\'s Turnpike, ~3.5 a 4 horas).', type: 'transport' },
       { time: '13:00', activity: 'Parada técnica de descanso y almuerzo en Fort Drum Service Plaza (km 190, mitad de camino sobre el Turnpike).', type: 'food' },
       { time: '15:30', activity: 'Llegada a Miami Beach, Check-in en Hotel Seacoast frente al mar (5101 Collins Ave).', type: 'tip' },
@@ -824,7 +825,7 @@ export const ATTRACTIONS: Attraction[] = [
     minHeightCm: 130,
     minHeightInches: 51,
     description: 'La montaña rusa de lanzamiento más extrema y premiada de Florida. 2 lanzamientos brutales (hasta 112 km/h en 2.4s), "Top Hat" de 47 metros sobre la laguna y caída con inversión en gravedad cero.',
-    whyForGroup: 'El imperdible #1 absoluto para Renato, Máximo, Augusto, José y Luisina. Pura adrenalina sin tregua.',
+    whyForGroup: 'El imperdible #1 absoluto para Renato, Tuto, José, Máximo, Josefina y Luisina. Pura adrenalina sin tregua.',
     queueStrategy: 'Ir directo en el Rope Drop matutino o última hora antes del cierre. Casilleros gratuitos con huella o pase incluidos antes del detector de metales.',
     hasSingleRider: true,
     virtualQueueOrLL: 'Universal Express aceptado / Fila regular / Single Rider'
@@ -1008,7 +1009,7 @@ export const ATTRACTIONS: Attraction[] = [
     minHeightCm: 102,
     minHeightInches: 40,
     description: 'La atracción más ambiciosa de la historia de Disney: 18 minutos que combinan 4 tipos de vehículos (transporte de prisioneros trackless, simulador de cápsula espacial y caída libre vertical en turbo-ascensor).',
-    whyForGroup: 'Obligatoria para los 10 integrantes sin excepción. Seas fan o no de Star Wars, te deja sin palabras.',
+    whyForGroup: 'Obligatoria para los 11 integrantes sin excepción. Seas fan o no de Star Wars, te deja sin palabras.',
     queueStrategy: 'Hacer Rope Drop inmediato apenas abre el parque o comprar Lightning Lane Single Pass si el grupo desea garantizar 0 fila.',
     hasSingleRider: false,
     virtualQueueOrLL: 'Lightning Lane Single Pass / Fila regular'
@@ -1320,6 +1321,19 @@ export const UBER_ROUTES: UberRoute[] = [
     dropoffAdvice: 'Zona exacta: Piso 5 (Level 5) de la mega estructura central de estacionamientos (área señalizada "Guest Drop-off / Rideshare").',
     carSyncTips: 'Bajan por las escaleras mecánicas hacia la seguridad de CityWalk. Para el regreso nocturno: SUBIR al Piso 5 ANTES de pedir los 2 UberXL para no hacer esperar a los choferes.',
     exactZoneCoordinates: 'Universal Parking Garage - Level 5 Rideshare Hub (Señalización Jurassic Park / Cat in the Hat)'
+  },
+  {
+    id: 'celebration-to-kia-center',
+    destinationName: 'Kia Center · Orlando Magic (Downtown NBA)',
+    category: 'shopping',
+    distanceKm: 32.0,
+    drivingMinutesNormal: 30,
+    drivingMinutesPeak: 38,
+    estCostPerUberXL: 42, // total x2 = $84
+    pickupAdvice: 'Llegar 1 hora antes del partido de los Magic al Downtown de Orlando (400 W Church St).',
+    dropoffAdvice: 'Zona exacta: Hughey Ave & W Church St, a pasos del acceso principal de Church Street Station.',
+    carSyncTips: 'Recordar para los 11: el estadio NO acepta efectivo (100% digital/tarjeta) y tiene política de bolsos estricta (máximo 4.5" x 6.5", sin mochilas).',
+    exactZoneCoordinates: 'Kia Center Rideshare Drop-off (Hughey Ave & Church St Loop)'
   },
   {
     id: 'celebration-to-international-outlets',

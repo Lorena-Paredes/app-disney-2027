@@ -30,7 +30,7 @@ export const QuickServiceModal: React.FC<QuickServiceModalProps> = ({ isOpen, on
               <span>Guía Gastronómica de Parques</span>
             </div>
             <h3 className="text-xl font-bold text-slate-900">
-              Restaurantes Quick Service (Comida Rápida con Mobile Order) para 10 Personas
+              Restaurantes Quick Service (Comida Rápida con Mobile Order) para 11 Personas
             </h3>
             <p className="text-xs text-slate-600 mt-1">
               Seleccionados específicamente por su gran capacidad de mesas contiguas bajo techo, aire acondicionado potente y soporte de pedidos móviles desde la app para no perder 45 minutos haciendo fila.
@@ -126,7 +126,7 @@ export const QuickServiceModal: React.FC<QuickServiceModalProps> = ({ isOpen, on
 
                   <div className="font-semibold text-amber-900 mt-2 flex items-center gap-1">
                     <Users className="w-3.5 h-3.5 text-amber-700" />
-                    <span>Ventaja para nuestro grupo de 10:</span>
+                    <span>Ventaja para nuestro grupo de 11:</span>
                   </div>
                   <div className="text-slate-700 mt-0.5 leading-relaxed bg-white p-2 rounded border border-slate-200/70">
                     {rest.highlightsFor10Pax}

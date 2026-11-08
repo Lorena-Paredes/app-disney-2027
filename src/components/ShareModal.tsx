@@ -61,7 +61,7 @@ export const ShareModal: React.FC<ShareModalProps> = ({
       try {
         await navigator.share({
           title: 'Orlando 2027 · Guía e Itinerario',
-          text: 'Acá está la Web App interactiva de nuestro viaje a Orlando 2027 (Celebration Suites, 10 pasajeros):',
+          text: 'Acá está la Web App interactiva de nuestro viaje a Orlando 2027 (Celebration Suites, 11 pasajeros):',
           url: appUrl,
         });
       } catch (err) {
@@ -78,13 +78,14 @@ export const ShareModal: React.FC<ShareModalProps> = ({
       `✈️ *ORLANDO 2027 · WEB APP DEL VIAJE*`,
       `📍 *Alojamiento:* Celebration Suites (Kissimmee)`,
       `🗓️ *Fechas:* 19 al 30 de Enero 2027`,
-      `👥 *Grupo:* 10 personas (5 adultos + 5 chicos de 13 a 15 años)`,
-      `🚗 *Logística:* 2x UberXL sincronizados + Combi privada a Miami (30 Ene)`,
+      `👥 *Grupo:* 11 personas (5 adultos + 6 chicos de 13 a 15 años)`,
+      `🚗 *Logística:* 2x UberXL sincronizados (Auto 1: 5 pax / Auto 2: 6 pax) + Combi a Miami`,
       ``,
       `📱 *La Web App incluye:*`,
       `• Itinerario día por día con horarios y paradas`,
       `• Atracciones de adrenalina vs adultos con tiempos de fila`,
-      `• Calculador de rutas y división de costos UberXL`,
+      `• Calculador de rutas y división de costos 2x UberXL`,
+      `• Partido Orlando Magic (NBA) en Kia Center Downtown`,
       `• Guía de compras: Outlets, botines Nike y tecnología Apple/Best Buy`,
       `• Notas de voz grabables para no olvidar nada`,
       ``,
@@ -100,7 +101,7 @@ export const ShareModal: React.FC<ShareModalProps> = ({
       `📅 *PLAN DEL DÍA ${day.dayNumber}: ${day.dateStr}*`,
       `📍 *Destino:* ${day.title}`,
       `✨ *Foco:* ${day.highlight}`,
-      `🚗 *Salida UberXL:* ${day.uberRecommendation.departureTime} hacia ${day.uberRecommendation.destination} (~${day.uberRecommendation.distanceKm} km)`,
+      `🚗 *Salida 2x UberXL:* ${day.uberRecommendation.departureTime} hacia ${day.uberRecommendation.destination} (~${day.uberRecommendation.distanceKm} km)`,
       day.quickServiceRecommendation ? `🍔 *Almuerzo recomendado:* ${day.quickServiceRecommendation.name} (${day.quickServiceRecommendation.location})` : '',
       ``,
       `📲 *Ver detalle completo en la Web App:*`,
@@ -111,12 +112,12 @@ export const ShareModal: React.FC<ShareModalProps> = ({
 
   const generateUberWhatsAppMessage = () => {
     const text = [
-      `🚗 *LOGÍSTICA TRASLADOS 2x UBERXL (10 PERSONAS)*`,
+      `🚗 *LOGÍSTICA TRASLADOS 2x UBERXL (11 PERSONAS)*`,
       `📍 *Punto de partida:* Lobby de Celebration Suites (Kissimmee)`,
-      `👥 *Auto 1:* Lorena, Renato, Máximo, Celia, Carolina (5 pax)`,
-      `👥 *Auto 2:* Fofi, Juan, Augusto, José, Luisina (5 pax)`,
+      `👥 *Auto 1 (5 pax):* Lorena, Celia, Juan, Renato, Máximo`,
+      `👥 *Auto 2 (6 pax):* Carolina, Fofi, Tuto, José, Josefina, Luisina`,
       `💡 *Regla de oro:* Pedir ambos autos con 1 minuto de diferencia para llegar juntos a los parques.`,
-      `🚐 *30 de Enero:* Traslado a Miami en combi privada contratada (sin Uber).`,
+      `🚐 *30 de Enero:* Traslado a Miami en combi privada contratada para los 11.`,
       ``,
       `📲 *Calculador de rutas y costos:*`,
       `${appUrl}`,
@@ -330,7 +331,7 @@ export const ShareModal: React.FC<ShareModalProps> = ({
             <div className="p-3.5 rounded-2xl bg-emerald-50/60 border border-emerald-200/70 flex items-center justify-between gap-3">
               <div className="text-xs text-emerald-950">
                 <span className="font-bold">Distribución y reglas de los 2x UberXL</span>
-                <p className="text-[11px] text-emerald-800">Auto 1 y Auto 2 con horarios de salida para 10 personas.</p>
+                <p className="text-[11px] text-emerald-800">Auto 1 (5 pax) y Auto 2 (6 pax) con horarios de salida para 11 personas.</p>
               </div>
               <button
                 onClick={() => sendDirectToWhatsApp(generateUberWhatsAppMessage())}
@@ -435,7 +436,7 @@ export const ShareModal: React.FC<ShareModalProps> = ({
         {/* Footer Close */}
         <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between">
           <span className="text-[11px] text-slate-400">
-            Orlando 2027 · Celebration Suites · 10 Pasajeros
+            Orlando 2027 · Celebration Suites · 11 Pasajeros
           </span>
           <button
             onClick={onClose}

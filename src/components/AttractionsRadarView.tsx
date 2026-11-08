@@ -70,7 +70,7 @@ export const AttractionsRadarView: React.FC = () => {
               Adrenalina Pura para los Adolescentes vs Simuladores High-Tech para Todos
             </h2>
             <p className="text-sm text-slate-600 mt-1 max-w-3xl">
-              Filtra las mejores montañas rusas de velocidad para Renato, Máximo, Augusto, José y Luisina, o los simuladores inmersivos de última generación donde los 10 disfrutarán por igual.
+              Filtra las mejores montañas rusas de velocidad para Renato, Tuto, José, Máximo, Josefina y Luisina, o los simuladores inmersivos de última generación donde los 11 disfrutarán por igual.
             </p>
           </div>
 

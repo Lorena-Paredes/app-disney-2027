@@ -45,9 +45,9 @@ export const CouponsAlertModal: React.FC<CouponsAlertModalProps> = ({
           </div>
 
           <div className="bg-slate-50 p-3.5 rounded-xl border border-slate-200 text-slate-700 space-y-1">
-            <p className="font-bold text-slate-900">💡 Tip de compra para el grupo de 10:</p>
+            <p className="font-bold text-slate-900">💡 Tip de compra para el grupo de 11:</p>
             <p className="leading-relaxed">
-              Al ser 10 personas, si juntan las compras de botines o indumentaria deportiva en un solo ticket grande de caja, es muy fácil superar los $100 o $150 USD y activar los cupones de mayor descuento.
+              Al ser 11 personas, si juntan las compras de botines o indumentaria deportiva en un solo ticket grande de caja, es muy fácil superar los $100 o $150 USD y activar los cupones de mayor descuento.
             </p>
           </div>
         </div>

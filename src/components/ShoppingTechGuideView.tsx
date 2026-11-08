@@ -47,7 +47,7 @@ export const ShoppingTechGuideView: React.FC<ShoppingTechGuideViewProps> = ({
               Botines Oficiales (Nike/Adidas), Tecnología (Apple/Best Buy) y Supermercados Walmart
             </h2>
             <p className="text-sm text-slate-600 mt-1 max-w-3xl">
-              Organizada en torno a las prioridades del grupo: conseguir el mejor calzado para los 5 adolescentes, comprar notebooks/celulares con garantía oficial, y localizar los Walmart Supercenter más cercanos a Celebration Suites para abastecimiento rápido de agua y snacks. Distancias en kilómetros (km).
+              Organizada en torno a las prioridades del grupo: conseguir el mejor calzado para los 6 adolescentes, comprar notebooks/celulares con garantía oficial, y localizar los Walmart Supercenter más cercanos a Celebration Suites para abastecimiento rápido de agua y snacks. Distancias en kilómetros (km).
             </p>
           </div>
 
@@ -134,7 +134,7 @@ export const ShoppingTechGuideView: React.FC<ShoppingTechGuideViewProps> = ({
                 Adidas Outlet (Predator / X / Copa)
               </h3>
               <p className="text-xs text-slate-600 mt-1.5 leading-relaxed">
-                Adidas suele ofrecer la promoción <strong>"Buy One, Get One 50% Off"</strong> en calzado. Al ser 5 chicos que calzan talles similares, comprar 4 o 5 pares juntos reduce el costo por botín de forma drástica.
+                Adidas suele ofrecer la promoción <strong>"Buy One, Get One 50% Off"</strong> en calzado. Al ser 6 chicos que calzan talles similares, comprar varios pares juntos reduce el costo por botín de forma drástica.
               </p>
             </div>
 
@@ -342,7 +342,7 @@ export const ShoppingTechGuideView: React.FC<ShoppingTechGuideViewProps> = ({
                   Supermercados Cercanos a Celebration Suites y Parques
                 </h3>
                 <p className="text-xs text-slate-600 mt-0.5">
-                  Aprovisionarse en Walmart Supercenter ahorra hasta un 70% del presupuesto gastronómico en agua, frutas, desayunos y snacks para las mochilas de los 10 integrantes.
+                  Aprovisionarse en Walmart Supercenter ahorra hasta un 70% del presupuesto gastronómico en agua, frutas, desayunos y snacks para las mochilas de los 11 integrantes.
                 </p>
               </div>
             </div>
@@ -385,7 +385,7 @@ export const ShoppingTechGuideView: React.FC<ShoppingTechGuideViewProps> = ({
                     <div className="mt-3">
                       <div className="text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center gap-1">
                         <PackageCheck className="w-3.5 h-3.5 text-emerald-600" />
-                        <span>Compras recomendadas para 10 personas:</span>
+                        <span>Compras recomendadas para 11 personas:</span>
                       </div>
                       <ul className="space-y-1 text-xs text-slate-600 list-disc pl-4">
                         {market.topItemsFor10Pax.map((item, idx) => (
@@ -403,14 +403,14 @@ export const ShoppingTechGuideView: React.FC<ShoppingTechGuideViewProps> = ({
               ))}
             </div>
 
-            {/* Shopping Strategy Tip for 10 Pax */}
+            {/* Shopping Strategy Tip for 11 Pax */}
             <div className="mt-6 p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-xs space-y-2">
               <div className="font-bold text-emerald-950 flex items-center gap-1.5">
                 <AlertCircle className="w-4 h-4 text-emerald-700" />
                 <span>Consejo Práctico para los 5 Adultos (Compras de Aprovisionamiento):</span>
               </div>
               <p className="text-emerald-900 leading-relaxed">
-                No hace falta mover a los 10 integrantes al supermercado. Recomendamos que <strong>2 de los adultos</strong> vayan en 1 solo auto Uber estándar (costo ~$6 a $8 USD) al <strong>Walmart Supercenter #5214 de Vine St</strong> (a solo 4.5 km del hotel) la noche de llegada (Día 1). Compren 2 packs grandes de agua mineral de 40 botellas, galletitas, frutas y desayunos para la semana. ¡Tienen cocina completa y heladera grande en los suites para guardar todo!
+                No hace falta mover a los 11 integrantes al supermercado. Recomendamos que <strong>2 de los adultos</strong> vayan en 1 solo auto Uber estándar (costo ~$6 a $8 USD) al <strong>Walmart Supercenter #5214 de Vine St</strong> (a solo 4.5 km del hotel) la noche de llegada (Día 1). Compren 2 packs grandes de agua mineral de 40 botellas, galletitas, frutas y desayunos para la semana. ¡Tienen cocina completa y heladera grande en los suites para guardar todo!
               </p>
             </div>
           </div>

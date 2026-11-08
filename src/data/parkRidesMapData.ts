@@ -20,7 +20,7 @@ export interface ParkRideLocation {
   minHeightCm?: number;
   defaultWaitMinutes: number; // Promedio histórico enero si la API está fuera de horario o cerrada
   description: string;
-  groupTip: string; // Tip específico para los 5 adultos y 5 adolescentes
+  groupTip: string; // Tip específico para los 5 adultos y 6 adolescentes
   hasSingleRider?: boolean;
   virtualQueueOrLL?: string;
 }
@@ -29,7 +29,7 @@ export interface ParkMapInfo {
   id: string;
   name: string;
   shortName: string;
-  brand: 'disney' | 'universal' | 'miami';
+  brand: 'disney' | 'universal' | 'nba' | 'miami';
   center: [number, number];
   defaultZoom: number;
   wikiEntityId?: string; // Entity ID en api.themeparks.wiki
@@ -104,7 +104,7 @@ export const PARK_MAPS_DATA: ParkMapInfo[] = [
         minHeightCm: 102,
         defaultWaitMinutes: 40,
         description: 'El tren minero más salvaje del oeste. Curvas peraltadas por cañones de roca roja.',
-        groupTip: 'Apta para todos los 10 integrantes sin mareos. Ideal hacerla al atardecer.',
+        groupTip: 'Apta para todos los 11 integrantes sin mareos. Ideal hacerla al atardecer.',
         virtualQueueOrLL: 'Lightning Lane Multi Pass',
       },
       {
@@ -739,59 +739,59 @@ export const PARK_MAPS_DATA: ParkMapInfo[] = [
     ],
   },
 
-  // 7. KASEYA CENTER (MIAMI HEAT & PUNTOS CLAVE)
+  // 7. KIA CENTER (ORLANDO MAGIC NBA & DOWNTOWN)
   {
-    id: 'kaseya-center',
-    name: 'Kaseya Center & Puntos en Miami',
-    shortName: 'Miami Sports',
-    brand: 'miami',
-    center: [25.7814, -80.1870],
-    defaultZoom: 15,
+    id: 'kia-center',
+    name: 'Kia Center · Orlando Magic (Downtown NBA)',
+    shortName: 'Orlando Magic NBA',
+    brand: 'nba',
+    center: [28.5392, -81.3839],
+    defaultZoom: 16,
     uberDropoff: {
-      name: 'Descenso Kaseya Center (Biscayne Blvd)',
-      lat: 25.7814,
-      lng: -80.1870,
-      notes: 'Llegada en combi el sábado 30 de enero para el partido Miami Heat vs. 76ers (14:30 ARG / 12:30 PM local).',
+      name: 'Loop Rideshare Kia Center (Hughey Ave & Church St)',
+      lat: 28.5390,
+      lng: -81.3835,
+      notes: 'Punto exacto de descenso de los 2x UberXL a 50m del acceso principal. A 32 km (~30-35 min) desde Celebration Suites. Reglas estrictas: solo carteras muy chicas (< 4.5" x 6.5", sin mochilas) y 100% cashless (pago digital o tarjeta).',
     },
     rides: [
       {
-        id: 'miami-kaseya',
-        name: 'Kaseya Center · Miami Heat (NBA)',
+        id: 'kia-magic-arena',
+        name: 'Kia Center · Estadio Oficial Orlando Magic (NBA)',
         category: 'family',
         intensity: 'high',
         adrenalineScore: 5,
-        lat: 25.7814,
-        lng: -80.1870,
-        land: 'Downtown Miami frente a Biscayne Bay',
+        lat: 28.5392,
+        lng: -81.3839,
+        land: 'Downtown Orlando (400 W Church St)',
         defaultWaitMinutes: 0,
-        description: 'Estadio oficial de Miami Heat. Partido confirmado vs Philadelphia 76ers el Sábado 30 Ene 2027.',
-        groupTip: 'Llegar 1 hora antes para pasar los controles de seguridad, recorrer la tienda oficial y buscar sus asientos.',
+        description: 'Estadio de última generación de la NBA para 18.846 espectadores con pantalla colgada central 4K. Partidos confirmados entre el 19 y 30 de enero de 2027.',
+        groupTip: 'Llegar 1 hora antes para pasar los controles de seguridad, recorrer la tienda oficial de los Magic y probar la gastronomía.',
       },
       {
-        id: 'miami-bayside',
-        name: 'Bayside Marketplace',
+        id: 'kia-team-shop',
+        name: 'Orlando Magic Team Shop',
+        category: 'family',
+        intensity: 'gentle',
+        adrenalineScore: 2,
+        lat: 28.5395,
+        lng: -81.3836,
+        land: 'Kia Center Atrium (Nivel 1)',
+        defaultWaitMinutes: 0,
+        description: 'Tienda oficial de la NBA con camisetas oficiales (Paolo Banchero, Franz Wagner), gorras, pelotas y merchandising exclusivo.',
+        groupTip: 'Ideal para que los 6 chicos compren recuerdos oficiales de la NBA antes del inicio del juego.',
+      },
+      {
+        id: 'church-street-station',
+        name: 'Church Street Station & Gastronomía Downtown',
         category: 'family',
         intensity: 'gentle',
         adrenalineScore: 1,
-        lat: 25.7785,
-        lng: -80.1865,
-        land: 'Biscayne Bay (A 100m del estadio)',
+        lat: 28.5401,
+        lng: -81.3805,
+        land: 'Historic Downtown Orlando (a 300m del estadio)',
         defaultWaitMinutes: 0,
-        description: 'Paseo comercial gastronómico a cielo abierto junto a la bahía con tiendas de indumentaria y música en vivo.',
-        groupTip: 'Lugar ideal para almorzar antes del partido de la NBA sin tener que tomar otro auto.',
-      },
-      {
-        id: 'miami-chase-stadium',
-        name: 'Chase Stadium · Inter Miami CF',
-        category: 'family',
-        intensity: 'high',
-        adrenalineScore: 4.5,
-        lat: 26.1925,
-        lng: -80.1603,
-        land: 'Fort Lauderdale (35 min al norte)',
-        defaultWaitMinutes: 0,
-        description: 'Estadio y centro de entrenamiento del Inter Miami con tienda oficial de Lionel Messi y tour de vestuarios.',
-        groupTip: 'Actividad soñada para los 5 adolescentes futboleros (Renato, Máximo, Augusto, José y Luisina).',
+        description: 'Distrito peatonal histórico frente al estadio con cervecerías artesanales, hamburgueserías y pizzerías para cenar antes o después del partido.',
+        groupTip: 'Punto de encuentro gastronómico perfecto para los 11 antes de pedir los 2x UberXL de regreso a Celebration Suites.',
       },
     ],
   },

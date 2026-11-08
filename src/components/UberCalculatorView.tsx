@@ -18,7 +18,7 @@ export const UberCalculatorView: React.FC = () => {
   const totalPerCar = baseCostPerCar + tipPerCar;
 
   const totalFor2Cars = totalPerCar * 2;
-  const costPerPerson = totalFor2Cars / 10;
+  const costPerPerson = totalFor2Cars / 11;
 
   return (
     <div className="space-y-6">
@@ -28,13 +28,13 @@ export const UberCalculatorView: React.FC = () => {
           <div>
             <div className="flex items-center gap-2 text-xs font-semibold text-emerald-700 uppercase tracking-wider mb-1">
               <Car className="w-3.5 h-3.5" />
-              <span>Logística de Traslados · 10 Pasajeros en 2x UberXL</span>
+              <span>Logística de Traslados · 11 Pasajeros en 2x UberXL</span>
             </div>
             <h2 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">
               Calculador de Rutas, Tiempos y Costos desde Celebration Suites
             </h2>
             <p className="text-sm text-slate-600 mt-1 max-w-3xl">
-              Mover a 10 personas sin alquilar auto ahorra costos de estacionamiento ($30/día por auto en parques) y evita estrés de manejo. Utilicen 2 vehículos UberXL (hasta 6 pasajeros cada uno) pedidos en simultáneo. Distancias en kilómetros (km).
+              Mover a 11 personas sin alquilar auto ahorra costos de estacionamiento ($30/día por auto en parques) y evita estrés de manejo. Utilicen 2 vehículos UberXL (hasta 6 pasajeros cada uno) pedidos en simultáneo (Auto 1 con 5 pax y Auto 2 con 6 pax). Distancias en kilómetros (km).
             </p>
           </div>
 
@@ -215,34 +215,34 @@ export const UberCalculatorView: React.FC = () => {
             </div>
           </div>
 
-          {/* 5-Step Protocol Guide for the 10 Travelers */}
+          {/* 5-Step Protocol Guide for the 11 Travelers */}
           <div className="bg-white rounded-2xl border border-slate-200 shadow-xs p-6">
             <h4 className="text-base font-bold text-slate-900 mb-4 flex items-center gap-2">
               <CheckCircle className="w-5 h-5 text-emerald-600" />
-              Protocolo Práctico para los 2 UberXL (Paso a Paso)
+              Protocolo Práctico para los 2 UberXL (11 Viajeros)
             </h4>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
               <div className="p-3.5 bg-slate-50 rounded-xl border border-slate-200 space-y-1">
                 <span className="font-bold text-slate-900">1. Dos Teléfonos Distintos</span>
                 <p className="text-slate-600">
-                  Una sola cuenta de Uber o Lyft no puede pedir 2 vehículos UberXL simultáneamente. <strong>Lorena</strong> pide el Auto 1 y <strong>Juan o Fofi</strong> pide el Auto 2 desde sus propios celulares.
+                  Una sola cuenta de Uber o Lyft no puede pedir 2 vehículos UberXL simultáneamente. <strong>Lorena</strong> pide el Auto 1 y <strong>Carolina o Fofi</strong> pide el Auto 2 desde sus propios celulares.
                 </p>
               </div>
 
               <div className="p-3.5 bg-slate-50 rounded-xl border border-slate-200 space-y-1">
-                <span className="font-bold text-slate-900">2. División Fija de Grupos</span>
+                <span className="font-bold text-slate-900">2. División Fija de Grupos (5 + 6 pax)</span>
                 <p className="text-slate-600">
-                  • <strong>Auto 1:</strong> Lorena, Renato, Máximo, Celia, Carolina (5 pax)<br />
-                  • <strong>Auto 2:</strong> Fofi, Juan, Augusto, José, Luisina (5 pax)<br />
-                  Al tener grupos fijos, nadie se pierde ni duda a qué auto subir.
+                  • <strong>Auto 1 (5 pax):</strong> Lorena, Celia, Juan, Renato, Máximo<br />
+                  • <strong>Auto 2 (6 pax):</strong> Carolina, Fofi, Tuto, José, Josefina, Luisina<br />
+                  Al tener grupos fijos y definidos, nadie se pierde ni duda a qué auto subir.
                 </p>
               </div>
 
               <div className="p-3.5 bg-slate-50 rounded-xl border border-slate-200 space-y-1">
                 <span className="font-bold text-slate-900">3. Solicitud Sincronizada</span>
                 <p className="text-slate-600">
-                  Esperar a que los 10 estén listos con zapatillas y mochilas en el lobby de Celebration Suites antes de pedir. Tardan en promedio 4 a 8 minutos en llegar.
+                  Esperar a que los 11 estén listos con zapatillas y mochilas en el lobby de Celebration Suites antes de pedir. Tardan en promedio 4 a 8 minutos en llegar.
                 </p>
               </div>
 
@@ -341,11 +341,11 @@ export const UberCalculatorView: React.FC = () => {
               </div>
             </div>
 
-            {/* Total Highlight for the 10 People */}
+            {/* Total Highlight for the 11 People */}
             <div className="mt-5 p-4 rounded-xl bg-slate-900 text-white space-y-3">
               <div>
                 <div className="text-[11px] text-slate-400 uppercase tracking-wider font-semibold">
-                  Total para los 2 UberXL (10 personas)
+                  Total para los 2 UberXL (11 personas)
                 </div>
                 <div className="text-3xl font-extrabold text-amber-400 font-mono mt-0.5 tabular-nums">
                   ${totalFor2Cars.toFixed(2)} <span className="text-sm font-sans text-slate-300">USD</span>
@@ -364,11 +364,11 @@ export const UberCalculatorView: React.FC = () => {
                 onClick={() => {
                   const appUrl = window.location.href.split('#')[0];
                   const msg = [
-                    `🚗 *ESTIMADO TRASLADO 2x UBERXL (10 PERSONAS)*`,
+                    `🚗 *ESTIMADO TRASLADO 2x UBERXL (11 PERSONAS)*`,
                     `📍 *Destino:* ${activeRoute.destinationName}`,
                     `📏 *Distancia:* ${activeRoute.distanceKm} km (~${activeRoute.drivingMinutesNormal} min)`,
                     `💵 *Total 2x UberXL (con propina):* $${totalFor2Cars.toFixed(2)} USD`,
-                    `👤 *Por persona (10 pax):* $${costPerPerson.toFixed(2)} USD`,
+                    `👤 *Por persona (11 pax):* $${costPerPerson.toFixed(2)} USD`,
                     `📌 *Descenso:* ${activeRoute.dropoffAdvice.slice(0, 100)}...`,
                     ``,
                     `📲 Ver rutas y mapas en la Web App: ${appUrl}`,

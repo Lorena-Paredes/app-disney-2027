@@ -1,33 +1,119 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { 
   Trophy, Ticket, MapPin, CalendarClock, Car, 
   ExternalLink, CheckCircle2, MessageCircle, Flame, 
-  Sparkles, Users, Navigation, ShoppingBag, ArrowRight
+  Sparkles, Users, Navigation, ShoppingBag, ArrowRight,
+  AlertTriangle, CreditCard, Ban, ShieldAlert, Clock,
+  Calendar, Check, Info, ChevronRight
 } from 'lucide-react';
 
-export const MiamiSportsView: React.FC = () => {
-  const handleShareGameWhatsApp = () => {
-    const text = [
-      `🏀 *PARTIDO NBA CONFIRMADO · MIAMI HEAT vs. PHILADELPHIA 76ers*`,
-      `📅 *Fecha:* Sábado 30 de Enero de 2027`,
-      `⏰ *Hora:* 14:30 hs (Hora Argentina) / 12:30 PM (Hora Miami)`,
-      `📍 *Estadio:* Kaseya Center (601 Biscayne Blvd, Downtown Miami)`,
-      `✅ *Estado:* Confirmado`,
-      `👥 *Para los 10:* Coincide justo con la llegada a Miami en combi por la mañana.`,
-      ``,
-      `🎟️ Consultar entradas oficiales: https://www.ticketmaster.com/miami-heat-tickets/artist/805966`,
-    ].join('\n');
-    window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, '_blank');
-  };
+export interface NBAMatch {
+  id: string;
+  opponent: string;
+  opponentCity: string;
+  opponentColor: string;
+  dateStr: string; // e.g. "Viernes 22 de Enero 2027"
+  dateShort: string; // "Vie 22 Ene"
+  timeOrlando: string; // "19:00 hs (EST)"
+  timeArgentina: string; // "21:00 hs (ARG)"
+  dayOfTrip: string; // "Día 4 del itinerario"
+  rivalStars: string;
+  magicStars: string;
+  headline: string;
+  ticketmasterUrl: string;
+  seatgeekUrl: string;
+}
 
-  const handleShareInterWhatsApp = () => {
+export const ORLANDO_MAGIC_GAMES: NBAMatch[] = [
+  {
+    id: 'game-celtics',
+    opponent: 'Boston Celtics',
+    opponentCity: 'Boston',
+    opponentColor: 'bg-emerald-600',
+    dateStr: 'Viernes 22 de Enero de 2027',
+    dateShort: 'Vie 22 Ene',
+    timeOrlando: '19:00 hs (EST)',
+    timeArgentina: '21:00 hs (ARG)',
+    dayOfTrip: 'Día 4 de nuestro itinerario (Viernes)',
+    rivalStars: 'Jayson Tatum, Jaylen Brown',
+    magicStars: 'Paolo Banchero, Franz Wagner, Jalen Suggs',
+    headline: 'Duelo de Conferencia Este ante los vigentes campeones. Clima de playoffs en el Kia Center.',
+    ticketmasterUrl: 'https://www.ticketmaster.com/orlando-magic-tickets/artist/805988',
+    seatgeekUrl: 'https://seatgeek.com/orlando-magic-tickets',
+  },
+  {
+    id: 'game-cavs',
+    opponent: 'Cleveland Cavaliers',
+    opponentCity: 'Cleveland',
+    opponentColor: 'bg-amber-700',
+    dateStr: 'Domingo 24 de Enero de 2027',
+    dateShort: 'Dom 24 Ene',
+    timeOrlando: '18:00 hs (EST)',
+    timeArgentina: '20:00 hs (ARG)',
+    dayOfTrip: 'Día 6 de nuestro itinerario (Domingo)',
+    rivalStars: 'Donovan Mitchell, Evan Mobley, Darius Garland',
+    magicStars: 'Paolo Banchero, Wendell Carter Jr.',
+    headline: 'Horario temprano de domingo ideal para los chicos de 13 y 15 años. Gran batalla defensiva.',
+    ticketmasterUrl: 'https://www.ticketmaster.com/orlando-magic-tickets/artist/805988',
+    seatgeekUrl: 'https://seatgeek.com/orlando-magic-tickets',
+  },
+  {
+    id: 'game-heat',
+    opponent: 'Miami Heat (Clásico de Florida)',
+    opponentCity: 'Miami',
+    opponentColor: 'bg-rose-600',
+    dateStr: 'Miércoles 27 de Enero de 2027',
+    dateShort: 'Mié 27 Ene',
+    timeOrlando: '19:00 hs (EST)',
+    timeArgentina: '21:00 hs (ARG)',
+    dayOfTrip: 'Día 9 de nuestro itinerario (Miércoles)',
+    rivalStars: 'Jimmy Butler, Bam Adebayo, Tyler Herro',
+    magicStars: 'Paolo Banchero, Franz Wagner, Anthony Black',
+    headline: '¡El Clásico de Florida en Orlando! La rivalidad estatal más apasionante de la costa este.',
+    ticketmasterUrl: 'https://www.ticketmaster.com/orlando-magic-tickets/artist/805988',
+    seatgeekUrl: 'https://seatgeek.com/orlando-magic-tickets',
+  },
+  {
+    id: 'game-sixers',
+    opponent: 'Philadelphia 76ers',
+    opponentCity: 'Philadelphia',
+    opponentColor: 'bg-blue-600',
+    dateStr: 'Viernes 29 de Enero de 2027',
+    dateShort: 'Vie 29 Ene',
+    timeOrlando: '19:00 hs (EST)',
+    timeArgentina: '21:00 hs (ARG)',
+    dayOfTrip: 'Día 11 de nuestro itinerario (Última noche en Orlando)',
+    rivalStars: 'Joel Embiid, Tyrese Maxey, Paul George',
+    magicStars: 'Paolo Banchero, Franz Wagner',
+    headline: 'Noche de despedida de Orlando antes del viaje a Miami. Espectáculo total ante estrellas de la NBA.',
+    ticketmasterUrl: 'https://www.ticketmaster.com/orlando-magic-tickets/artist/805988',
+    seatgeekUrl: 'https://seatgeek.com/orlando-magic-tickets',
+  },
+];
+
+export const MiamiSportsView: React.FC = () => {
+  const [selectedGameId, setSelectedGameId] = useState<string>('game-heat');
+  const [showInterMiami, setShowInterMiami] = useState<boolean>(false);
+
+  const activeGame = ORLANDO_MAGIC_GAMES.find(g => g.id === selectedGameId) || ORLANDO_MAGIC_GAMES[0];
+
+  const handleShareGameWhatsApp = (game: NBAMatch) => {
     const text = [
-      `⚽ *INTER MIAMI CF · TOUR DE ESTADIO & TIENDA*`,
-      `📍 *Estadio:* Chase Stadium (Fort Lauderdale) / Miami Freedom Park`,
-      `🎯 *Para los chicos:* Renato, Máximo, Augusto, José y Luisina`,
-      `👕 *Visita:* Vestuarios, cancha, sala de trofeos y tienda oficial de camisetas`,
+      `🏀 *ORLANDO MAGIC (NBA) · PARTIDO CONFIRMADO*`,
+      `🏟️ *Sede:* Kia Center (Downtown Orlando - 400 W Church St)`,
+      `🆚 *Rival:* Orlando Magic vs. ${game.opponent}`,
+      `📅 *Fecha:* ${game.dateStr}`,
+      `⏰ *Horario:* ${game.timeOrlando} (19:00 hs Orlando) / ${game.timeArgentina}`,
+      `🚗 *Distancia:* 32 km desde Celebration Suites (~30-35 min en 2x UberXL)`,
+      `👥 *Grupo (11 pax):* 5 adultos y 6 chicos (Renato, Tuto, José, Máximo, Josefina y Luisina)`,
       ``,
-      `🎟️ Consultar tours oficiales: https://www.intermiamicf.com/tickets/`,
+      `⚠️ *REGLAS OBLIGATORIAS DEL KIA CENTER:*`,
+      `• Solo bolsos muy chicos de hasta 4.5" x 6.5" (sin mochilas de parque).`,
+      `• 100% cashless: NO aceptan efectivo (solo tarjeta o Apple/Google Pay).`,
+      ``,
+      `🎟️ Consultar entradas oficiales en Ticketmaster:`,
+      `${game.ticketmasterUrl}`,
+      `🌐 Web oficial del Kia Center: https://www.kiacenter.com/events/category/sports`,
     ].join('\n');
     window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, '_blank');
   };
@@ -35,260 +121,404 @@ export const MiamiSportsView: React.FC = () => {
   return (
     <div className="space-y-6 pb-20 animate-in fade-in duration-300">
       
-      {/* Banner Principal de Deportes en Miami */}
-      <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-xs">
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
-          <div>
-            <div className="flex items-center gap-2 text-xs font-semibold text-orange-600 uppercase tracking-wider mb-1">
-              <Trophy className="w-3.5 h-3.5" />
-              <span>Eventos Deportivos · Sábado 30 Ene al Martes 2 Feb 2027</span>
-            </div>
-            <h2 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">
-              Deportes en Miami: NBA & Inter Miami
-            </h2>
-            <p className="text-sm text-slate-600 mt-1 max-w-3xl">
-              Al concluir los días de parques en Orlando y viajar en combi hacia Miami el sábado 30 de enero, los 5 adultos y los 5 adolescentes podrán presenciar el espectáculo de la NBA en vivo y visitar el estadio del Inter Miami.
-            </p>
-          </div>
-
-          <div className="flex items-center gap-2 self-start lg:self-center">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-200 shadow-2xs">
-              <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-              <span>Partido NBA Confirmado</span>
-            </span>
-          </div>
-        </div>
-      </div>
-
-      {/* TARJETA PRINCIPAL: NBA - MIAMI HEAT VS PHILADELPHIA 76ERS */}
-      <div className="bg-white rounded-3xl p-6 sm:p-7 shadow-xs border border-slate-200 relative overflow-hidden">
-        {/* Fondo decorativo estilizado */}
-        <div className="absolute top-0 right-0 w-80 h-80 bg-gradient-to-bl from-orange-100/60 via-rose-50/40 to-transparent rounded-bl-full -z-10 pointer-events-none" />
+      {/* Banner Principal / Hero */}
+      <div className="bg-white rounded-3xl p-6 sm:p-7 border border-slate-200 shadow-xs relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-bl from-blue-100/60 via-indigo-50/40 to-transparent rounded-bl-full -z-10 pointer-events-none" />
         
-        {/* Encabezado del Partido */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-slate-100">
-          <div className="flex items-center gap-3">
-            <div className="p-3 bg-gradient-to-br from-orange-500 to-rose-600 text-white rounded-2xl shadow-md shadow-orange-500/20">
-              <Flame className="w-7 h-7" />
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-5">
+          <div>
+            <div className="flex flex-wrap items-center gap-2 text-xs font-bold text-blue-700 uppercase tracking-wider mb-1.5">
+              <span className="p-1 rounded-md bg-blue-100 text-blue-800">
+                <Trophy className="w-3.5 h-3.5" />
+              </span>
+              <span>NBA en Orlando · Temporada 2026/2027</span>
+              <span>·</span>
+              <span className="text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-full font-bold">
+                11 Pasajeros (5 Adultos + 6 Chicos)
+              </span>
             </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <span className="text-xs font-extrabold uppercase tracking-wider text-orange-600">
-                  National Basketball Association (NBA)
-                </span>
-                <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-200">
-                  <CheckCircle2 className="w-3 h-3 text-emerald-600" />
-                  Confirmado
-                </span>
-              </div>
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mt-0.5">
-                Miami Heat vs. Philadelphia 76ers
-              </h2>
-              <p className="text-xs sm:text-sm font-medium text-slate-500 flex items-center gap-1.5 mt-0.5">
-                <MapPin className="w-3.5 h-3.5 text-slate-400" />
-                <span>Kaseya Center · 601 Biscayne Blvd, Downtown Miami frente a Bayside</span>
-              </p>
-            </div>
-          </div>
-
-          {/* Horarios Destacados */}
-          <div className="bg-slate-900 text-white p-3.5 rounded-2xl text-center sm:text-right shrink-0">
-            <div className="text-[10px] uppercase font-bold text-amber-400 tracking-wider">
-              Sábado 30 de Enero 2027
-            </div>
-            <div className="text-xl sm:text-2xl font-black font-mono mt-0.5">
-              14:30 hs <span className="text-xs font-normal text-slate-300">ARG</span>
-            </div>
-            <div className="text-[11px] text-slate-400 font-medium">
-              12:30 PM (Hora local Miami / EST)
-            </div>
-          </div>
-        </div>
-
-        {/* Duelo de Figuras y Detalles */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 my-6">
-          <div className="p-4 rounded-2xl bg-orange-50/70 border border-orange-100">
-            <div className="text-xs font-bold text-orange-950 uppercase tracking-wider mb-1">
-              Local: Miami Heat 🏀
-            </div>
-            <div className="text-sm font-bold text-slate-900">
-              Jimmy Butler & Bam Adebayo
-            </div>
-            <p className="text-xs text-slate-600 mt-1">
-              Tricampeones de la NBA, con la energía característica del Kaseya Center frente a la Bahía de Biscayne.
+            
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight">
+              Orlando Magic en el Kia Center
+            </h1>
+            
+            <p className="text-sm text-slate-600 mt-2 max-w-3xl leading-relaxed">
+              Vivir la experiencia de un partido oficial de la NBA en vivo en el <strong>Kia Center</strong>, el moderno estadio de los Orlando Magic en el Downtown de Orlando (400 W Church St). A solo <strong>32 km de Celebration Suites</strong> (~30 a 35 minutos en los 2 vehículos Uber XL).
             </p>
           </div>
 
-          <div className="p-4 rounded-2xl bg-blue-50/70 border border-blue-100">
-            <div className="text-xs font-bold text-blue-950 uppercase tracking-wider mb-1">
-              Visitante: Philadelphia 76ers ⚡
-            </div>
-            <div className="text-sm font-bold text-slate-900">
-              Joel Embiid & Tyrese Maxey
-            </div>
-            <p className="text-xs text-slate-600 mt-1">
-              Uno de los rivales históricos de conferencia Este más atractivos de la liga.
-            </p>
-          </div>
-
-          <div className="p-4 rounded-2xl bg-emerald-50/70 border border-emerald-100">
-            <div className="text-xs font-bold text-emerald-950 uppercase tracking-wider mb-1">
-              Sincronización con el Viaje 🚐
-            </div>
-            <div className="text-sm font-bold text-slate-900">
-              Llegada en Combi desde Orlando
-            </div>
-            <p className="text-xs text-slate-600 mt-1">
-              El grupo sale temprano de Celebration Suites el 30 de enero; la hora del juego a las 12:30 PM (14:30 ARG) calza perfecto para almorzar en Bayside y disfrutar del partido.
-            </p>
-          </div>
-        </div>
-
-        {/* Pasos Logísticos para los 10 Integrantes */}
-        <div className="space-y-3 pt-2">
-          <div className="flex items-start gap-3 p-3.5 bg-slate-50 rounded-2xl border border-slate-200">
-            <Car className="w-5 h-5 text-emerald-600 mt-0.5 shrink-0" />
-            <div>
-              <p className="font-bold text-slate-800 text-xs sm:text-sm">Logística y Traslado (10 Personas)</p>
-              <p className="text-xs text-slate-600 mt-0.5 leading-relaxed">
-                Al llegar con la combi contratada a Miami, se puede coordinar el descenso de los pasajeros directamente en el <strong>Kaseya Center</strong> o dejar el equipaje en el <strong>Hotel Seacoast (Miami Beach)</strong> y tomar 2 vehículos UberXL (15 a 20 min por I-195) hasta la puerta de Biscayne Blvd.
-              </p>
-            </div>
-          </div>
-
-          <div className="flex items-start gap-3 p-3.5 bg-slate-50 rounded-2xl border border-slate-200">
-            <ShoppingBag className="w-5 h-5 text-indigo-600 mt-0.5 shrink-0" />
-            <div>
-              <p className="font-bold text-slate-800 text-xs sm:text-sm">Bayside Marketplace & Tienda Oficial Miami Heat</p>
-              <p className="text-xs text-slate-600 mt-0.5 leading-relaxed">
-                El centro comercial a cielo abierto <strong>Bayside Marketplace</strong> está ubicado cruzando la calle (100 metros a pie). Allí hay locales oficiales de indumentaria de la NBA y opciones variadas de comida rápida para que los 10 coman cómodamente antes del inicio del juego.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Botones de Acción: Entradas y WhatsApp */}
-        <div className="mt-6 pt-5 border-t border-slate-100 flex flex-wrap items-center justify-between gap-3">
-          <div className="flex flex-wrap items-center gap-2">
+          <div className="flex flex-col sm:flex-row lg:flex-col gap-2 shrink-0">
             <a
-              href="https://www.ticketmaster.com/miami-heat-tickets/artist/805966"
+              href="https://www.kiacenter.com/events/category/sports"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-orange-600 hover:bg-orange-700 text-white font-bold text-xs sm:text-sm shadow-md shadow-orange-600/20 transition-all active:scale-95"
+              className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-xs transition-colors"
             >
-              <Ticket className="w-4 h-4" />
-              <span>Consultar Entradas Oficiales (Ticketmaster / NBA)</span>
+              <span>Web Oficial Kia Center</span>
               <ExternalLink className="w-3.5 h-3.5 opacity-80" />
             </a>
 
             <a
-              href="https://seatgeek.com/miami-heat-tickets"
+              href="https://www.ticketmaster.com/orlando-magic-tickets/artist/805988"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 px-4 py-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-xs sm:text-sm transition-colors border border-slate-200"
-              title="Comparar precios y sectores en SeatGeek"
+              className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs shadow-xs transition-colors"
             >
-              <span>Ver en SeatGeek</span>
-              <ExternalLink className="w-3.5 h-3.5 text-slate-500" />
+              <Ticket className="w-3.5 h-3.5 text-blue-400" />
+              <span>Ticketmaster Magic</span>
+              <ExternalLink className="w-3.5 h-3.5 opacity-80" />
             </a>
           </div>
+        </div>
 
-          <button
-            onClick={handleShareGameWhatsApp}
-            className="inline-flex items-center gap-2 px-4 py-3 rounded-xl bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold text-xs sm:text-sm shadow-xs transition-colors"
-            title="Enviar datos del partido al grupo de WhatsApp"
-          >
-            <MessageCircle className="w-4 h-4 fill-white" />
-            <span>Compartir Partido x WhatsApp</span>
-          </button>
+        {/* Datos Logísticos Rápidos desde Celebration Suites */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-6 pt-5 border-t border-slate-100 text-xs">
+          <div className="p-3 bg-blue-50/70 border border-blue-100 rounded-2xl">
+            <span className="text-[10px] uppercase font-bold text-blue-700 block">Distancia</span>
+            <span className="font-extrabold text-base text-slate-900 font-mono">32 km</span>
+            <span className="text-[11px] text-slate-500 block">Por I-4 East / Express</span>
+          </div>
+
+          <div className="p-3 bg-indigo-50/70 border border-indigo-100 rounded-2xl">
+            <span className="text-[10px] uppercase font-bold text-indigo-700 block">Tiempo en Auto</span>
+            <span className="font-extrabold text-base text-slate-900 font-mono">30 a 35 min</span>
+            <span className="text-[11px] text-slate-500 block">En los 2x Uber XL</span>
+          </div>
+
+          <div className="p-3 bg-emerald-50/70 border border-emerald-100 rounded-2xl">
+            <span className="text-[10px] uppercase font-bold text-emerald-700 block">Logística Grupo</span>
+            <span className="font-extrabold text-base text-slate-900 font-mono">2x Uber XL</span>
+            <span className="text-[11px] text-slate-500 block">5 en Auto 1 · 6 en Auto 2</span>
+          </div>
+
+          <div className="p-3 bg-purple-50/70 border border-purple-100 rounded-2xl">
+            <span className="text-[10px] uppercase font-bold text-purple-700 block">Ubicación Estadio</span>
+            <span className="font-extrabold text-base text-slate-900 truncate block">400 W Church St</span>
+            <span className="text-[11px] text-slate-500 block">Downtown Orlando</span>
+          </div>
         </div>
       </div>
 
-      {/* SECCIÓN INTER MIAMI CF: CHASE STADIUM Y TOUR DE MUSEO */}
-      <div className="bg-white rounded-3xl p-6 sm:p-7 shadow-xs border border-slate-200 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-80 h-80 bg-gradient-to-bl from-pink-100/60 via-purple-50/40 to-transparent rounded-bl-full -z-10 pointer-events-none" />
-
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-slate-100">
-          <div className="flex items-center gap-3">
-            <div className="p-3 bg-gradient-to-br from-pink-500 to-rose-600 text-white rounded-2xl shadow-md shadow-pink-500/20">
-              <Trophy className="w-7 h-7" />
+      {/* AVISOS IMPORTANTES: REGLAS ESTRICTAS DEL KIA CENTER */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        
+        {/* Aviso 1: Política de Bolsos */}
+        <div className="p-5 bg-gradient-to-br from-amber-50 to-orange-50 border-2 border-amber-300 rounded-3xl shadow-xs space-y-2.5">
+          <div className="flex items-center gap-2.5 text-amber-900 font-bold text-sm">
+            <div className="p-2 bg-amber-500 text-white rounded-xl shadow-xs">
+              <Ban className="w-5 h-5" />
             </div>
             <div>
-              <span className="text-xs font-extrabold uppercase tracking-wider text-pink-600">
-                Major League Soccer (MLS) & Experiencia Turística
+              <h3 className="font-extrabold text-slate-900">Regla Estricta de Bolsos (Bag Policy)</h3>
+              <p className="text-[11px] text-amber-800">Solo se permiten carteras muy chicas</p>
+            </div>
+          </div>
+
+          <div className="text-xs text-slate-700 space-y-2 leading-relaxed">
+            <p>
+              • <strong>Medida máxima permitida:</strong> Bolsos de mano, sobres o clutches de hasta <strong>4.5 pulgadas x 6.5 pulgadas</strong> (11.4 cm x 16.5 cm).
+            </p>
+            <p className="text-rose-700 font-bold">
+              • PROHIBIDAS mochilas de cualquier tipo, morrales, mochilas de los parques temáticos y riñoneras grandes.
+            </p>
+            <p className="text-slate-600">
+              💡 <em>Consejo para los 11:</em> Ir al estadio únicamente con celulares, billeteras delgadas y documentos en los bolsillos. No lleven mochilas para no tener que pagar lockers externos.
+            </p>
+          </div>
+        </div>
+
+        {/* Aviso 2: 100% Cashless */}
+        <div className="p-5 bg-gradient-to-br from-emerald-50 to-teal-50 border-2 border-emerald-300 rounded-3xl shadow-xs space-y-2.5">
+          <div className="flex items-center gap-2.5 text-emerald-900 font-bold text-sm">
+            <div className="p-2 bg-emerald-600 text-white rounded-xl shadow-xs">
+              <CreditCard className="w-5 h-5" />
+            </div>
+            <div>
+              <h3 className="font-extrabold text-slate-900">Estadio 100% Sin Efectivo (Cashless)</h3>
+              <p className="text-[11px] text-emerald-800">NO se aceptan billetes en locales ni barras</p>
+            </div>
+          </div>
+
+          <div className="text-xs text-slate-700 space-y-2 leading-relaxed">
+            <p>
+              • <strong>Medios de pago aceptados:</strong> Tarjetas de débito o crédito (Visa, Mastercard, Amex) y pagos con el celular (Apple Pay y Google Pay).
+            </p>
+            <p>
+              • Los puestos de comida rápida, hamburguesas, gaseosas y la tienda oficial del Magic funcionan <strong>únicamente de manera digital</strong>.
+            </p>
+            <p className="text-slate-600">
+              💡 <em>Cajeros inversos (Reverse ATM):</em> Si algún chico lleva dólares billete, hay máquinas en los pasillos que cargan el efectivo en una tarjeta prepaga sin comisión, pero es mucho más cómodo pagar con tarjeta o celular.
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+      {/* SECCIÓN INTERACTIVA: FIXTURE DE PARTIDOS DURANTE NUESTRA ESTADÍA (19 AL 30 DE ENERO) */}
+      <div className="bg-white rounded-3xl p-6 sm:p-7 border border-slate-200 shadow-xs space-y-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-slate-100">
+          <div>
+            <div className="flex items-center gap-2">
+              <span className="text-xs font-extrabold uppercase tracking-wider text-blue-600">
+                Calendario en el Kia Center
               </span>
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mt-0.5">
-                Inter Miami CF · Estadio & Tour
-              </h2>
-              <p className="text-xs sm:text-sm font-medium text-slate-500 flex items-center gap-1.5 mt-0.5">
-                <MapPin className="w-3.5 h-3.5 text-slate-400" />
-                <span>Chase Stadium (Fort Lauderdale) & Futuro Freedom Park</span>
+              <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-blue-100 text-blue-800">
+                19 al 30 de Enero 2027
+              </span>
+            </div>
+            <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight mt-0.5">
+              Partidos Confirmados Durante Nuestra Estadía
+            </h2>
+            <p className="text-xs text-slate-500 mt-1">
+              Seleccioná un partido para ver rivales estelares, horarios y enlaces de entradas oficiales.
+            </p>
+          </div>
+
+          <div className="text-xs text-slate-500 font-medium">
+            Sede: <strong>Kia Center, Orlando, FL</strong>
+          </div>
+        </div>
+
+        {/* Selector de Partidos en Píldoras Horizontales */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5">
+          {ORLANDO_MAGIC_GAMES.map(game => {
+            const isSelected = game.id === selectedGameId;
+            return (
+              <button
+                key={game.id}
+                onClick={() => setSelectedGameId(game.id)}
+                className={`p-3.5 rounded-2xl border text-left transition-all relative ${
+                  isSelected
+                    ? 'border-blue-600 bg-blue-50/80 ring-2 ring-blue-600 shadow-xs'
+                    : 'border-slate-200 bg-white hover:border-slate-300 hover:bg-slate-50'
+                }`}
+              >
+                <div className="flex items-center justify-between text-[11px] font-bold text-slate-500 mb-1">
+                  <span>{game.dateShort}</span>
+                  <span className={`w-2.5 h-2.5 rounded-full ${game.opponentColor}`} />
+                </div>
+                <div className="font-extrabold text-xs sm:text-sm text-slate-900 line-clamp-1">
+                  vs. {game.opponent.split(' ')[0]}
+                </div>
+                <div className="text-[11px] text-blue-700 font-semibold mt-0.5 font-mono">
+                  {game.timeOrlando.split(' ')[0]} EST
+                </div>
+                {isSelected && (
+                  <span className="absolute top-2 right-2 w-2 h-2 bg-blue-600 rounded-full" />
+                )}
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Tarjeta Detallada del Partido Activo */}
+        <div className="p-5 sm:p-6 rounded-3xl bg-slate-900 text-white relative overflow-hidden shadow-md">
+          <div className="absolute top-0 right-0 w-72 h-72 bg-gradient-to-bl from-blue-600/30 via-indigo-600/10 to-transparent rounded-bl-full pointer-events-none" />
+
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-5 border-b border-slate-800">
+            <div>
+              <div className="flex items-center gap-2 mb-1">
+                <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-blue-500 text-white uppercase tracking-wider">
+                  NBA en Vivo
+                </span>
+                <span className="text-xs text-slate-400 font-medium">
+                  {activeGame.dayOfTrip}
+                </span>
+              </div>
+              <h3 className="text-2xl sm:text-3xl font-black tracking-tight text-white">
+                Orlando Magic vs. {activeGame.opponent}
+              </h3>
+              <p className="text-xs sm:text-sm text-slate-300 mt-1 max-w-2xl leading-relaxed">
+                {activeGame.headline}
               </p>
             </div>
+
+            {/* Cuadro de Horarios en Vivo */}
+            <div className="bg-slate-800/90 border border-slate-700/80 p-3.5 rounded-2xl text-center sm:text-right shrink-0">
+              <div className="text-[10px] uppercase font-bold text-amber-400 tracking-wider">
+                {activeGame.dateStr}
+              </div>
+              <div className="text-xl sm:text-2xl font-black font-mono mt-0.5 text-white">
+                {activeGame.timeArgentina}
+              </div>
+              <div className="text-[11px] text-slate-400 font-medium">
+                {activeGame.timeOrlando} (Hora local en Orlando)
+              </div>
+            </div>
           </div>
 
-          <span className="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl text-xs font-bold bg-pink-100 text-pink-800 border border-pink-200 self-start sm:self-center">
-            Actividad Top para los Chicos ⚽
-          </span>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-6">
-          <div className="p-4 rounded-2xl bg-pink-50/60 border border-pink-100 space-y-2">
-            <div className="font-bold text-slate-900 text-sm flex items-center gap-2">
-              <Sparkles className="w-4 h-4 text-pink-600" />
-              <span>Tour Oficial del Estadio y Vestuarios</span>
+          {/* Duelo de Figuras */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-5 text-xs">
+            <div className="p-3.5 rounded-2xl bg-slate-800/60 border border-slate-700/60">
+              <span className="text-blue-400 font-bold uppercase tracking-wider text-[10px] block mb-1">
+                Figuras del Orlando Magic 🪄
+              </span>
+              <span className="font-extrabold text-sm text-white block">
+                {activeGame.magicStars}
+              </span>
+              <span className="text-slate-400 text-[11px] mt-1 block">
+                Paolo Banchero (All-Star) y el juego dinámico de los Magic en su cancha.
+              </span>
             </div>
-            <p className="text-xs text-slate-600 leading-relaxed">
-              Recorrido por las instalaciones de Chase Stadium: acceso al vestuario local, banco de suplentes de Lionel Messi, túnel de salida al campo de juego y sala de conferencias de prensa. Ideal para Renato, Máximo, Augusto, José y Luisina.
+
+            <div className="p-3.5 rounded-2xl bg-slate-800/60 border border-slate-700/60">
+              <span className="text-amber-400 font-bold uppercase tracking-wider text-[10px] block mb-1">
+                Estrellas del Rival ⚡
+              </span>
+              <span className="font-extrabold text-sm text-white block">
+                {activeGame.rivalStars}
+              </span>
+              <span className="text-slate-400 text-[11px] mt-1 block">
+                Uno de los duelos más atractivos del fixture de la Conferencia Este de la NBA.
+              </span>
+            </div>
+          </div>
+
+          {/* Botones de Consulta y Compra Oficial */}
+          <div className="pt-3 border-t border-slate-800 flex flex-wrap items-center justify-between gap-3">
+            <div className="flex flex-wrap items-center gap-2">
+              <a
+                href={activeGame.ticketmasterUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-blue-600 hover:bg-blue-500 text-white font-extrabold text-xs sm:text-sm shadow-md shadow-blue-600/30 transition-all active:scale-95"
+              >
+                <Ticket className="w-4 h-4" />
+                <span>Consultar Entradas en Ticketmaster</span>
+                <ExternalLink className="w-3.5 h-3.5 opacity-80" />
+              </a>
+
+              <a
+                href="https://www.kiacenter.com/events/category/sports"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 px-4 py-3 rounded-2xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs sm:text-sm transition-colors border border-slate-700"
+              >
+                <span>Web del Kia Center</span>
+                <ExternalLink className="w-3.5 h-3.5 text-slate-400" />
+              </a>
+
+              <a
+                href={activeGame.seatgeekUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 px-3.5 py-3 rounded-2xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs transition-colors border border-slate-700"
+              >
+                <span>SeatGeek</span>
+              </a>
+            </div>
+
+            <button
+              onClick={() => handleShareGameWhatsApp(activeGame)}
+              className="inline-flex items-center gap-2 px-4 py-3 rounded-2xl bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold text-xs sm:text-sm shadow-xs transition-colors"
+              title="Compartir partido con los adultos en WhatsApp"
+            >
+              <MessageCircle className="w-4 h-4 fill-white" />
+              <span>Compartir x WhatsApp</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* DETALLES DE VISITA AL KIA CENTER & TRASLADOS DESDE CELEBRATION */}
+      <div className="bg-white rounded-3xl p-6 sm:p-7 border border-slate-200 shadow-xs space-y-4">
+        <h3 className="font-extrabold text-lg text-slate-900 flex items-center gap-2">
+          <Car className="w-5 h-5 text-blue-600" />
+          <span>Cómo Llegar y Moverse en los 2 Uber XL (11 Personas)</span>
+        </h3>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs leading-relaxed">
+          <div className="p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-1.5">
+            <span className="font-bold text-slate-900 flex items-center gap-1.5 text-sm">
+              <Navigation className="w-4 h-4 text-emerald-600" />
+              <span>Ruta y Descenso (Drop-off)</span>
+            </span>
+            <p className="text-slate-600">
+              • <strong>Recorrido:</strong> Desde Celebration Suites por I-4 East / I-4 Express hacia Downtown Orlando (Salida 82B hacia South St / Anderson St). Unos <strong>32 km</strong> (~30 a 35 minutos).
+            </p>
+            <p className="text-slate-600">
+              • <strong>Zona de descenso para los 2 UberXL:</strong> <em>Hughey Ave & W Church St</em>, justo al pie de la estación Church Street Station, frente al atrio principal del estadio.
             </p>
           </div>
 
-          <div className="p-4 rounded-2xl bg-purple-50/60 border border-purple-100 space-y-2">
-            <div className="font-bold text-slate-900 text-sm flex items-center gap-2">
-              <ShoppingBag className="w-4 h-4 text-purple-600" />
-              <span>Tienda Oficial adidas Inter Miami</span>
-            </div>
-            <p className="text-xs text-slate-600 leading-relaxed">
-              Mega-store con todas las equipaciones oficiales del Inter Miami (titular rosa y suplente negra), botines de fútbol adidas con suelas para césped, indumentaria de entrenamiento y merchandising exclusivo no disponible en outlets.
+          <div className="p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-1.5">
+            <span className="font-bold text-slate-900 flex items-center gap-1.5 text-sm">
+              <Users className="w-4 h-4 text-blue-600" />
+              <span>Distribución de los 11 Pasajeros</span>
+            </span>
+            <p className="text-slate-600">
+              • <strong>Auto 1 (5 personas):</strong> Lorena, Renato, Máximo, Celia y Juan.
+            </p>
+            <p className="text-slate-600">
+              • <strong>Auto 2 (6 personas):</strong> Carolina, Fofi, Tuto, Luisina, Josefina y José.
+            </p>
+            <p className="text-indigo-700 font-semibold">
+              Al pedir 2 UberXL (capacidad hasta 6 pasajeros c/u), los 11 van cómodos sin necesidad de alquilar autos ni pagar estacionamientos caros ($35+ en Downtown).
             </p>
           </div>
         </div>
 
-        {/* Botones Inter Miami */}
-        <div className="pt-2 flex flex-wrap items-center justify-between gap-3">
-          <div className="flex flex-wrap items-center gap-2">
+        {/* Tienda Oficial & Gastronomía */}
+        <div className="p-4 bg-blue-50/60 rounded-2xl border border-blue-200 text-xs flex items-start gap-3">
+          <ShoppingBag className="w-5 h-5 text-blue-600 shrink-0 mt-0.5" />
+          <div>
+            <p className="font-bold text-blue-950">
+              Tienda Oficial Orlando Magic Team Shop & Comidas en Church St:
+            </p>
+            <p className="text-slate-700 mt-0.5 leading-relaxed">
+              En el atrio del Kia Center está la mega tienda oficial del equipo con camisetas Nike oficiales de Paolo Banchero y Franz Wagner, gorras y remeras. Afuera, sobre <strong>Church Street</strong>, hay restaurantes y bares temáticos para almorzar o cenar antes de ingresar.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* OPCIONAL: SECCIÓN INTER MIAMI CF EN MIAMI (Sábado 30 Ene al viajar en Combi) */}
+      <div className="bg-slate-50 rounded-3xl p-5 border border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-3">
+        <div className="flex items-center gap-3">
+          <div className="p-2.5 bg-pink-100 text-pink-600 rounded-2xl">
+            <Trophy className="w-5 h-5" />
+          </div>
+          <div>
+            <h4 className="font-bold text-slate-900 text-sm">
+              ¿Y el fútbol de Lionel Messi? Inter Miami CF (30 de Enero al viajar a Miami)
+            </h4>
+            <p className="text-xs text-slate-500">
+              El sábado 30 viajamos en la combi a Miami: visita a Chase Stadium (Fort Lauderdale) y tienda oficial adidas.
+            </p>
+          </div>
+        </div>
+
+        <button
+          onClick={() => setShowInterMiami(!showInterMiami)}
+          className="px-4 py-2 bg-white hover:bg-slate-100 text-slate-800 border border-slate-300 rounded-xl text-xs font-bold transition-colors shrink-0 flex items-center gap-1.5"
+        >
+          <span>{showInterMiami ? 'Ocultar Tour Inter Miami' : 'Ver Tour Inter Miami'}</span>
+          <ChevronRight className={`w-3.5 h-3.5 transition-transform ${showInterMiami ? 'rotate-90' : ''}`} />
+        </button>
+      </div>
+
+      {showInterMiami && (
+        <div className="p-6 bg-white rounded-3xl border border-slate-200 shadow-xs space-y-4 animate-in fade-in">
+          <div className="flex items-center gap-2 text-pink-600 font-bold text-sm">
+            <Sparkles className="w-4 h-4" />
+            <span>Tour de Estadio & Tienda Oficial Inter Miami CF</span>
+          </div>
+          <p className="text-xs text-slate-600 leading-relaxed">
+            Para los 6 chicos (Renato, Tuto, José, Máximo, Josefina y Luisina), el fin de semana del 30 de enero en Miami es la oportunidad de visitar el <strong>Chase Stadium</strong> en Fort Lauderdale, recorrer los vestuarios de Lionel Messi y comprar equipaciones oficiales y botines en la tienda oficial adidas.
+          </p>
+          <div className="flex items-center gap-3 pt-2">
             <a
               href="https://www.intermiamicf.com/tickets/"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs sm:text-sm shadow-xs transition-colors"
+              className="px-4 py-2 bg-slate-900 text-white rounded-xl text-xs font-bold inline-flex items-center gap-1.5"
             >
-              <Ticket className="w-4 h-4 text-pink-400" />
-              <span>Consultar Tours y Tickets Inter Miami</span>
-              <ExternalLink className="w-3.5 h-3.5 opacity-80" />
-            </a>
-
-            <a
-              href="https://www.google.com/maps/search/?api=1&query=Chase+Stadium,+Fort+Lauderdale,+FL"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 px-4 py-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-xs sm:text-sm transition-colors border border-slate-200"
-            >
-              <Navigation className="w-3.5 h-3.5 text-slate-600" />
-              <span>Ver Ubicación en GPS</span>
+              <span>Tours Oficiales Inter Miami</span>
+              <ExternalLink className="w-3.5 h-3.5" />
             </a>
           </div>
-
-          <button
-            onClick={handleShareInterWhatsApp}
-            className="inline-flex items-center gap-2 px-4 py-3 rounded-xl bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold text-xs sm:text-sm shadow-xs transition-colors"
-            title="Enviar info de Inter Miami al grupo de WhatsApp"
-          >
-            <MessageCircle className="w-4 h-4 fill-white" />
-            <span>Compartir Inter Miami x WhatsApp</span>
-          </button>
         </div>
-      </div>
+      )}
 
     </div>
   );
