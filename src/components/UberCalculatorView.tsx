@@ -54,10 +54,10 @@ export const UberCalculatorView: React.FC = () => {
           <Bus className="w-5 h-5 text-indigo-600 shrink-0 mt-0.5" />
           <div>
             <span className="font-bold text-indigo-950">
-              Traslado Orlando ➔ Miami (Sábado 30 de Enero):
+              Traslado Orlando ➔ Miami (Sábado 30 de Enero · Salida 07:00 hs):
             </span>
             <p className="text-indigo-900 mt-0.5">
-              Tienen <strong>combi/trafic privada ya contratada</strong> para el trayecto interurbano hacia el Hotel Seacoast en Miami Beach (380 km). Para este día no utilizarán Uber; la combi los recogerá directamente en el lobby de Celebration Suites.
+              El traslado Orlando ➔ Miami <strong>ya está contratado en el paquete</strong> hacia <strong>Seacoast Suites on Miami Beach</strong> (5101 Collins Ave, deptos Deluxe de 1 y 2 dormitorios con salida directa a la playa, ~380 km). Salida puntual a las <strong>07:00 hs</strong> desde Celebration Suites.
             </p>
           </div>
         </div>
@@ -184,7 +184,7 @@ export const UberCalculatorView: React.FC = () => {
                 <p className="text-slate-600 leading-relaxed">
                   <strong>Descenso:</strong> Transportation and Ticket Center (TTC) Rideshare Loop. Ningún Uber puede entrar al frente del castillo.<br />
                   <strong>Acceso al parque:</strong> Desde el TTC se toma el <em>Express Monorail</em> o el gran <em>Ferryboat</em> (20-25 min extras).<br />
-                  <strong>Regreso:</strong> Tomar el Monorriel o Ferry de regreso al TTC y pedir los Uber allí.
+                  <strong>Regreso:</strong> Tomar el Monorriel o Ferry de regreso al TTC y pedir los 2 UberXL allí para los 11 viajeros.
                 </p>
               </div>
 
@@ -194,6 +194,14 @@ export const UberCalculatorView: React.FC = () => {
                   <strong>Descenso:</strong> Nivel 5 (Piso 5) de la mega estructura de estacionamiento de CityWalk.<br />
                   <strong>Acceso:</strong> Se baja en escaleras mecánicas hacia la seguridad central de CityWalk.<br />
                   <strong>Regreso:</strong> ⚠️ <em>¡Regla de Oro!</em> Subir al Piso 5 ANTES de pedir los UberXL en la app, para que el auto no llegue mientras aún bajan por CityWalk.
+                </p>
+              </div>
+
+              <div className="p-3.5 bg-indigo-50/70 rounded-xl border border-indigo-200 space-y-1 md:col-span-2">
+                <div className="font-bold text-indigo-950">🌌 Universal Epic Universe · Campus Independiente (Epic Blvd)</div>
+                <p className="text-slate-700 leading-relaxed">
+                  <strong>¡Atención Logística!</strong> Epic Universe está a <strong>20.5 km</strong> de Celebration Suites en un campus nuevo (NO en CityWalk ni Piso 5).<br />
+                  <strong>Descenso y Pick-up:</strong> Loop exclusivo de Rideshare frente al portal <em>Chronos Gate</em> sobre Epic Blvd. A pocos metros de la seguridad principal.
                 </p>
               </div>
 

@@ -48,7 +48,7 @@ export const Header: React.FC<HeaderProps> = ({
                     Orlando 2027
                   </span>
                   <span className="text-[11px] text-slate-500 font-medium whitespace-nowrap hidden sm:inline">
-                    19 al 30 de Enero · 11 Pasajeros
+                    19 Ene al 2 Feb · 11 Pasajeros
                   </span>
                 </div>
               </button>
@@ -300,15 +300,19 @@ export const Header: React.FC<HeaderProps> = ({
             </span>
             <span>·</span>
             <span>
-              <strong className="text-white">3 Días</strong> Universal
+              <strong className="text-white">3 Días</strong> Universal (c/ Epic Universe)
             </span>
             <span>·</span>
             <span>
               <strong className="text-white">3 Días</strong> Outlets
             </span>
             <span>·</span>
-            <span className="text-indigo-300 font-medium">
-              Combi a Miami (30 Ene)
+            <span className="text-emerald-300 font-bold whitespace-nowrap">
+              ✅ NBA (28 Ene) · ✅ FIFA Nu Stadium (31 Ene)
+            </span>
+            <span>·</span>
+            <span className="text-indigo-300 font-medium whitespace-nowrap">
+              Miami Seacoast Suites (30 Ene–2 Feb)
             </span>
           </div>
         </div>
@@ -321,7 +325,7 @@ export const Header: React.FC<HeaderProps> = ({
             <div className="flex items-center justify-between pb-4 border-b border-slate-100">
               <div>
                 <h3 className="text-lg font-bold text-slate-900">Grupo de Viaje (11 Personas)</h3>
-                <p className="text-xs text-slate-500">Celebration Suites · 19 al 30 de Enero 2027</p>
+                <p className="text-xs text-slate-500">Celebration Suites & Seacoast Suites Miami · 19 Ene al 2 Feb 2027</p>
               </div>
               <button
                 onClick={() => setShowTravelersModal(false)}
@@ -368,7 +372,7 @@ export const Header: React.FC<HeaderProps> = ({
                   🏠 <strong>Hospedaje de Josefina:</strong> Ya resuelto, va en el departamento junto con la familia de Caro, Fofi, Tuto y Luisina.
                 </div>
                 <p className="text-indigo-700 font-semibold pt-1">
-                  • <strong>Traslado Orlando ➔ Miami (30 Ene):</strong> Combi/Trafic privada ya contratada para los 11 con equipaje.
+                  • <strong>Traslado Orlando ➔ Miami (30 Ene · 07:00 hs):</strong> Ya contratado en el paquete hacia Seacoast Suites on Miami Beach (5101 Collins Ave, deptos Deluxe 1 y 2 dorm. c/ salida directa a la playa).
                 </p>
               </div>
             </div>

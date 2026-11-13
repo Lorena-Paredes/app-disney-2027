@@ -147,7 +147,7 @@ export default function App() {
             <span>·</span>
             <span>Celebration Suites (Kissimmee, FL)</span>
             <span>·</span>
-            <span>19 al 30 de Enero</span>
+            <span>19 Ene al 2 Feb</span>
             <span>·</span>
             <span className="text-emerald-700 font-medium">Distancias en Kilómetros (km)</span>
           </div>

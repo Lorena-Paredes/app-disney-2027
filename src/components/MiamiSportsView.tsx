@@ -20,11 +20,29 @@ export interface NBAMatch {
   rivalStars: string;
   magicStars: string;
   headline: string;
+  confirmedTickets?: boolean;
   ticketmasterUrl: string;
   seatgeekUrl: string;
 }
 
 export const ORLANDO_MAGIC_GAMES: NBAMatch[] = [
+  {
+    id: 'game-bulls',
+    opponent: 'Chicago Bulls',
+    opponentCity: 'Chicago',
+    opponentColor: 'bg-red-600',
+    dateStr: 'Jueves 28 de Enero de 2027',
+    dateShort: 'Jue 28 Ene',
+    timeOrlando: '19:00 hs (EST)',
+    timeArgentina: '21:00 hs (ARG)',
+    dayOfTrip: 'Día 10 de nuestro itinerario (Jueves · ¡Partido Confirmado!)',
+    rivalStars: 'Josh Giddey, Coby White, Matas Buzelis',
+    magicStars: 'Paolo Banchero, Franz Wagner, Jalen Suggs',
+    headline: '¡PARTIDO CONFIRMADO DEL VIAJE! Mañana tranquila en Kissimmee/Outlets y salida en 2x UberXL a las 16:45 hs para vivir la NBA en vivo en el Kia Center.',
+    confirmedTickets: true,
+    ticketmasterUrl: 'https://www.ticketmaster.com/orlando-magic-tickets/artist/805988',
+    seatgeekUrl: 'https://seatgeek.com/orlando-magic-tickets',
+  },
   {
     id: 'game-celtics',
     opponent: 'Boston Celtics',
@@ -58,22 +76,6 @@ export const ORLANDO_MAGIC_GAMES: NBAMatch[] = [
     seatgeekUrl: 'https://seatgeek.com/orlando-magic-tickets',
   },
   {
-    id: 'game-heat',
-    opponent: 'Miami Heat (Clásico de Florida)',
-    opponentCity: 'Miami',
-    opponentColor: 'bg-rose-600',
-    dateStr: 'Miércoles 27 de Enero de 2027',
-    dateShort: 'Mié 27 Ene',
-    timeOrlando: '19:00 hs (EST)',
-    timeArgentina: '21:00 hs (ARG)',
-    dayOfTrip: 'Día 9 de nuestro itinerario (Miércoles)',
-    rivalStars: 'Jimmy Butler, Bam Adebayo, Tyler Herro',
-    magicStars: 'Paolo Banchero, Franz Wagner, Anthony Black',
-    headline: '¡El Clásico de Florida en Orlando! La rivalidad estatal más apasionante de la costa este.',
-    ticketmasterUrl: 'https://www.ticketmaster.com/orlando-magic-tickets/artist/805988',
-    seatgeekUrl: 'https://seatgeek.com/orlando-magic-tickets',
-  },
-  {
     id: 'game-sixers',
     opponent: 'Philadelphia 76ers',
     opponentCity: 'Philadelphia',
@@ -92,19 +94,19 @@ export const ORLANDO_MAGIC_GAMES: NBAMatch[] = [
 ];
 
 export const MiamiSportsView: React.FC = () => {
-  const [selectedGameId, setSelectedGameId] = useState<string>('game-heat');
+  const [selectedGameId, setSelectedGameId] = useState<string>('game-bulls');
   const [showInterMiami, setShowInterMiami] = useState<boolean>(false);
 
   const activeGame = ORLANDO_MAGIC_GAMES.find(g => g.id === selectedGameId) || ORLANDO_MAGIC_GAMES[0];
 
   const handleShareGameWhatsApp = (game: NBAMatch) => {
     const text = [
-      `🏀 *ORLANDO MAGIC (NBA) · PARTIDO CONFIRMADO*`,
+      `🏀 *ORLANDO MAGIC (NBA) · ${game.confirmedTickets ? '✅ ¡ENTRADAS LISTAS!' : 'PARTIDO'}*`,
       `🏟️ *Sede:* Kia Center (Downtown Orlando - 400 W Church St)`,
       `🆚 *Rival:* Orlando Magic vs. ${game.opponent}`,
       `📅 *Fecha:* ${game.dateStr}`,
       `⏰ *Horario:* ${game.timeOrlando} (19:00 hs Orlando) / ${game.timeArgentina}`,
-      `🚗 *Distancia:* 32 km desde Celebration Suites (~30-35 min en 2x UberXL)`,
+      `🚗 *Alerta 2x UberXL:* Pedir a las 16:45 hs desde Celebration Suites (~35 km por I-4 Este)`,
       `👥 *Grupo (11 pax):* 5 adultos y 6 chicos (Renato, Tuto, José, Máximo, Josefina y Luisina)`,
       ``,
       `⚠️ *REGLAS OBLIGATORIAS DEL KIA CENTER:*`,
@@ -143,7 +145,7 @@ export const MiamiSportsView: React.FC = () => {
             </h1>
             
             <p className="text-sm text-slate-600 mt-2 max-w-3xl leading-relaxed">
-              Vivir la experiencia de un partido oficial de la NBA en vivo en el <strong>Kia Center</strong>, el moderno estadio de los Orlando Magic en el Downtown de Orlando (400 W Church St). A solo <strong>32 km de Celebration Suites</strong> (~30 a 35 minutos en los 2 vehículos Uber XL).
+              Vivir la experiencia de un partido oficial de la NBA en vivo en el <strong>Kia Center</strong>, el moderno estadio de los Orlando Magic en el Downtown de Orlando (400 W Church St). A unos <strong>35 km de Celebration Suites</strong> (~35 a 42 minutos en los 2 vehículos Uber XL; pedir a las <strong>16:45 hs</strong> para evitar la hora pico de la I-4 Este).
             </p>
           </div>
 
@@ -175,14 +177,14 @@ export const MiamiSportsView: React.FC = () => {
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-6 pt-5 border-t border-slate-100 text-xs">
           <div className="p-3 bg-blue-50/70 border border-blue-100 rounded-2xl">
             <span className="text-[10px] uppercase font-bold text-blue-700 block">Distancia</span>
-            <span className="font-extrabold text-base text-slate-900 font-mono">32 km</span>
+            <span className="font-extrabold text-base text-slate-900 font-mono">~35 km</span>
             <span className="text-[11px] text-slate-500 block">Por I-4 East / Express</span>
           </div>
 
           <div className="p-3 bg-indigo-50/70 border border-indigo-100 rounded-2xl">
-            <span className="text-[10px] uppercase font-bold text-indigo-700 block">Tiempo en Auto</span>
-            <span className="font-extrabold text-base text-slate-900 font-mono">30 a 35 min</span>
-            <span className="text-[11px] text-slate-500 block">En los 2x Uber XL</span>
+            <span className="text-[10px] uppercase font-bold text-indigo-700 block">Pedir 2x UberXL</span>
+            <span className="font-extrabold text-base text-slate-900 font-mono">16:45 hs</span>
+            <span className="text-[11px] text-slate-500 block">Evita pico I-4 Este</span>
           </div>
 
           <div className="p-3 bg-emerald-50/70 border border-emerald-100 rounded-2xl">
@@ -263,7 +265,7 @@ export const MiamiSportsView: React.FC = () => {
                 Calendario en el Kia Center
               </span>
               <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-blue-100 text-blue-800">
-                19 al 30 de Enero 2027
+                19 al 31 de Enero 2027
               </span>
             </div>
             <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight mt-0.5">
@@ -289,7 +291,11 @@ export const MiamiSportsView: React.FC = () => {
                 onClick={() => setSelectedGameId(game.id)}
                 className={`p-3.5 rounded-2xl border text-left transition-all relative ${
                   isSelected
-                    ? 'border-blue-600 bg-blue-50/80 ring-2 ring-blue-600 shadow-xs'
+                    ? game.confirmedTickets
+                      ? 'border-green-600 bg-green-50/80 ring-2 ring-green-500 shadow-xs'
+                      : 'border-blue-600 bg-blue-50/80 ring-2 ring-blue-600 shadow-xs'
+                    : game.confirmedTickets
+                    ? 'border-green-400 bg-green-50/40 hover:bg-green-50'
                     : 'border-slate-200 bg-white hover:border-slate-300 hover:bg-slate-50'
                 }`}
               >
@@ -298,13 +304,15 @@ export const MiamiSportsView: React.FC = () => {
                   <span className={`w-2.5 h-2.5 rounded-full ${game.opponentColor}`} />
                 </div>
                 <div className="font-extrabold text-xs sm:text-sm text-slate-900 line-clamp-1">
-                  vs. {game.opponent.split(' ')[0]}
+                  vs. {game.opponent}
                 </div>
                 <div className="text-[11px] text-blue-700 font-semibold mt-0.5 font-mono">
                   {game.timeOrlando.split(' ')[0]} EST
                 </div>
-                {isSelected && (
-                  <span className="absolute top-2 right-2 w-2 h-2 bg-blue-600 rounded-full" />
+                {game.confirmedTickets && (
+                  <div className="mt-1.5 inline-flex items-center px-2 py-0.5 rounded-full bg-green-500 text-white text-[10px] font-extrabold shadow-2xs">
+                    ✅ ¡Entradas listas!
+                  </div>
                 )}
               </button>
             );
@@ -317,7 +325,12 @@ export const MiamiSportsView: React.FC = () => {
 
           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-5 border-b border-slate-800">
             <div>
-              <div className="flex items-center gap-2 mb-1">
+              <div className="flex flex-wrap items-center gap-2 mb-1.5">
+                {activeGame.confirmedTickets && (
+                  <span className="px-3 py-1 rounded-full text-xs font-black bg-green-500 text-white shadow-md shadow-green-500/30">
+                    ✅ ¡Entradas listas!
+                  </span>
+                )}
                 <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-blue-500 text-white uppercase tracking-wider">
                   NBA en Vivo
                 </span>
@@ -434,7 +447,7 @@ export const MiamiSportsView: React.FC = () => {
               <span>Ruta y Descenso (Drop-off)</span>
             </span>
             <p className="text-slate-600">
-              • <strong>Recorrido:</strong> Desde Celebration Suites por I-4 East / I-4 Express hacia Downtown Orlando (Salida 82B hacia South St / Anderson St). Unos <strong>32 km</strong> (~30 a 35 minutos).
+              • <strong>Recorrido:</strong> Desde Celebration Suites por I-4 East / I-4 Express hacia Downtown Orlando (Salida 82B hacia South St / Anderson St). Unos <strong>35 km</strong> (~35 a 42 minutos). Pedir los 2 Uber XL a las <strong>16:45 hs</strong> para evitar la hora pico y llegar al precalentamiento.
             </p>
             <p className="text-slate-600">
               • <strong>Zona de descenso para los 2 UberXL:</strong> <em>Hughey Ave & W Church St</em>, justo al pie de la estación Church Street Station, frente al atrio principal del estadio.
@@ -472,53 +485,78 @@ export const MiamiSportsView: React.FC = () => {
         </div>
       </div>
 
-      {/* OPCIONAL: SECCIÓN INTER MIAMI CF EN MIAMI (Sábado 30 Ene al viajar en Combi) */}
-      <div className="bg-slate-50 rounded-3xl p-5 border border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-3">
-        <div className="flex items-center gap-3">
-          <div className="p-2.5 bg-pink-100 text-pink-600 rounded-2xl">
-            <Trophy className="w-5 h-5" />
+      {/* EVENTO CONFIRMADO EN MIAMI: FIFA WOMEN'S CHAMPIONS CUP 2027 (Domingo 31 de Enero) */}
+      <div className="bg-white rounded-3xl border-2 border-green-400 shadow-xs overflow-hidden">
+        <div className="px-5 sm:px-6 py-3 bg-gradient-to-r from-green-500 via-emerald-500 to-green-600 text-white flex flex-wrap items-center justify-between gap-2">
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="px-3 py-1 rounded-full bg-white text-green-700 text-xs font-black shadow-sm">
+              ✅ ¡Entradas listas!
+            </span>
+            <span className="text-xs sm:text-sm font-extrabold">
+              ⚽ Domingo 31 de Enero · FIFA Women's Champions Cup 2027 (Fase Final)
+            </span>
           </div>
-          <div>
-            <h4 className="font-bold text-slate-900 text-sm">
-              ¿Y el fútbol de Lionel Messi? Inter Miami CF (30 de Enero al viajar a Miami)
-            </h4>
-            <p className="text-xs text-slate-500">
-              El sábado 30 viajamos en la combi a Miami: visita a Chase Stadium (Fort Lauderdale) y tienda oficial adidas.
-            </p>
-          </div>
+          <span className="text-[11px] font-bold bg-green-950/30 border border-white/30 px-2.5 py-1 rounded-lg">
+            Estadio Inter Miami CF (Nu Stadium)
+          </span>
         </div>
 
-        <button
-          onClick={() => setShowInterMiami(!showInterMiami)}
-          className="px-4 py-2 bg-white hover:bg-slate-100 text-slate-800 border border-slate-300 rounded-xl text-xs font-bold transition-colors shrink-0 flex items-center gap-1.5"
-        >
-          <span>{showInterMiami ? 'Ocultar Tour Inter Miami' : 'Ver Tour Inter Miami'}</span>
-          <ChevronRight className={`w-3.5 h-3.5 transition-transform ${showInterMiami ? 'rotate-90' : ''}`} />
-        </button>
-      </div>
+        <div className="p-5 sm:p-6 space-y-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div>
+              <h4 className="font-extrabold text-slate-900 text-base sm:text-lg">
+                Doble Jornada Internacional en el Nu Stadium (Inter Miami CF)
+              </h4>
+              <p className="text-xs text-slate-600 mt-1">
+                Con la misma entrada disfrutamos ambos partidos de la Fase Final en Miami: <strong>15:30 hs Partido por el 3° puesto</strong> y <strong>18:30 hs Gran Final</strong>.
+              </p>
+            </div>
 
-      {showInterMiami && (
-        <div className="p-6 bg-white rounded-3xl border border-slate-200 shadow-xs space-y-4 animate-in fade-in">
-          <div className="flex items-center gap-2 text-pink-600 font-bold text-sm">
-            <Sparkles className="w-4 h-4" />
-            <span>Tour de Estadio & Tienda Oficial Inter Miami CF</span>
-          </div>
-          <p className="text-xs text-slate-600 leading-relaxed">
-            Para los 6 chicos (Renato, Tuto, José, Máximo, Josefina y Luisina), el fin de semana del 30 de enero en Miami es la oportunidad de visitar el <strong>Chase Stadium</strong> en Fort Lauderdale, recorrer los vestuarios de Lionel Messi y comprar equipaciones oficiales y botines en la tienda oficial adidas.
-          </p>
-          <div className="flex items-center gap-3 pt-2">
-            <a
-              href="https://www.intermiamicf.com/tickets/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-4 py-2 bg-slate-900 text-white rounded-xl text-xs font-bold inline-flex items-center gap-1.5"
+            <button
+              onClick={() => setShowInterMiami(!showInterMiami)}
+              className="px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-bold transition-colors shrink-0 flex items-center gap-1.5 self-start sm:self-center"
             >
-              <span>Tours Oficiales Inter Miami</span>
-              <ExternalLink className="w-3.5 h-3.5" />
-            </a>
+              <span>{showInterMiami ? 'Ocultar Logística Nu Stadium' : 'Ver Horarios & Clear Bag Policy'}</span>
+              <ChevronRight className={`w-3.5 h-3.5 transition-transform ${showInterMiami ? 'rotate-90' : ''}`} />
+            </button>
           </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+            <div className="p-3 bg-emerald-50/70 border border-emerald-200 rounded-2xl">
+              <span className="text-[10px] font-bold uppercase text-emerald-800 block">Partido 1 · 3° Puesto</span>
+              <span className="font-black text-base text-slate-900 font-mono">15:30 hs</span>
+              <span className="text-[11px] text-slate-600 block">Incluido en la entrada</span>
+            </div>
+            <div className="p-3 bg-amber-50/70 border border-amber-200 rounded-2xl">
+              <span className="text-[10px] font-bold uppercase text-amber-800 block">Partido 2 · Gran Final</span>
+              <span className="font-black text-base text-slate-900 font-mono">18:30 hs</span>
+              <span className="text-[11px] text-slate-600 block">Ceremonia de campeonas</span>
+            </div>
+            <div className="p-3 bg-indigo-50/70 border border-indigo-200 rounded-2xl">
+              <span className="text-[10px] font-bold uppercase text-indigo-800 block">Traslado & Bolsos</span>
+              <span className="font-black text-sm text-slate-900">2x UberXL · Clear Bag</span>
+              <span className="text-[11px] text-slate-600 block">Solo bolsos transparentes</span>
+            </div>
+          </div>
+
+          {showInterMiami && (
+            <div className="p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-2.5 text-xs text-slate-700 animate-in fade-in">
+              <div className="font-bold text-slate-900">
+                Tips de Experto para los 11 viajeros en el Nu Stadium:
+              </div>
+              <p>
+                • <strong>2x UberXL con tiempo (~13:45 hs desde Miami Beach):</strong> en jornadas dobles FIFA el tránsito en las adyacencias se carga rápido; llegar con margen asegura pasar seguridad tranquilos antes de las 15:30 hs.
+              </p>
+              <p>
+                • <strong>Clear Bag Policy obligatoria:</strong> únicamente permiten bolsos 100% transparentes (máx. 12" x 6" x 12") o carteras sobre pequeñas. Prohibidas mochilas y bolsos opacos.
+              </p>
+              <p>
+                • <strong>Entradas en Wallet + Powerbank:</strong> llevar los tickets descargados en el wallet del celular y batería portátil dentro del bolso transparente para cubrir toda la jornada de 15:30 a 21:00 hs.
+              </p>
+            </div>
+          )}
         </div>
-      )}
+      </div>
 
     </div>
   );

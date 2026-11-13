@@ -2,7 +2,7 @@
  * Base de datos completa del viaje a Orlando 2027
  * Grupo de 11 personas (5 adultos + 6 adolescentes)
  * Alojamiento: Celebration Suites (Kissimmee)
- * Fechas: 19 al 30 de Enero 2027
+ * Fechas: 19 de Enero al 2 de Febrero 2027 (15 días)
  * Unidades: Kilómetros (km), grados Celsius / Fahrenheit
  */
 
@@ -19,10 +19,10 @@ export interface ItineraryDay {
   dateStr: string; // e.g. "Mar 19 Ene"
   dayOfWeek: string;
   dateFull: string;
-  type: 'park' | 'shopping' | 'travel' | 'rest';
+  type: 'park' | 'shopping' | 'sports' | 'travel' | 'rest';
   title: string;
   parkName?: string;
-  parkCode?: 'universal_ioa' | 'universal_studios' | 'disney_hs' | 'disney_ak' | 'disney_epcot' | 'disney_mk' | 'universal_repeat';
+  parkCode?: 'universal_ioa' | 'universal_studios' | 'universal_epic' | 'disney_hs' | 'disney_ak' | 'disney_epcot' | 'disney_mk' | 'universal_repeat';
   highlight: string;
   schedule: {
     time: string;
@@ -41,6 +41,16 @@ export interface ItineraryDay {
     returnTip: string;
   };
   mealsTip: string;
+  statusBadge?: string;
+  eventShortLabel?: string;
+  bannerHeadline?: string;
+  bannerTransportNote?: string;
+  logisticAlert?: {
+    title: string;
+    message: string;
+    departureTime: string;
+  };
+  expertTips?: string[];
   quickServiceRecommendation?: {
     name: string;
     location: string;
@@ -52,7 +62,7 @@ export interface ItineraryDay {
 export interface Attraction {
   id: string;
   name: string;
-  park: 'Universal Islands of Adventure' | 'Universal Studios Florida' | "Disney's Hollywood Studios" | "Disney's Animal Kingdom" | "Disney's EPCOT" | "Disney's Magic Kingdom";
+  park: 'Universal Islands of Adventure' | 'Universal Studios Florida' | 'Universal Epic Universe' | "Disney's Hollywood Studios" | "Disney's Animal Kingdom" | "Disney's EPCOT" | "Disney's Magic Kingdom";
   parkShort: string;
   land: string;
   category: 'rollercoaster' | 'simulator' | 'dark_ride' | 'water_thrill' | 'show';
@@ -300,6 +310,17 @@ export const QUICK_SERVICE_GUIDE: QuickServiceRestaurant[] = [
     mobileOrderAvailable: true,
     highlightsFor10Pax: 'Perfecto para cuando los chicos quieren hamburguesas o pollo crujiente y los adultos prefieren sándwiches o ensaladas: todos piden en distintas barras y se sientan juntos.',
     recommendedDishes: 'The Ribwich, Chicken and Waffle Sandwich y Krusty Clogger Burger.'
+  },
+  {
+    id: 'mead-hall-epic',
+    name: 'Mead Hall (Isle of Berk)',
+    park: 'Universal Epic Universe',
+    land: 'How to Train Your Dragon – Isle of Berk',
+    cuisine: 'Banquete nórdico: carnes asadas, salmón grillado, albóndigas suecas y papas rústicas',
+    seatingCapacity: 'Enorme (gran salón vikingo con mesas largas de madera para grupos grandes)',
+    mobileOrderAvailable: true,
+    highlightsFor10Pax: 'Su "Thawfest Platter" es una fuente nórdica gigante pensada para compartir; con 2 o 3 fuentes comen los 11 con comodidad y aire acondicionado.',
+    recommendedDishes: 'Thawfest Platter, Yaknog (bebida fría cremosa) y Stormfly Cupcake.'
   }
 ];
 
@@ -386,57 +407,20 @@ export const ITINERARY: ItineraryDay[] = [
     dateStr: 'Jue 21 Ene',
     dayOfWeek: 'Jueves',
     dateFull: '21 de Enero de 2027',
-    type: 'shopping',
-    title: 'Día de Compras & Descanso 1 · Outlets I-Drive & Best Buy',
-    highlight: 'Descanso de caminata, botines en Nike & Adidas Outlet ("Hash Wall"), y tecnología en Best Buy.',
-    schedule: [
-      { time: '09:30', activity: 'Mañana libre y relajada. Dormir hasta tarde para recuperar piernas tras Universal.', type: 'tip' },
-      { time: '11:00', activity: 'Salida en 2x UberXL rumbo a Orlando International Premium Outlets en I-Drive (22.2 km).', type: 'transport' },
-      { time: '11:30', activity: 'Parada prioritaria 1: Nike Factory Store (buscar el "Hash Wall" al fondo para botines de fútbol y zapatillas).', type: 'shopping' },
-      { time: '13:00', activity: 'Parada prioritaria 2: Adidas Outlet Store (indumentaria deportiva, camisetas y botines Predator/X/Copa).', type: 'shopping' },
-      { time: '14:30', activity: 'Almuerzo en el Food Court o en Shake Shack / Five Guys en International Drive.', type: 'food' },
-      { time: '16:00', activity: 'Traslado corto en UberXL a Best Buy Millenia (4155 Millenia Blvd, a 3.5 km).', type: 'transport' },
-      { time: '16:15', activity: 'Visita de tecnología: ver notebooks (MacBook Air/Pro, laptops gaming Asus/Lenovo), tablets, iPads y consolas.', type: 'shopping' },
-      { time: '18:30', activity: 'Regreso a Celebration Suites para dejar las bolsas y descansar junto a la pileta.', type: 'transport' },
-      { time: '20:30', activity: 'Cena tranquila en Celebration Town Center (zona de lagos hermosa) o pizza en el departamento.', type: 'food' }
-    ],
-    teenFocus: [
-      'Probarse botines de fútbol de última gama en Nike y Adidas',
-      'Mirar laptops gamer, auriculares Sony/Bose y accesorios en Best Buy'
-    ],
-    adultFocus: [
-      'Ver notebooks y tablets para trabajo o estudio con buen precio en Best Buy',
-      'Compras de indumentaria deportiva con descuentos en outlets'
-    ],
-    uberRecommendation: {
-      departureTime: '11:00',
-      destination: 'Celebration Suites ➔ Orlando Int. Premium Outlets',
-      distanceKm: 22.2,
-      estMinutes: 25,
-      recommendedDropoff: 'Puerta principal junto al Food Court (4951 International Dr)',
-      returnTip: 'A las 16:00, pedir Uber de Outlets a Best Buy Millenia (solo 8 minutos de viaje).'
-    },
-    mealsTip: 'Para no perder tiempo en compras, comer algo ágil en Shake Shack o en el patio de comidas de los Outlets.'
-  },
-  {
-    dayNumber: 4,
-    dateStr: 'Vie 22 Ene',
-    dayOfWeek: 'Viernes',
-    dateFull: '22 de Enero de 2027',
     type: 'park',
     title: 'Parque 2 · Disney\'s Hollywood Studios',
     parkName: 'Disney\'s Hollywood Studios',
     parkCode: 'disney_hs',
-    highlight: 'Star Wars: Rise of the Resistance, Tower of Terror, Rock \'n\' Roller y show Fantasmic!',
+    highlight: 'Segundo de los 4 parques iniciales: Star Wars: Rise of the Resistance, Tower of Terror, Rock \'n\' Roller y show Fantasmic!.',
     schedule: [
       { time: '07:30', activity: 'Desayuno rápido en suite. (A las 07:00 hs abrir app My Disney Experience si van a coordinar Lightning Lane/reservas).', type: 'tip' },
-      { time: '08:00', activity: 'Salida en 2x UberXL rumbo a Disney\'s Hollywood Studios (11.6 km).', type: 'transport' },
+      { time: '08:00', activity: 'Salida sincronizada en 2x UberXL rumbo a Disney\'s Hollywood Studios (11.6 km).', type: 'transport' },
       { time: '08:25', activity: 'Llegada al loop de Rideshare exclusivo y paso por seguridad. Entrar con tiempo para el Rope Drop.', type: 'transport' },
       { time: '09:00', activity: 'Apertura: Star Wars: Rise of the Resistance (¡la mayor obra maestra tecnológica de Disney!).', type: 'ride' },
       { time: '10:45', activity: 'Millennium Falcon: Smugglers Run (pilotean 6 personas la nave espacial juntos).', type: 'ride' },
       { time: '12:00', activity: 'The Twilight Zone Tower of Terror (adrenalina pura en caída libre para teens y adultos audaces).', type: 'ride' },
       { time: '13:00', activity: 'Rock \'n\' Roller Coaster Starring Aerosmith (lanzamiento a oscuras con looping).', type: 'ride' },
-      { time: '14:15', activity: 'Almuerzo en ABC Commissary: salón climatizado inmenso con Mobile Order para 10.', type: 'food' },
+      { time: '14:15', activity: 'Almuerzo en ABC Commissary: salón climatizado inmenso con Mobile Order para 11.', type: 'food' },
       { time: '15:30', activity: 'Toy Story Land: Slinky Dog Dash (montaña rusa familiar con lanzamientos) + Toy Story Mania.', type: 'ride' },
       { time: '17:30', activity: 'Mickey & Minnie\'s Runaway Railway (tecnología trackless sin lentes 3D fascinante).', type: 'ride' },
       { time: '19:30', activity: 'Tomar ubicaciones en el anfiteatro de Fantasmic! (show nocturno con agua, láseres y pirotecnia).', type: 'ride' },
@@ -460,252 +444,36 @@ export const ITINERARY: ItineraryDay[] = [
       recommendedDropoff: 'Rideshare Drop-off Area de Hollywood Studios (a 150 metros de los molinetes de entrada)',
       returnTip: 'Al terminar Fantasmic!, caminar directamente al loop de Uber para evitar la marea de salida.'
     },
-    mealsTip: 'Para grupos de 10 personas, ABC Commissary permite hacer Mobile Order en la app de Disney para que la comida esté lista apenas lleguen.',
+    mealsTip: 'Para grupos de 11 personas, ABC Commissary permite hacer Mobile Order en la app de Disney para que la comida esté lista apenas lleguen.',
     quickServiceRecommendation: {
       name: 'ABC Commissary',
       location: 'Commissary Lane (Hollywood Studios)',
       specialty: 'Carnitas bowls, tacos de langostinos, sándwiches gourmet y bebidas con refill',
-      whyFor10Pax: 'Salón interior gigantesco 100% techado y climatizado con mesas largas para 10 personas y sistema de Mobile Order super fluido.'
+      whyFor10Pax: 'Salón interior gigantesco 100% techado y climatizado con mesas largas para 11 personas y sistema de Mobile Order super fluido.'
     }
   },
   {
-    dayNumber: 5,
-    dateStr: 'Sáb 23 Ene',
-    dayOfWeek: 'Sábado',
-    dateFull: '23 de Enero de 2027',
-    type: 'shopping',
-    title: 'Día de Compras & Relax 2 · The Florida Mall & Apple Store',
-    highlight: 'Apple Store oficial (MacBooks, iPhones, iPads), tiendas de botines y tarde distendida.',
-    schedule: [
-      { time: '10:00', activity: 'Desayuno relajado en los suites de Celebration. Descanso muscular.', type: 'food' },
-      { time: '11:30', activity: 'Traslado en 2x UberXL a The Florida Mall (24.5 km, el shopping cerrado más grande de Orlando Central).', type: 'transport' },
-      { time: '12:00', activity: 'Parada estrella: Apple Store oficial de The Florida Mall.', notes: 'Ver notebooks MacBook Air M-Series, MacBook Pro, iPhones liberados de fábrica y accesorios. Consultar por teclado en español.', type: 'shopping' },
-      { time: '13:45', activity: 'Almuerzo en el dining pavilion de Florida Mall (opciones de todo el mundo).', type: 'food' },
-      { time: '15:00', activity: 'Recorrido deportivo en The Florida Mall: Dick\'s Sporting Goods, JD Sports y Foot Locker.', notes: 'Excelente selección de botines de fútbol y camisetas.', type: 'shopping' },
-      { time: '17:30', activity: 'Parada opcional en Best Buy South Orange Blossom Trail (a solo 3 km del shopping).', type: 'shopping' },
-      { time: '19:00', activity: 'Regreso en UberXL a Celebration Suites.', type: 'transport' },
-      { time: '20:30', activity: 'Cena distendida en Ford\'s Garage (Kissimmee / 192) con hamburguesas gourmet en ambientación mecánica vintage.', type: 'food' }
-    ],
-    teenFocus: [
-      'Probar los nuevos iPhones, MacBooks y iPads en Apple Store',
-      'Buscar botines de fútbol exclusivos que no llegan a Sudamérica en Dick\'s y JD Sports'
-    ],
-    adultFocus: [
-      'Comprar tecnología con garantía oficial y asesoramiento del Genius Bar',
-      'Día sin caminar 20 km bajo el sol para recargar energías'
-    ],
-    uberRecommendation: {
-      departureTime: '11:30',
-      destination: 'Celebration Suites ➔ The Florida Mall',
-      distanceKm: 24.5,
-      estMinutes: 26,
-      recommendedDropoff: 'Entrada exterior de Apple Store / Dining Pavilion (8001 S Orange Blossom Trail)',
-      returnTip: 'El shopping está cerrado con aire acondicionado, ideal si afuera hace calor o llueve.'
-    },
-    mealsTip: 'En Ford\'s Garage sobre la autopista 192 la comida es deliciosa y está a menos de 5 minutos de Celebration Suites.'
-  },
-  {
-    dayNumber: 6,
-    dateStr: 'Dom 24 Ene',
-    dayOfWeek: 'Domingo',
-    dateFull: '24 de Enero de 2027',
+    dayNumber: 4,
+    dateStr: 'Vie 22 Ene',
+    dayOfWeek: 'Viernes',
+    dateFull: '22 de Enero de 2027',
     type: 'park',
-    title: 'Parque 3 · Universal Studios Florida',
-    parkName: 'Universal Studios Florida',
-    parkCode: 'universal_studios',
-    highlight: 'Escape from Gringotts, Revenge of the Mummy, Rip Ride Rockit y Diagon Alley.',
-    schedule: [
-      { time: '07:45', activity: 'Desayuno y salida en 2x UberXL hacia Universal Studios Florida (23.3 km).', type: 'transport' },
-      { time: '08:45', activity: 'Llegada (Piso 5) y entrada por Universal Studios Florida.', type: 'transport' },
-      { time: '09:00', activity: 'Entrada directa a Diagon Alley tras la pared de ladrillos londinense: Harry Potter and the Escape from Gringotts.', type: 'ride' },
-      { time: '10:45', activity: 'Revenge of the Mummy (montaña rusa bajo techo con fuego real y aceleraciones brutales).', type: 'ride' },
-      { time: '12:00', activity: 'Hollywood Rip Ride Rockit (montaña rusa con subida a 90 grados y música a elección personal).', type: 'ride' },
-      { time: '13:15', activity: 'Almuerzo en Fast Food Boulevard (Springfield de Los Simpsons) o Leaky Cauldron.', type: 'food' },
-      { time: '14:45', activity: 'TRANSFORMERS: The Ride 3D (simulador de batalla urbana gigantesco) y Despicable Me Minion Mayhem.', type: 'ride' },
-      { time: '16:30', activity: 'MEN IN BLACK Alien Attack (juego de disparos láser interactivo con giro de autos, ideal para competir adultos vs teens).', type: 'ride' },
-      { time: '18:00', activity: 'E.T. Adventure (clásico nostálgico encantador para todos) y espectáculo de pirotecnia/drones según cronograma.', type: 'ride' },
-      { time: '20:00', activity: 'Cena en CityWalk (Hard Rock Cafe Orlando o Vivo Italian Kitchen) y retorno en 2x UberXL.', type: 'food' }
-    ],
-    teenFocus: [
-      'Hollywood Rip Ride Rockit (elegir tema heavy metal o pop antes de subir)',
-      'Revenge of the Mummy (0 a 72 km/h a oscuras con efectos de calor y caídas sorpresa)',
-      'Escape from Gringotts (caída en riel y dragón ucraniano escupefuego)'
-    ],
-    adultFocus: [
-      'Inmersión arquitectónica en Diagon Alley (ver el dragón de Gringotts rugir fuego cada 10 min)',
-      'TRANSFORMERS The Ride 3D',
-      'Competencia grupal en MEN IN BLACK Alien Attack para ver quién saca más puntos'
-    ],
-    uberRecommendation: {
-      departureTime: '08:00',
-      destination: 'Celebration Suites ➔ Universal Drop-off Hub',
-      distanceKm: 23.3,
-      estMinutes: 24,
-      recommendedDropoff: 'Universal Orlando Resort Guest Drop-off (Piso 5)',
-      returnTip: 'Tener coordinado el punto de encuentro en la estatua del globo de Universal para salir todos juntos hacia el Piso 5 de Uber.'
-    },
-    mealsTip: 'En Leaky Cauldron pedir Fish & Chips y Cottage Pie. En Diagon Alley pueden probar el helado de manteca (Butterbeer Ice Cream) en Florean Fortescue\'s.',
-    quickServiceRecommendation: {
-      name: 'Fast Food Boulevard (Springfield)',
-      location: 'Springfield (Universal Studios)',
-      specialty: 'Krusty Burgers, Cletus Chicken Shack, pizzas y Flaming Moes',
-      whyFor10Pax: 'Múltiples barras de comidas diferentes dentro de un mismo mega salón cerrado con mesas grandes donde los 10 pueden sentarse juntos.'
-    }
-  },
-  {
-    dayNumber: 7,
-    dateStr: 'Lun 25 Ene',
-    dayOfWeek: 'Lunes',
-    dateFull: '25 de Enero de 2027',
-    type: 'park',
-    title: 'Parque 4 · Disney\'s Animal Kingdom & Tarde de Pileta',
-    parkName: 'Disney\'s Animal Kingdom',
-    parkCode: 'disney_ak',
-    highlight: 'Avatar Flight of Passage (el simulador #1 de Disney), Expedition Everest y Safaris.',
-    schedule: [
-      { time: '07:00', activity: 'Despertador temprano: Animal Kingdom abre a las 08:00 AM y es el parque más cercano a Celebration Suites (10.9 km).', type: 'tip' },
-      { time: '07:25', activity: 'Salida en 2x UberXL rumbo a Disney\'s Animal Kingdom.', type: 'transport' },
-      { time: '07:45', activity: 'Rope drop directo a Pandora: World of Avatar ➔ Avatar Flight of Passage.', type: 'ride', notes: 'Simulador de vuelo en banshee; una experiencia sensorial inigualable para los 10.' },
-      { time: '09:30', activity: 'Na\'vi River Journey (recorrido bioluminiscente en bote con el animatrónico más avanzado de Disney).', type: 'ride' },
-      { time: '10:30', activity: 'Expedition Everest - Legend of the Forbidden Mountain (montaña rusa con retroceso a oscuras y encuentro con el Yeti).', type: 'ride' },
-      { time: '12:00', activity: 'Kilimanjaro Safaris (safari en camión abierto por la sabana africana; por la mañana los animales están muy activos).', type: 'ride' },
-      { time: '13:15', activity: 'Almuerzo en Satu\'li Canteen (Pandora): bowls saludables de carne, pollo o tofu.', type: 'food' },
-      { time: '14:45', activity: 'Festival of the Lion King (espectáculo acrobático estilo Broadway en vivo).', type: 'ride' },
-      { time: '16:00', activity: 'Regreso temprano a Celebration Suites para aprovechar la piscina y descansar las piernas.', type: 'transport' },
-      { time: '19:30', activity: 'Cena distendida en Texas Roadhouse (Kissimmee 192): cortes de carne estilo tejano y pan caliente con manteca de canela.', type: 'food' }
-    ],
-    teenFocus: [
-      'Expedition Everest (subir varias veces si la fila está baja)',
-      'Avatar Flight of Passage (sentir respirar al banshee entre las piernas)',
-      'Tarde libre en la piscina de Celebration Suites'
-    ],
-    adultFocus: [
-      'Avatar Flight of Passage (tecnología visual y aromática deslumbrante)',
-      'Kilimanjaro Safaris (fotografiar jirafas, leones y elefantes)',
-      'Festival of the Lion King y Satu\'li Canteen (la comida más rica de parque Disney)'
-    ],
-    uberRecommendation: {
-      departureTime: '07:25',
-      destination: 'Celebration Suites ➔ Disney\'s Animal Kingdom',
-      distanceKm: 10.9,
-      estMinutes: 14,
-      recommendedDropoff: 'Rideshare Drop-off Animal Kingdom (loop oeste a solo 100 m de los molinetes)',
-      returnTip: 'Como salen a las 16:00 hs, evitan el tráfico pico y consiguen UberXL en minutos.'
-    },
-    mealsTip: 'Satu\'li Canteen en Pandora tiene los mejores bowls de Disney y las famosas Cheeseburger Steamed Pods.',
-    quickServiceRecommendation: {
-      name: "Satu'li Canteen",
-      location: 'Pandora - World of Avatar (Animal Kingdom)',
-      specialty: 'Bowls de carne, pollo asado, arroz integral y chimichurri',
-      whyFor10Pax: 'La mejor comida rápida de Disney. El salón es amplio, con sombra y aire acondicionado, ideal para grupos grandes que desean comer sano y sabroso.'
-    }
-  },
-  {
-    dayNumber: 8,
-    dateStr: 'Mar 26 Ene',
-    dayOfWeek: 'Martes',
-    dateFull: '26 de Enero de 2027',
-    type: 'shopping',
-    title: 'Día de Compras 3 & Tarde en Disney Springs',
-    highlight: 'Vineland Premium Outlets (Nike Clearance), compras finales y paseo nocturno en Disney Springs.',
-    schedule: [
-      { time: '10:00', activity: 'Desayuno pausado y mañana de descanso muscular.', type: 'tip' },
-      { time: '11:15', activity: 'Salida en 2x UberXL hacia Orlando Vineland Premium Outlets (el outlet más cercano a Celebration, solo 12.7 km).', type: 'transport' },
-      { time: '11:30', activity: 'Recorrido en Vineland: Nike Clearance Store (precios de liquidación aún mejores que I-Drive), Adidas, Tommy Hilfiger, Under Armour.', type: 'shopping' },
-      { time: '14:00', activity: 'Almuerzo en Ford\'s Garage Vineland o patio de comidas del outlet.', type: 'food' },
-      { time: '16:00', activity: 'Regreso breve al hotel para dejar compras o traslado directo a Disney Springs (8 km).', type: 'transport' },
-      { time: '17:00', activity: 'Disney Springs (no requiere entrada a parques): paseo por World of Disney (la tienda Disney más grande del planeta), Lego Store y tienda Marvel.', type: 'shopping' },
-      { time: '19:30', activity: 'Cena grupal en Disney Springs: Earl of Sandwich (económico y delicioso), Chicken Guy! o T-REX Café.', type: 'food' },
-      { time: '21:30', activity: 'Regreso en 2x UberXL a Celebration Suites.', type: 'transport' }
-    ],
-    teenFocus: [
-      'Cazar liquidaciones en Nike Clearance Store de Vineland',
-      'Visitar la tienda de Lego y los locales temáticos de Star Wars / Marvel en Disney Springs'
-    ],
-    adultFocus: [
-      'Comprar ropa y calzado en Vineland (ambiente más ordenado y elegante que I-Drive)',
-      'Paseo nocturno agradable por la rambla de Disney Springs junto al lago'
-    ],
-    uberRecommendation: {
-      departureTime: '11:15',
-      destination: 'Celebration Suites ➔ Vineland Premium Outlets',
-      distanceKm: 12.7,
-      estMinutes: 16,
-      recommendedDropoff: 'Puerta central de Vineland Outlets (8200 Vineland Ave)',
-      returnTip: 'De Disney Springs a Celebration Suites: la parada de Uber está ubicada en el extremo oeste (West Side Drop-off, cerca de Cirque du Soleil).'
-    },
-    mealsTip: 'Earl of Sandwich en Disney Springs es una de las opciones más rendidoras para grupos grandes (sándwiches calientes de excelente calidad a precio accesible).'
-  },
-  {
-    dayNumber: 9,
-    dateStr: 'Mié 27 Ene',
-    dayOfWeek: 'Miércoles',
-    dateFull: '27 de Enero de 2027',
-    type: 'park',
-    title: 'Parque 5 · Disney\'s EPCOT',
-    parkName: 'Disney\'s EPCOT',
-    parkCode: 'disney_epcot',
-    highlight: 'Guardians of the Galaxy: Cosmic Rewind (¡la mejor montaña rusa de Disney!), Test Track y Remy.',
-    schedule: [
-      { time: '06:55', activity: 'Alarma de Fila Virtual: a las 07:00:00 AM ingresar en la app My Disney Experience para solicitar Virtual Queue de Guardians of the Galaxy.', type: 'tip' },
-      { time: '08:00', activity: 'Desayuno y salida en 2x UberXL hacia EPCOT (13.7 km).', type: 'transport' },
-      { time: '08:30', activity: 'Llegada y Rope drop hacia World Celebration y World Discovery.', type: 'transport' },
-      { time: '09:00', activity: 'Subida a Guardians of the Galaxy: Cosmic Rewind según grupo de llamada (montaña rusa con rotación 360 y temazos de rock).', type: 'ride' },
-      { time: '10:45', activity: 'Test Track (o Soarin\' Around the World en World Nature; simulador de vuelo en ala delta con olores a naranja y brisa marina).', type: 'ride' },
-      { time: '12:15', activity: 'Spaceship Earth (viaje nostálgico por la historia de las comunicaciones adentro de la icónica esfera geodésica).', type: 'ride' },
-      { time: '13:30', activity: 'Almuerzo en Connections Eatery (salón climatizado gigante con enchufes de carga para los 10).', type: 'food' },
-      { time: '15:00', activity: 'Paseo por World Showcase: Pabellón de Francia ➔ Remy\'s Ratatouille Adventure (simulador 3D en el tamaño de una ratita).', type: 'ride' },
-      { time: '17:00', activity: 'Recorrido por los 11 países de World Showcase (México: Gran Fiesta Tour; Noruega: Frozen Ever After; Japón; Alemania).', type: 'shopping' },
-      { time: '20:30', activity: 'Ubicarse en el borde de la laguna de World Showcase para el show nocturno de fuegos artificiales "Luminous: The Symphony of Us" (21:00 hs).', type: 'ride' },
-      { time: '21:30', activity: 'Retorno en 2x UberXL a Celebration Suites.', type: 'transport' }
-    ],
-    teenFocus: [
-      'Guardians of the Galaxy: Cosmic Rewind (lanzamiento hacia atrás, giros controlados y música de Queen / Earth Wind & Fire)',
-      'Probar dulces y sodas exóticas en Club Cool de Coca-Cola (¡probar la Beverly de broma!)'
-    ],
-    adultFocus: [
-      'Guardians of the Galaxy (suavidad absoluta en el riel, cero vibración brusca)',
-      'Soarin\' Around the World y Remy\'s Ratatouille Adventure',
-      'Degustación gastronómica en los pabellones de Francia, Italia y Japón en World Showcase'
-    ],
-    uberRecommendation: {
-      departureTime: '08:00',
-      destination: 'Celebration Suites ➔ Disney\'s EPCOT',
-      distanceKm: 13.7,
-      estMinutes: 18,
-      recommendedDropoff: 'Rideshare Drop-off EPCOT (Lote Este frente a la esfera de Spaceship Earth)',
-      returnTip: 'Al terminar Luminous, caminar por el lateral izquierdo de Spaceship Earth hacia el estacionamiento este de Uber.'
-    },
-    mealsTip: 'En el pabellón de Francia, pasar por Les Halles Boulangerie-Patisserie para probar croissants, baguettes rellenas y macarons.',
-    quickServiceRecommendation: {
-      name: 'Connections Eatery',
-      location: 'World Celebration (EPCOT)',
-      specialty: 'Hamburguesas gourmet, pizzas napolitanas, waffles y ensaladas',
-      whyFor10Pax: 'Espacio enorme con aire acondicionado y enchufes para cargar todos los celulares de los chicos mientras comen.'
-    }
-  },
-  {
-    dayNumber: 10,
-    dateStr: 'Jue 28 Ene',
-    dayOfWeek: 'Jueves',
-    dateFull: '28 de Enero de 2027',
-    type: 'park',
-    title: 'Parque 6 · Disney\'s Magic Kingdom',
+    title: 'Parque 3 · Disney\'s Magic Kingdom',
     parkName: 'Disney\'s Magic Kingdom',
     parkCode: 'disney_mk',
-    highlight: 'TRON Lightcycle / Run, Space Mountain, Big Thunder y el show Happily Ever After en el castillo.',
+    highlight: 'Tercero de los 4 parques iniciales: TRON Lightcycle / Run, Space Mountain, Big Thunder y el show Happily Ever After en el castillo.',
     schedule: [
       { time: '06:55', activity: 'Alarma de Fila Virtual: a las 07:00:00 AM ingresar en app My Disney Experience para solicitar cupo en TRON Lightcycle / Run.', type: 'tip' },
-      { time: '07:45', activity: 'Salida en 2x UberXL hacia el Transportation and Ticket Center (TTC) de Magic Kingdom (15.8 km).', type: 'transport' },
-      { time: '08:20', activity: 'Tomar el Monorriel o el Ferry desde el TTC cruzando Seven Seas Lagoon hasta el frente de Magic Kingdom.', type: 'transport' },
-      { time: '09:00', activity: 'Entrada oficial por Main Street U.S.A. Fotos frente al Castillo de Cenicienta.', type: 'tip' },
+      { time: '07:45', activity: 'Salida sincronizada en 2x UberXL hacia el Transportation and Ticket Center (TTC) de Magic Kingdom (15.8 km).', type: 'transport' },
+      { time: '08:20', activity: 'Tomar el Express Monorail o el Ferry desde el TTC cruzando Seven Seas Lagoon hasta el frente de Magic Kingdom.', type: 'transport' },
+      { time: '09:00', activity: 'Entrada oficial por Main Street U.S.A. Fotos grupales de los 11 frente al Castillo de Cenicienta.', type: 'tip' },
       { time: '09:15', activity: 'Tomorrowland: Space Mountain (montaña rusa clásica a oscuras) y TRON Lightcycle / Run (moto futurista de alta velocidad).', type: 'ride' },
       { time: '11:30', activity: 'Fantasyland: Seven Dwarfs Mine Train (montaña rusa con vagones oscilantes) y Peter Pan\'s Flight.', type: 'ride' },
-      { time: '13:00', activity: 'Almuerzo en Columbia Harbour House (planta alta tranquila con aire acondicionado y mesas grandes) o Pecos Bill.', type: 'food' },
-      { time: '14:30', activity: 'Frontierland y Adventureland: Big Thunder Mountain Railroad ("la montaña más loca del oeste") y Pirates of the Caribbean.', type: 'ride' },
+      { time: '13:00', activity: 'Almuerzo en Columbia Harbour House (planta alta tranquila con aire acondicionado y mesas grandes para los 11) o Pecos Bill.', type: 'food' },
+      { time: '14:30', activity: 'Frontierland y Adventureland: Big Thunder Mountain Railroad y Pirates of the Caribbean.', type: 'ride' },
       { time: '16:30', activity: 'Haunted Mansion (la mansión embrujada con efectos holográficos deslumbrantes).', type: 'ride' },
       { time: '18:00', activity: 'Paseo por Main Street y descanso con helados en Plaza Ice Cream Parlor.', type: 'food' },
-      { time: '20:00', activity: 'Happily Ever After: el icónico show de proyecciones sobre el castillo, canciones de Disney y fuegos artificiales (comienza a las 20:00 o 21:00 hs según calendario).', type: 'ride' },
+      { time: '20:00', activity: 'Happily Ever After: el icónico show de proyecciones sobre el castillo, canciones de Disney y fuegos artificiales.', type: 'ride' },
       { time: '21:30', activity: 'Ferry o Monorriel de regreso al TTC y toma de los 2x UberXL hacia Celebration Suites.', type: 'transport' }
     ],
     teenFocus: [
@@ -726,58 +494,370 @@ export const ITINERARY: ItineraryDay[] = [
       recommendedDropoff: 'Transportation and Ticket Center (TTC) Rideshare Loop',
       returnTip: 'IMPORTANTE: Los Uber no pueden dejar pasajeros en el castillo mismo, siempre llegan al TTC. Calcular 20-25 min extras entre TTC y la entrada en Ferry/Monorriel.'
     },
-    mealsTip: 'Columbia Harbour House en Liberty Square ofrece mesas en el piso superior con vista a la calle y aire acondicionado perfecto para los 10.',
+    mealsTip: 'Columbia Harbour House en Liberty Square ofrece mesas en el piso superior con vista a la calle y aire acondicionado perfecto para los 11.',
+    expertTips: [
+      'Salida clave a las 07:45 hs en 2x UberXL hacia el TTC (15.8 km): sumen 20-25 min para cruzar Seven Seas Lagoon en Ferry o Monorriel.',
+      'En Columbia Harbour House suban directo al 2° piso: casi siempre hay mesas largas disponibles para sentar a los 11 juntos con aire acondicionado.',
+      'Mañana sábado 23 cerramos el primer bloque con Animal Kingdom en formato medio día + pileta para que nadie llegue agotado al domingo de compras.'
+    ],
     quickServiceRecommendation: {
       name: 'Columbia Harbour House',
       location: 'Liberty Square (Magic Kingdom)',
       specialty: 'Plato combinado de langostinos, pescado frito y pollo con papas',
-      whyFor10Pax: 'Suban directamente a la segunda planta: es uno de los salones más amplios y tranquilos de Magic Kingdom, ideal para sentar a 10 personas juntas lejos del ruido.'
+      whyFor10Pax: 'Suban directamente a la segunda planta: es uno de los salones más amplios y tranquilos de Magic Kingdom, ideal para sentar a los 11 juntos lejos del ruido.'
     }
+  },
+  {
+    dayNumber: 5,
+    dateStr: 'Sáb 23 Ene',
+    dayOfWeek: 'Sábado',
+    dateFull: '23 de Enero de 2027',
+    type: 'park',
+    title: 'Parque 4 · Disney\'s Animal Kingdom (Medio Día) & Tarde de Pileta',
+    parkName: 'Disney\'s Animal Kingdom',
+    parkCode: 'disney_ak',
+    highlight: 'Cierre del bloque inicial de 4 parques: mañana efectiva en Avatar Flight of Passage, Safaris y Everest, y salida temprana (15:30 hs) para descansar antes del domingo libre.',
+    schedule: [
+      { time: '07:00', activity: 'Despertador temprano: Animal Kingdom abre a las 08:00 AM y es el parque más cercano a Celebration Suites (10.9 km).', type: 'tip' },
+      { time: '07:25', activity: 'Salida sincronizada en 2x UberXL rumbo a Disney\'s Animal Kingdom (10.9 km / ~14 min).', type: 'transport' },
+      { time: '07:45', activity: 'Rope drop directo a Pandora: World of Avatar ➔ Avatar Flight of Passage.', type: 'ride', notes: 'Simulador de vuelo en banshee; experiencia sensorial imperdible para los 11.' },
+      { time: '09:30', activity: 'Na\'vi River Journey (recorrido bioluminiscente en bote) y caminata hacia África.', type: 'ride' },
+      { time: '10:30', activity: 'Kilimanjaro Safaris (por la mañana los animales de la sabana están súper activos).', type: 'ride' },
+      { time: '12:00', activity: 'Expedition Everest - Legend of the Forbidden Mountain (montaña rusa con retroceso a oscuras y el Yeti; usar Single Rider si quieren repetir).', type: 'ride' },
+      { time: '13:15', activity: 'Almuerzo liviano y nutritivo en Satu\'li Canteen (Pandora) con Mobile Order grupal.', type: 'food' },
+      { time: '14:30', activity: 'Festival of the Lion King (espectáculo acrobático sentado en carpa climatizada — cero caminata).', type: 'ride' },
+      { time: '15:30', activity: 'Salida temprana en 2x UberXL hacia Celebration Suites para tarde de pileta, reposeras y recuperación muscular.', type: 'transport' },
+      { time: '19:30', activity: 'Cena distendida en Texas Roadhouse (Kissimmee 192, a 5 min): mañana domingo 24 se duerme sin despertador.', type: 'food' }
+    ],
+    teenFocus: [
+      'Expedition Everest (usar fila Single Rider para subir 2 veces seguidas sin desgaste)',
+      'Avatar Flight of Passage (sentir respirar al banshee entre las piernas)',
+      'Tarde libre de pileta en Celebration Suites tras 4 días seguidos de parques'
+    ],
+    adultFocus: [
+      'Avatar Flight of Passage y Kilimanjaro Safaris por la mañana sin calor ni cansancio',
+      'Festival of the Lion King (show sentado de nivel Broadway)',
+      'Regreso a las 15:30 hs para cortar la seguidilla de caminatas antes del domingo de descanso/compras'
+    ],
+    uberRecommendation: {
+      departureTime: '07:25',
+      destination: 'Celebration Suites ➔ Disney\'s Animal Kingdom',
+      distanceKm: 10.9,
+      estMinutes: 14,
+      recommendedDropoff: 'Rideshare Drop-off Animal Kingdom (loop oeste a solo 100 m de los molinetes)',
+      returnTip: 'Al volver a las 15:30 hs evitan cualquier congestión de salida y consiguen los 2 UberXL en menos de 4 minutos.'
+    },
+    mealsTip: 'Satu\'li Canteen en Pandora tiene los mejores bowls saludables de Disney y las famosas Cheeseburger Steamed Pods.',
+    expertTips: [
+      'Estrategia anti-fatiga del 4° parque consecutivo: Animal Kingdom queda a solo 10.9 km (~14 min). Saliendo en 2x UberXL a las 07:25 hs hacemos los imperdibles temprano y volvemos a las 15:30 hs a la pileta.',
+      'Usen Single Rider en Expedition Everest si los 6 adolescentes quieren repetir mientras los adultos disfrutan de las vistas de Asia o un café.',
+      'Mañana domingo 24 es día completo de descanso y compras: no pongan despertador temprano.'
+    ],
+    quickServiceRecommendation: {
+      name: "Satu'li Canteen",
+      location: 'Pandora - World of Avatar (Animal Kingdom)',
+      specialty: 'Bowls de carne, pollo asado, arroz integral y chimichurri',
+      whyFor10Pax: 'La mejor comida rápida de Disney. Salón amplio, fresco y liviano para recargar energía sin pesadez.'
+    }
+  },
+  {
+    dayNumber: 6,
+    dateStr: 'Dom 24 Ene',
+    dayOfWeek: 'Domingo',
+    dateFull: '24 de Enero de 2027',
+    type: 'shopping',
+    title: 'Día de Descanso & Compras 1 · Outlets I-Drive & Best Buy',
+    highlight: 'Domingo estratégico de recuperación física entre los dos bloques de parques: mañana libre, botines en Nike & Adidas Outlet ("Hash Wall") y tecnología en Best Buy.',
+    schedule: [
+      { time: '10:00', activity: 'Mañana sin despertador y desayuno relajado en Celebration Suites. Recuperar piernas tras los primeros 4 parques.', type: 'tip' },
+      { time: '11:30', activity: 'Salida en 2x UberXL rumbo a Orlando International Premium Outlets en I-Drive (22.2 km / ~25 min).', type: 'transport' },
+      { time: '12:00', activity: 'Parada prioritaria 1: Nike Factory Store (buscar el "Hash Wall" al fondo para botines de fútbol y zapatillas).', type: 'shopping' },
+      { time: '13:30', activity: 'Parada prioritaria 2: Adidas Outlet Store (indumentaria deportiva, camisetas y botines Predator/X/Copa).', type: 'shopping' },
+      { time: '14:45', activity: 'Almuerzo en el Food Court o en Shake Shack / Five Guys en International Drive.', type: 'food' },
+      { time: '16:15', activity: 'Traslado corto en 2x UberXL a Best Buy Millenia (4155 Millenia Blvd, a 3.5 km).', type: 'transport' },
+      { time: '16:30', activity: 'Visita de tecnología: ver notebooks (MacBook Air/Pro, laptops gaming Asus/Lenovo), tablets, iPads, powerbanks Anker y accesorios.', type: 'shopping' },
+      { time: '18:45', activity: 'Regreso a Celebration Suites para dejar compras y descansar antes de la trilogía de parques del 25, 26 y 27.', type: 'transport' },
+      { time: '20:30', activity: 'Cena tranquila en Ford\'s Garage (Kissimmee 192, a 5 min) o pizza en el suite y dormir temprano.', type: 'food' }
+    ],
+    teenFocus: [
+      'Dormir hasta tarde y recuperar piernas para la trilogía EPCOT + Universal Studios + Epic Universe',
+      'Probarse botines de fútbol de última gama en Nike ("Hash Wall") y Adidas',
+      'Mirar laptops gamer, auriculares y accesorios en Best Buy Millenia'
+    ],
+    adultFocus: [
+      'Pausa física total de caminatas de parque en domingo (cuando los parques están más llenos)',
+      'Ver notebooks, tablets y powerbanks en Best Buy (Open-Box y garantía oficial)',
+      'Compras de indumentaria con cuponera digital VIP de Simon Outlets'
+    ],
+    uberRecommendation: {
+      departureTime: '11:30',
+      destination: 'Celebration Suites ➔ Orlando Int. Premium Outlets',
+      distanceKm: 22.2,
+      estMinutes: 25,
+      recommendedDropoff: 'Puerta principal junto al Food Court (4951 International Dr)',
+      returnTip: 'A las 16:15 hs pedir los 2x UberXL desde Outlets hacia Best Buy Millenia (solo 3.5 km / 8 min).'
+    },
+    mealsTip: 'Para no perder tiempo en compras, almorzar ágil en Shake Shack o el Food Court; por la noche Ford\'s Garage sobre la 192 está a 5 min de Celebration Suites.',
+    expertTips: [
+      'Domingo inteligente fuera de los parques: mientras Orlando tiene sus filas más altas del fin de semana, nuestro grupo descansa y aprovecha los outlets.',
+      'Llevar una mochila vacía o carry-on liviano para guardar las cajas de botines sin cargar bolsas incómodas.',
+      'A la noche dejar cargados celulares y powerbanks: mañana lunes 25 arranca la trilogía de 3 parques seguidos (EPCOT ➔ Universal Studios ➔ Epic Universe) y a las 06:55 AM hay que pedir Fila Virtual.'
+    ]
+  },
+  {
+    dayNumber: 7,
+    dateStr: 'Lun 25 Ene',
+    dayOfWeek: 'Lunes',
+    dateFull: '25 de Enero de 2027',
+    type: 'park',
+    title: 'Parque 5 · Disney\'s EPCOT (Trilogía Día 1/3)',
+    parkName: 'Disney\'s EPCOT',
+    parkCode: 'disney_epcot',
+    highlight: 'Inicio de la trilogía 25-26-27 de enero: Guardians of the Galaxy: Cosmic Rewind (¡la mejor montaña rusa de Disney!), Soarin\', Remy\'s Ratatouille y Luminous.',
+    schedule: [
+      { time: '06:55', activity: 'Alarma de Fila Virtual: a las 07:00:00 AM ingresar en My Disney Experience para solicitar cupo de Guardians of the Galaxy: Cosmic Rewind.', type: 'tip' },
+      { time: '08:00', activity: 'Desayuno en Celebration Suites y salida sincronizada en 2x UberXL hacia EPCOT (13.7 km).', type: 'transport' },
+      { time: '08:30', activity: 'Llegada al Lote Este de Rideshare y Rope drop hacia World Celebration y World Discovery.', type: 'transport' },
+      { time: '09:00', activity: 'Subida a Guardians of the Galaxy: Cosmic Rewind según grupo de llamada (rotación 360° y temazos de rock).', type: 'ride' },
+      { time: '10:45', activity: 'Soarin\' Around the World en World Nature (simulador de vuelo en ala delta con olores y brisa marina) o Test Track.', type: 'ride' },
+      { time: '12:15', activity: 'Spaceship Earth (viaje nostálgico adentro de la icónica esfera geodésica).', type: 'ride' },
+      { time: '13:30', activity: 'Almuerzo en Connections Eatery (salón climatizado gigante con enchufes USB para cargar celulares de los 11).', type: 'food' },
+      { time: '15:00', activity: 'Paseo por World Showcase: Pabellón de Francia ➔ Remy\'s Ratatouille Adventure (simulador 3D sin rieles).', type: 'ride' },
+      { time: '17:00', activity: 'Recorrido relajado por los 11 países de World Showcase (México, Noruega: Frozen Ever After, Japón, Italia y Alemania).', type: 'shopping' },
+      { time: '20:30', activity: 'Ubicarse en el borde de la laguna de World Showcase para el show nocturno "Luminous: The Symphony of Us" (21:00 hs).', type: 'ride' },
+      { time: '21:30', activity: 'Retorno en 2x UberXL hacia Celebration Suites.', type: 'transport' }
+    ],
+    teenFocus: [
+      'Guardians of the Galaxy: Cosmic Rewind (lanzamiento hacia atrás, giros controlados y música de Queen / Earth Wind & Fire)',
+      'Probar sodas internacionales exóticas en Club Cool de Coca-Cola (¡probar la Beverly de broma!)'
+    ],
+    adultFocus: [
+      'Guardians of the Galaxy (suavidad absoluta en el riel, cero vibración brusca)',
+      'Soarin\' Around the World y Remy\'s Ratatouille Adventure',
+      'Degustación gastronómica en los pabellones de Francia, Italia y Japón en World Showcase'
+    ],
+    uberRecommendation: {
+      departureTime: '08:00',
+      destination: 'Celebration Suites ➔ Disney\'s EPCOT',
+      distanceKm: 13.7,
+      estMinutes: 18,
+      recommendedDropoff: 'Rideshare Drop-off EPCOT (Lote Este frente a la esfera de Spaceship Earth)',
+      returnTip: 'Al terminar Luminous, caminar por el lateral izquierdo de Spaceship Earth hacia el estacionamiento este ANTES de pedir ambos UberXL.'
+    },
+    mealsTip: 'En el pabellón de Francia, pasar por Les Halles Boulangerie-Patisserie para probar croissants, baguettes rellenas y macarons.',
+    expertTips: [
+      'Trilogía 1/3 — Pedido clave de 2x UberXL a las 08:00 hs (13.7 km / ~18 min): llegan frescos tras el domingo de compras y coordinan Guardians of the Galaxy desde las 07:00 AM.',
+      'En Connections Eatery a las 13:30 hs aprovechen los puertos USB en las mesas largas para recargar celulares y powerbanks de los 11 viajeros.',
+      'Cuiden las piernas en World Showcase (es una caminata de 2 km alrededor del lago): el martes 26 toca Universal Studios y el miércoles 27 el plato fuerte, Universal Epic Universe.'
+    ],
+    quickServiceRecommendation: {
+      name: 'Connections Eatery',
+      location: 'World Celebration (EPCOT)',
+      specialty: 'Hamburguesas gourmet, pizzas napolitanas, waffles y ensaladas',
+      whyFor10Pax: 'Espacio enorme con aire acondicionado y enchufes para cargar todos los celulares de los 6 adolescentes mientras comen.'
+    }
+  },
+  {
+    dayNumber: 8,
+    dateStr: 'Mar 26 Ene',
+    dayOfWeek: 'Martes',
+    dateFull: '26 de Enero de 2027',
+    type: 'park',
+    title: 'Parque 6 · Universal Studios Florida (Trilogía Día 2/3)',
+    parkName: 'Universal Studios Florida',
+    parkCode: 'universal_studios',
+    highlight: 'Día de menor afluencia estadística de filas en Universal Studios: Escape from Gringotts, Revenge of the Mummy, Rip Ride Rockit y Diagon Alley.',
+    schedule: [
+      { time: '07:35', activity: 'Desayuno en suites con zapatillas cómodas y botellas de agua en mochilas compactas.', type: 'food' },
+      { time: '07:55', activity: 'Pedir sincronizados los 2x UberXL hacia Universal Orlando Drop-off Hub (23.3 km).', type: 'transport' },
+      { time: '08:30', activity: 'Llegada al Piso 5 del estacionamiento central, seguridad de CityWalk y caminata a Universal Studios Florida.', type: 'transport' },
+      { time: '09:00', activity: 'Entrada directa a Diagon Alley tras la pared de ladrillos: Harry Potter and the Escape from Gringotts con mínima fila de martes.', type: 'ride' },
+      { time: '10:30', activity: 'Revenge of the Mummy (montaña rusa bajo techo con fuego real y aceleraciones brutales).', type: 'ride' },
+      { time: '11:45', activity: 'Hollywood Rip Ride Rockit (subida a 90° y música a elección) + Race Through New York Starring Jimmy Fallon.', type: 'ride' },
+      { time: '13:15', activity: 'Almuerzo en Fast Food Boulevard (Springfield de Los Simpsons) o Leaky Cauldron en Diagon Alley.', type: 'food' },
+      { time: '14:45', activity: 'TRANSFORMERS: The Ride 3D (simulador de batalla urbana) y Despicable Me Minion Mayhem.', type: 'ride' },
+      { time: '16:15', activity: 'MEN IN BLACK Alien Attack (competencia grupal de disparos láser: Auto 1 vs Auto 2).', type: 'ride' },
+      { time: '17:45', activity: 'E.T. Adventure (clásico encantador para los 11) y última vuelta de los adolescentes en Gringotts o Mummy.', type: 'ride' },
+      { time: '19:45', activity: 'Cena relajada en Universal CityWalk (Hard Rock Cafe o Antojitos) y regreso en 2x UberXL para dormir bien antes de Epic Universe.', type: 'food' }
+    ],
+    teenFocus: [
+      'Hollywood Rip Ride Rockit (elegir tema heavy metal o pop antes de subir)',
+      'Revenge of the Mummy (0 a 72 km/h a oscuras con efectos de calor y caídas sorpresa)',
+      'Escape from Gringotts (caída en riel y dragón ucraniano escupefuego)'
+    ],
+    adultFocus: [
+      'Inmersión arquitectónica en Diagon Alley (ver el dragón de Gringotts rugir fuego cada 10 min)',
+      'TRANSFORMERS The Ride 3D y simuladores bajo techo con aire acondicionado',
+      'Competencia grupal en MEN IN BLACK Alien Attack para ver quién saca más puntos'
+    ],
+    uberRecommendation: {
+      departureTime: '07:55',
+      destination: 'Celebration Suites ➔ Universal Drop-off Hub',
+      distanceKm: 23.3,
+      estMinutes: 24,
+      recommendedDropoff: 'Universal Orlando Resort Guest Drop-off (Piso 5)',
+      returnTip: 'Regla de oro de regreso: subir todos juntos al Piso 5 de CityWalk ANTES de pedir los 2 UberXL para no hacer esperar a los choferes.'
+    },
+    mealsTip: 'En Leaky Cauldron pedir Fish & Chips y Cottage Pie. En Diagon Alley prueben el helado de manteca (Butterbeer Ice Cream) en Florean Fortescue\'s.',
+    expertTips: [
+      'Trilogía 2/3 — Ventaja del martes 26: estadísticamente los martes de enero tienen 25-35% menos fila en simuladores y montañas rusas de Universal Studios Florida.',
+      'Logística 2x UberXL a las 07:55 hs (23.3 km / ~24 min): ir al Hub tradicional de CityWalk Piso 5 (¡OJO: mañana miércoles 27 Epic Universe queda en otro campus distinto sobre Epic Blvd!).',
+      'Casilleros gratuitos: en Gringotts, Mummy y Rip Ride Rockit agrupen mochilas en 1 o 2 bolsos compactos para entrar y salir rápido de los lockers.',
+      'Salir del parque antes de las 20:30 hs para dormir 8 horas: mañana miércoles toca madrugar para estrenar Universal Epic Universe.'
+    ],
+    quickServiceRecommendation: {
+      name: 'Fast Food Boulevard (Springfield)',
+      location: 'Springfield (Universal Studios)',
+      specialty: 'Krusty Burgers, Cletus Chicken Shack, pizzas y Flaming Moes',
+      whyFor10Pax: 'Múltiples barras de comidas diferentes dentro de un mismo mega salón cerrado con mesas grandes donde los 11 pueden sentarse juntos.'
+    }
+  },
+  {
+    dayNumber: 9,
+    dateStr: 'Mié 27 Ene',
+    dayOfWeek: 'Miércoles',
+    dateFull: '27 de Enero de 2027',
+    type: 'park',
+    title: 'Parque 7 · Universal Epic Universe (Trilogía Día 3/3)',
+    parkName: 'Universal Epic Universe',
+    parkCode: 'universal_epic',
+    highlight: '¡El gran 7° parque de Orlando! 5 mundos inmersivos: SUPER NINTENDO WORLD, Dark Universe, Isle of Berk, Ministry of Magic y la doble coaster Stardust Racers.',
+    schedule: [
+      { time: '07:15', activity: 'Desayuno energético temprano en Celebration Suites. Verificar la App oficial de Universal Orlando (Mobile Order y tiempos en vivo).', type: 'food' },
+      { time: '07:40', activity: 'Pedir sincronizados los 2x UberXL rumbo al nuevo campus de Universal Epic Universe (20.5 km, acceso por Epic Blvd / Universal Blvd).', type: 'transport', notes: 'ATENCIÓN: No confundir en la app de Uber con el campus antiguo de CityWalk; seleccionar "Universal Epic Universe".' },
+      { time: '08:15', activity: 'Ingreso por el portal monumental Chronos hacia Celestial Park y preparación para el Rope Drop.', type: 'transport' },
+      { time: '09:00', activity: 'Portal 1 — SUPER NINTENDO WORLD: Mario Kart: Bowser\'s Challenge (realidad aumentada) y Mine-Cart Madness (Donkey Kong Country con saltos de vía).', type: 'ride', notes: 'Los chicos pueden usar las pulseras Power-Up Band para interactuar con bloques y minijuegos; Yoshi\'s Adventure ofrece vistas panorámicas.' },
+      { time: '11:30', activity: 'Portal 2 — The Wizarding World of Harry Potter – Ministry of Magic: recorrer el París mágico de los años 20 y subir a Harry Potter and the Battle at the Ministry.', type: 'ride', notes: 'Una de las atracciones más espectaculares jamás creadas (ascensores omnidireccionales y efectos prácticos gigantes).' },
+      { time: '13:30', activity: 'Almuerzo en Mead Hall (Isle of Berk) o Toadstool Cafe (Super Nintendo World) usando Mobile Order grupal para los 11.', type: 'food' },
+      { time: '14:45', activity: 'Portal 3 — How to Train Your Dragon – Isle of Berk: montaña rusa familiar Hiccup\'s Wing Gliders, Dragon Racer\'s Rally y Fyre Drill.', type: 'ride' },
+      { time: '17:00', activity: 'Portal 4 — Dark Universe: Monsters Unchained: The Frankenstein Experiment (tecnología robótica KUKA de nueva generación) y Curse of the Werewolf.', type: 'ride' },
+      { time: '19:15', activity: 'Celestial Park de noche — Stardust Racers: la doble montaña rusa de lanzamiento paralelo a 100 km/h iluminando el cielo nocturno.', type: 'ride', notes: '¡Imperdible de noche! Los trenes cometa brillan sin iluminación externa de rieles mientras se cruzan en el aire.' },
+      { time: '20:45', activity: 'Show nocturno en las fuentes de Cosmos Fountain y regreso en 2x UberXL a Celebration Suites (20.5 km).', type: 'transport' }
+    ],
+    teenFocus: [
+      'Stardust Racers de noche (duelo paralelo de dos trenes a 100 km/h e inversión "Celestial Spin")',
+      'Mine-Cart Madness (montaña rusa de Donkey Kong con sensación de saltar rieles rotos)',
+      'Monsters Unchained y Curse of the Werewolf en Dark Universe'
+    ],
+    adultFocus: [
+      'Harry Potter and the Battle at the Ministry (escala cinematográfica impresionante en el Ministerio de Magia)',
+      'Mario Kart: Bowser\'s Challenge (competencia en 3D/AR para adultos y chicos por igual)',
+      'Arquitectura y gastronomía de Isle of Berk y el espectáculo nocturno de Celestial Park'
+    ],
+    uberRecommendation: {
+      departureTime: '07:40',
+      destination: 'Celebration Suites ➔ Universal Epic Universe',
+      distanceKm: 20.5,
+      estMinutes: 25,
+      recommendedDropoff: 'Universal Epic Universe Rideshare Loop (acceso por Epic Blvd junto a Chronos Plaza)',
+      returnTip: 'Al cerrar el parque, salgan por la plaza central Chronos hacia el loop de Rideshare de Epic Blvd ANTES de pedir los 2x UberXL.'
+    },
+    mealsTip: 'Mead Hall en Isle of Berk tiene salones vikingos enormes ideales para sentar a los 11 juntos y fuentes "Thawfest Platter" para compartir. En Super Nintendo World, Toadstool Cafe requiere Mobile Order temprano.',
+    expertTips: [
+      'Trilogía 3/3 — Ubicación distinta de Uber: Universal Epic Universe está a 20.5 km de Celebration Suites (al sur de Sand Lake Rd / Epic Blvd), NO en CityWalk. Verificar que ambos choferes marquen "Universal Epic Universe".',
+      'Orden inteligente de portales: ataquen SUPER NINTENDO WORLD (Mario Kart + Mine-Cart) o Ministry of Magic a las 09:00 AM en punto, y dejen Stardust Racers para después de las 18:30 hs cuando cae la noche (¡es otro planeta iluminado!).',
+      'Mañana jueves 28 de enero tenemos mañana tranquila de compras/descanso y luego NBA Orlando Magic vs. Chicago Bulls: esta noche antes de dormir dejar descargadas las entradas digitales del Kia Center en el celular y separar carteras pequeñas (prohibidas las mochilas de parque en el estadio).'
+    ],
+    quickServiceRecommendation: {
+      name: 'Mead Hall (Isle of Berk)',
+      location: 'How to Train Your Dragon – Isle of Berk (Epic Universe)',
+      specialty: 'Fuentes nórdicas Thawfest Platter, carnes asadas, salmón y postres temáticos',
+      whyFor10Pax: 'Gran salón vikingo con mesas comunales larguísimas donde entran los 11 cómodos con aire acondicionado y Mobile Order.'
+    }
+  },
+  {
+    dayNumber: 10,
+    dateStr: 'Jue 28 Ene',
+    dayOfWeek: 'Jueves',
+    dateFull: '28 de Enero de 2027',
+    type: 'sports',
+    statusBadge: '✅ ¡Entradas listas!',
+    eventShortLabel: 'NBA',
+    bannerHeadline: '🏀 Partido Confirmado NBA: Orlando Magic vs. Chicago Bulls · Kia Center (19:00 hs)',
+    bannerTransportNote: '🚗 2x UberXL a las 16:45 hs (35 km)',
+    title: 'Mañana Libre / Descanso & NBA: Orlando Magic vs. Chicago Bulls',
+    highlight: '✅ ¡Entradas listas! Mañana libre y de descanso total tras la trilogía de parques; a las 19:00 hs partido oficial NBA en el Kia Center (400 W Church St, a 35 km).',
+    logisticAlert: {
+      departureTime: '16:45',
+      title: 'Alerta Logística NBA · Pedir 2x UberXL a las 16:45 hs en punto',
+      message: 'El Kia Center queda a 35 km desde Celebration Suites por la I-4 Este. Pedir los 2 UberXL a las 16:45 hs evita la congestión de hora pico en la I-4, permite ingresar sin corridas, ver el precalentamiento en cancha y recorrer el Magic Team Shop.'
+    },
+    schedule: [
+      { time: '10:00', activity: 'Mañana libre sin despertador y desayuno relajado en Celebration Suites. Descanso físico tras 3 días seguidos de parques.', type: 'tip' },
+      { time: '11:30', activity: 'Pileta del hotel, relax en los departamentos o caminata tranquila por Old Town Kissimmee (al lado del hotel).', notes: 'Mañana pensada para recargar energía y cuidar piernas (mañana viernes 29 queda entero para compras finales).', type: 'tip' },
+      { time: '13:30', activity: 'Almuerzo tranquilo en Celebration Suites o en algún local cercano sobre la 192.', type: 'food' },
+      { time: '15:30', activity: 'Ducha, cambio de ropa y control de tickets: verificar que las entradas estén guardadas en Apple/Google Wallet y dejar TODAS las mochilas de parque en el suite.', notes: 'En el Kia Center NO permiten mochilas de parque. Llevar solo lo mínimo en bolsillos o carteras sobre muy chicas.', type: 'tip' },
+      { time: '16:45', activity: '🚨 ALERTA LOGÍSTICA: Pedir sincronizados los 2x UberXL rumbo al Kia Center (400 W Church St, Orlando — 35 km por I-4 Este).', notes: 'Salida estratégica a las 16:45 hs para esquivar el tráfico pesado de la I-4.', type: 'transport' },
+      { time: '17:45', activity: 'Llegada a Hughey Ave & W Church St. Ingreso ágil mostrando el wallet del celular y visita al Orlando Magic Team Shop.', type: 'tip' },
+      { time: '19:00', activity: '🏀 PARTIDO NBA CONFIRMADO: Orlando Magic vs. Chicago Bulls en el Kia Center (19:00 hs EST / 21:00 hs ARG).', notes: 'Duelo NBA en vivo para los 11 viajeros con show de luces, pantalla 4K y mascotas.', type: 'ride' },
+      { time: '22:00', activity: 'Cena rápida post-partido en Church Street o regreso directo en 2x UberXL hacia Celebration Suites.', type: 'transport' }
+    ],
+    teenFocus: [
+      '🏀 ¡Entradas listas! Ver en vivo Orlando Magic vs. Chicago Bulls en el Kia Center (19:00 hs)',
+      'Elegir camisetas o gorras oficiales de la NBA en el Orlando Magic Team Shop',
+      'Mañana libre de descanso y pileta para llegar al 100% al partido'
+    ],
+    adultFocus: [
+      'Mañana tranquila de descanso real tras la trilogía EPCOT + Universal Studios + Epic Universe',
+      'Traslado cómodo en 2x UberXL a las 16:45 hs evitando manejar por la I-4 y pagar estacionamiento',
+      'Vivir el espectáculo NBA en vivo junto a los 6 chicos'
+    ],
+    uberRecommendation: {
+      departureTime: '16:45',
+      destination: 'Celebration Suites ➔ Kia Center (400 W Church St, Orlando)',
+      distanceKm: 35,
+      estMinutes: 42,
+      recommendedDropoff: 'Loop Rideshare de Hughey Ave & W Church St (frente al atrio del Kia Center)',
+      returnTip: 'Al terminar el partido (~21:45 hs), caminar 200 m por Church Street alejándose de la puerta principal antes de pedir los 2x UberXL de vuelta.'
+    },
+    mealsTip: 'Almorzar tranquilo cerca del hotel y cenar dentro del Kia Center (puestos de hamburguesas, tacos, tenders y gaseosas; estadio 100% cashless con tarjeta o Apple/Google Pay).',
+    expertTips: [
+      '🚗 Pedir los 2 UberXL a las 16:45 hs en punto: son 35 km por la I-4 Este y a esa hora empieza el tráfico pesado rumbo a Downtown Orlando.',
+      '📲 Entradas en el wallet del celular: agregar los tickets de Orlando Magic vs. Chicago Bulls a Apple Wallet o Google Wallet antes de salir (la señal en la puerta suele colapsar).',
+      '🎒 NO llevar mochilas de parque: el Kia Center prohíbe mochilas y bolsos grandes; solo permiten carteras sobre chicas (máx. 4.5" x 6.5") o llevar celular y tarjeta en los bolsillos.',
+      '💳 Estadio 100% Cashless: no aceptan efectivo dentro del estadio, todo se paga con tarjeta o wallet del celular.'
+    ]
   },
   {
     dayNumber: 11,
     dateStr: 'Vie 29 Ene',
     dayOfWeek: 'Viernes',
     dateFull: '29 de Enero de 2027',
-    type: 'park',
-    title: 'Parque 7 · Universal Park-to-Park / Revancha de Favoritos',
-    parkName: 'Universal Studios + Islands of Adventure',
-    parkCode: 'universal_repeat',
-    highlight: 'Día de revancha para los adolescentes: repetir VelociCoaster, Hagrid, Gringotts y cruzar en Hogwarts Express.',
+    type: 'shopping',
+    title: 'Día Libre de Parques · Compras Finales & Armado de 11 Valijas',
+    highlight: 'Jornada completa sin parques para cerrar todas las compras (Outlets, Nike Clearance al lado del hotel y Walmart) y dejar las 11 valijas armadas para salir a Miami a las 07:00 hs.',
     schedule: [
-      { time: '08:00', activity: 'Desayuno con energía para el último gran día de parques temáticos.', type: 'food' },
-      { time: '08:30', activity: 'Salida en 2x UberXL hacia Universal Orlando (23.3 km).', type: 'transport' },
-      { time: '09:00', activity: 'Entrada y pase Park-to-Park: subirse a la atracción que más les haya gustado en Islands of Adventure (¡VelociCoaster o Hulk!).', type: 'ride' },
-      { time: '11:00', activity: 'Tomar el tren Hogwarts Express en Hogsmeade Station hacia King\'s Cross Station (Universal Studios) con vistas en las ventanas.', type: 'ride' },
-      { time: '12:30', activity: 'Almuerzo en Universal Studios y repetición de Revenge of the Mummy o Gringotts.', type: 'food' },
-      { time: '14:30', activity: 'Compras finales de recuerdos y varitas mágicas en Ollivanders / Honeydukes.', type: 'shopping' },
-      { time: '17:00', activity: 'Última vuelta en VelociCoaster al atardecer para los 5 adolescentes.', type: 'ride' },
-      { time: '19:30', activity: 'Gran cena de despedida de Orlando en Universal CityWalk (Toothsome Chocolate Emporium o NBC Sports Grill).', type: 'food' },
-      { time: '21:30', activity: 'Regreso en 2x UberXL a Celebration Suites y preparar valijas para el viaje a Miami.', type: 'tip' }
+      { time: '09:00', activity: 'Desayuno en Celebration Suites y salida temprana en 2x UberXL hacia Orlando Vineland Premium Outlets (12.7 km) o I-Drive Outlets.', type: 'shopping' },
+      { time: '11:30', activity: 'Parada clave de regreso en Kissimmee: Nike Clearance Store al lado del hotel (sobre US-192 / Kissimmee) para cazar últimas ofertas en botines y zapatillas.', notes: 'Súper cerca de Celebration Suites; ideal para liquidar talles de los 6 adolescentes y adultos.', type: 'shopping' },
+      { time: '13:30', activity: 'Almuerzo distendido sobre la 192 (Ford\'s Garage / Shake Shack / Chick-fil-A).', type: 'food' },
+      { time: '15:00', activity: 'Última pasada por Walmart Supercenter #5214 (Vine St, a 4.5 km): recuerdos Disney/Universal económicos, snacks para la combi, balanza de equipaje o valija extra si hace falta.', type: 'shopping' },
+      { time: '17:00', activity: 'Regreso a Celebration Suites: tarde dedicada a clasificar compras, quitar etiquetas/cajas innecesarias y armar las 11 valijas.', type: 'tip', notes: 'Pesar todas las valijas para cumplir límites de aerolínea y tener bolsos de mano listos.' },
+      { time: '20:30', activity: 'Cena tranquila de despedida de Orlando cerca del hotel y a dormir temprano (mañana sábado 30 salimos a las 07:00 hs hacia Miami).', type: 'food' }
     ],
     teenFocus: [
-      'Subir a VelociCoaster por segunda o tercera vez usando Single Rider si la fila es larga',
-      'Cruzar en el Hogwarts Express y despedirse de las montañas rusas de Universal'
+      'Últimas recorridas por Outlets y Nike Clearance Store al lado del hotel para botines y buzos',
+      'Elegir chocolates, golosinas y recuerdos en Walmart para llevar a Argentina',
+      'Dejar mochilas y las 11 valijas listas antes de acostarse (traje de baño a mano para Miami Beach)'
     ],
     adultFocus: [
-      'Pasear tranquilos sabiendo que ya cumplieron el checklist principal',
-      'Disfrutar del Hogwarts Express y una buena cena de cierre en Toothsome Chocolate Emporium'
+      'Cerrar compras pendientes en Outlets y Walmart con calma y sin cansancio de parques',
+      'Armar y pesar las 11 valijas con tiempo, separando muda de playa para el sábado en Miami Beach',
+      'Dejar todo listo en el hall de los departamentos para cargar la combi a las 06:45 hs'
     ],
     uberRecommendation: {
-      departureTime: '08:30',
-      destination: 'Celebration Suites ➔ Universal Drop-off Hub',
-      distanceKm: 23.3,
-      estMinutes: 24,
-      recommendedDropoff: 'Universal Orlando Resort Guest Drop-off (Piso 5)',
-      returnTip: 'A la noche, salir con tiempo y verificar que nadie olvide mochilas ni cargadores en los casilleros.'
+      departureTime: '09:00',
+      destination: 'Celebration Suites ➔ Outlets, Nike Clearance & Walmart',
+      distanceKm: 12.7,
+      estMinutes: 16,
+      recommendedDropoff: 'Vineland Premium Outlets / Nike Clearance Kissimmee / Walmart Vine St (4.5 km)',
+      returnTip: 'Al estar el Nike Clearance y Walmart a pocos minutos de Celebration Suites, los tramos de vuelta en 2x UberXL salen muy económicos.'
     },
-    mealsTip: 'The Toothsome Chocolate Emporium & Savory Feast Kitchen en CityWalk tiene postres gigantescos y milkshakes artesanales ideales para compartir entre los 10.',
-    quickServiceRecommendation: {
-      name: 'Thunder Falls Terrace',
-      location: 'Jurassic Park (Islands of Adventure)',
-      specialty: 'Costillitas ahumadas, pollo asado, arroz amarillo y choclo',
-      whyFor10Pax: 'Gran salón interior con vista a la caída acuática de Jurassic Park River Adventure. Platos generosos y muchas mesas contiguas.'
-    }
+    mealsTip: 'Aprovechen el almuerzo cerca de los outlets y a la noche cenen liviano cerca del hotel para acostarse temprano antes de la salida de las 07:00 hs.',
+    expertTips: [
+      '👟 Nike Clearance al lado del hotel + Outlets + Walmart en el mismo día: arranquen por Outlets a las 09:00 hs cuando recién abren, sigan por Nike Clearance al mediodía y cierren con Walmart a las 15:00 hs para traer snacks y bolsas de viaje.',
+      '🧳 Operativo 11 Valijas: armen el equipaje entre las 17:00 y las 20:00 hs dejando arriba de todo o en una mochila de mano el traje de baño, ojotas y protector solar para aprovechar la playa apenas lleguemos a Miami Beach.',
+      '⏰ Alarma obligatoria: mañana sábado 30 la combi privada sale puntual a las 07:00 hs rumbo a Miami (~380 km). Dejar las 11 valijas cerca de la puerta antes de dormir.'
+    ]
   },
   {
     dayNumber: 12,
@@ -785,28 +865,180 @@ export const ITINERARY: ItineraryDay[] = [
     dayOfWeek: 'Sábado',
     dateFull: '30 de Enero de 2027',
     type: 'travel',
-    title: 'Check-out en Orlando & Traslado a Miami en Combi Privada',
-    highlight: 'Combi/Trafic privada contratada para el grupo de 11 personas: salida desde Celebration Suites y llegada a Seacoast (Miami Beach).',
+    title: 'Salida 07:00 hs a Miami & Todo el Sábado de Playa en Seacoast Suites',
+    highlight: 'Traslado Orlando ➔ Miami ya contratado en el paquete: salida temprana puntual a las 07:00 hs (~380 km) hacia Seacoast Suites on Miami Beach (5101 Collins Ave, deptos Deluxe de 1 y 2 dormitorios con salida directa a la playa).',
     schedule: [
-      { time: '09:00', activity: 'Desayuno final en Celebration Suites. Revisar armarios, enchufes y cajas de seguridad.', type: 'tip' },
-      { time: '10:30', activity: 'Check-out formal en recepción de Celebration Suites.', type: 'tip' },
-      { time: '10:45', activity: 'Encuentro en el lobby con la combi/trafic privada ya contratada. Carga de los equipajes de los 11.', type: 'transport' },
-      { time: '11:00', activity: 'Inicio del viaje en combi privada rumbo a Miami Beach (380 km por Florida\'s Turnpike, ~3.5 a 4 horas).', type: 'transport' },
-      { time: '13:00', activity: 'Parada técnica de descanso y almuerzo en Fort Drum Service Plaza (km 190, mitad de camino sobre el Turnpike).', type: 'food' },
-      { time: '15:30', activity: 'Llegada a Miami Beach, Check-in en Hotel Seacoast frente al mar (5101 Collins Ave).', type: 'tip' },
-      { time: '18:00', activity: 'Paseo relajado por la playa y cena en Lincoln Road o Ocean Drive.', type: 'food' }
+      { time: '06:15', activity: 'Check-out rápido en Celebration Suites, control final de armarios/enchufes y café/desayuno ágil para llevar.', type: 'tip' },
+      { time: '06:45', activity: 'Carga de las 11 valijas en el transporte privado Orlando ➔ Miami ya contratado en el paquete en el lobby de Celebration Suites.', type: 'transport' },
+      { time: '07:00', activity: '🚐 SALIDA TEMPRANO PUNTUAL rumbo a Miami Beach (~380 km por Florida\'s Turnpike, traslado ya contratado en el paquete).', notes: 'Salir a las 07:00 hs evita tráfico de media mañana y garantiza llegar a la playa para el mediodía.', type: 'transport' },
+      { time: '09:15', activity: 'Parada técnica rápida de 20 min en Fort Drum Service Plaza (km 190 del Turnpike) para baños y café.', type: 'food' },
+      { time: '11:00', activity: 'Llegada a Seacoast Suites on Miami Beach (5101 Collins Ave): departamentos Deluxe de 1 y 2 dormitorios con salida directa a la playa. Dejar las 11 valijas en recepción / check-in anticipado si están listos.', type: 'tip' },
+      { time: '11:45', activity: '🏖️ ¡TODO EL SÁBADO DE PLAYA EN MIAMI BEACH! Salida directa desde Seacoast Suites al mar, almuerzo frente a la playa y pileta para los 11 viajeros.', type: 'ride' },
+      { time: '19:30', activity: 'Ducha en los departamentos Deluxe, paseo nocturno por Lincoln Road o Ocean Drive y cena distendida en Miami Beach.', type: 'food' }
     ],
-    teenFocus: ['Conocer la playa de Miami Beach, descansar en la combi escuchando música con el grupo'],
-    adultFocus: ['Control exhaustivo de valijas y documentos antes de dejar el hotel en Orlando'],
+    teenFocus: [
+      'Dormir el tramo de ruta escuchando música y bajar directo a la playa antes del mediodía',
+      'Salida directa a la playa desde Seacoast Suites on Miami Beach: tarde completa de mar, fútbol en la arena y pileta',
+      'Recorrida nocturna por Ocean Drive / Lincoln Road'
+    ],
+    adultFocus: [
+      'Control de las 11 valijas al subir al traslado ya contratado en el paquete a las 06:45 hs',
+      'Comodidad en Seacoast Suites on Miami Beach (5101 Collins Ave): departamentos Deluxe de 1 y 2 dormitorios con salida directa a la playa',
+      'Dejar listos los bolsos transparentes para la doble jornada FIFA de mañana domingo 31'
+    ],
     uberRecommendation: {
-      departureTime: '11:00',
-      destination: 'Celebration Suites ➔ Miami Beach (Combi Privada Contratada)',
+      departureTime: '07:00',
+      destination: 'Celebration Suites ➔ Seacoast Suites on Miami Beach (Contratado en Paquete)',
       distanceKm: 380,
-      estMinutes: 220,
-      recommendedDropoff: 'Hotel Seacoast Suites Miami Beach (5101 Collins Ave, Miami Beach, FL 33140)',
-      returnTip: 'Aclaración importante: Este trayecto se realiza en la combi/trafic privada ya contratada por el grupo, sin necesidad de usar Uber.'
+      estMinutes: 230,
+      recommendedDropoff: 'Seacoast Suites on Miami Beach (5101 Collins Ave, Miami Beach, FL 33140 · Deptos Deluxe 1 y 2 dormitorios c/ salida directa a la playa)',
+      returnTip: 'Este traslado Orlando ➔ Miami del sábado 30 (~380 km) ya está contratado en el paquete para los 11 viajeros, sin necesidad de pedir Uber.'
     },
-    mealsTip: 'Hacer una parada para almorzar en Fort Drum Service Plaza sobre Florida\'s Turnpike (Wendy\'s, Dunkin, Starbucks y minimercado).'
+    mealsTip: 'Llevar agua, fruta y sándwiches/snacks comprados ayer en Walmart para desayunar en ruta y almorzar tranquilos frente a la playa al llegar a Seacoast Suites on Miami Beach.',
+    expertTips: [
+      '🕖 Salida clave a las 07:00 hs (traslado Orlando ➔ Miami ya contratado en el paquete): hacer los ~380 km bien temprano permite llegar ~11:00 hs a Seacoast Suites y ganar toda la jornada de sol y playa.',
+      '🏨 Seacoast Suites on Miami Beach (5101 Collins Ave): departamentos Deluxe de 1 y 2 dormitorios con salida directa a la playa. Tener trajes de baño y protector en un bolso aparte por si hacen uso de la playa mientras terminan de liberar los deptos.',
+      '⚽ Preparar hoy a la noche la visita de mañana domingo 31 al Nu Stadium (FIFA Women\'s Champions Cup): revisar entradas en el wallet y armar solo bolsos transparentes (Clear Bag Policy).'
+    ]
+  },
+  {
+    dayNumber: 13,
+    dateStr: 'Dom 31 Ene',
+    dayOfWeek: 'Domingo',
+    dateFull: '31 de Enero de 2027',
+    type: 'sports',
+    statusBadge: '✅ ¡Entradas listas!',
+    eventShortLabel: 'FIFA',
+    bannerHeadline: "⚽ FIFA Women's Champions Cup 2027 (Fase Final) · Nu Stadium (Inter Miami CF)",
+    bannerTransportNote: '🎟️ Doble jornada: 15:30 hs (3° Puesto) & 18:30 hs (Gran Final)',
+    title: "FIFA Women's Champions Cup 2027 · Estadio Inter Miami CF (Nu Stadium)",
+    highlight: "✅ ¡Entradas listas! Mañana de playa desde Seacoast Suites on Miami Beach (5101 Collins Ave) y doble jornada de fútbol internacional en el estadio de Inter Miami CF (Nu Stadium): 15:30 hs Partido por el 3° puesto y 18:30 hs la Gran Final.",
+    logisticAlert: {
+      departureTime: '13:45',
+      title: 'Alerta Logística FIFA · Pedir 2x UberXL con tiempo (13:45 hs) + Clear Bag Policy',
+      message: "La entrada cubre ambos partidos en el Nu Stadium (estadio de Inter Miami CF). Salir en 2x UberXL desde Seacoast Suites on Miami Beach con margen (~13:45 hs) permite absorber el tráfico previo a eventos FIFA y pasar controles antes del pitazo de las 15:30 hs. ¡Solo se permiten bolsos transparentes!"
+    },
+    schedule: [
+      { time: '09:30', activity: 'Mañana tranquila en Seacoast Suites on Miami Beach (5101 Collins Ave): desayuno en los departamentos Deluxe y playa con salida directa al mar.', type: 'tip' },
+      { time: '12:30', activity: 'Almuerzo temprano en Miami Beach y preparación de indumentaria futbolera para el estadio.', type: 'food' },
+      { time: '13:30', activity: 'Control obligatorio antes de salir: entradas en el wallet del celular y ÚNICAMENTE bolsos transparentes (Clear Bag Policy) + baterías portátiles cargadas.', notes: 'Prohibidas mochilas opacas, carteras grandes y bolsos deportivos comunes en el ingreso.', type: 'tip' },
+      { time: '13:45', activity: '🚗 Pedir con tiempo los 2x UberXL desde Seacoast Suites on Miami Beach (5101 Collins Ave) rumbo al estadio de Inter Miami CF (Nu Stadium).', notes: 'Llegar con margen evita demoras en las zonas de descenso de Rideshare en día de doble final FIFA.', type: 'transport' },
+      { time: '14:45', activity: 'Llegada al Nu Stadium (Inter Miami CF), ingreso por seguridad con bolsos transparentes, fotos grupales y fan zone.', type: 'tip' },
+      { time: '15:30', activity: "⚽ PARTIDO 1 (Incluido en la entrada): Partido por el 3° Puesto — FIFA Women's Champions Cup 2027.", type: 'ride' },
+      { time: '17:30', activity: 'Entretiempo entre partidos: hidratación, snacks/cena rápida en las barras del estadio y visita a la tienda oficial.', type: 'food' },
+      { time: '18:30', activity: "🏆 PARTIDO 2 (Incluido en la entrada): GRAN FINAL — FIFA Women's Champions Cup 2027 y ceremonia de premiación.", type: 'ride' },
+      { time: '21:15', activity: 'Caminata tranquila hacia la zona designada de Rideshare y regreso en 2x UberXL hacia Seacoast Suites on Miami Beach.', type: 'transport' }
+    ],
+    teenFocus: [
+      "⚽ ¡Entradas listas! Doble jornada FIFA en el estadio de Inter Miami CF (Nu Stadium): 15:30 hs (3° puesto) y 18:30 hs (Gran Final)",
+      'Conocer el nuevo estadio de Inter Miami CF y vivir la ceremonia de campeonas en vivo',
+      'Mañana de playa con salida directa desde Seacoast Suites on Miami Beach antes de ir a la cancha'
+    ],
+    adultFocus: [
+      'Desayuno y mañana relajada en los departamentos Deluxe de 1 y 2 dormitorios de Seacoast Suites (5101 Collins Ave)',
+      'Cumplir sin contratiempos la política de bolsos transparentes (Clear Bag Policy) para entrar rápido con los 11',
+      'Traslado puerta a puerta en 2x UberXL sin preocuparse por estacionamientos en evento FIFA'
+    ],
+    uberRecommendation: {
+      departureTime: '13:45',
+      destination: 'Seacoast Suites on Miami Beach ➔ Estadio Inter Miami CF (Nu Stadium)',
+      distanceKm: 18,
+      estMinutes: 35,
+      recommendedDropoff: 'Zona oficial de Rideshare / Uber Drop-off del Nu Stadium (Inter Miami CF)',
+      returnTip: 'Al finalizar la Gran Final (~21:00 hs), esperar 15-20 min disfrutando la premiación antes de caminar al punto de UberXL rumbo a Seacoast Suites (5101 Collins Ave).'
+    },
+    mealsTip: 'Almorzar bien a las 12:30 hs cerca de Seacoast Suites antes de salir; dentro del Nu Stadium aprovechar el intervalo entre el partido de las 15:30 hs y la Gran Final de las 18:30 hs para cenar (estadio cashless: llevar tarjeta o Apple/Google Pay).',
+    expertTips: [
+      '🚗 Pedir los 2 UberXL con tiempo (~13:45 hs desde Seacoast Suites on Miami Beach): en eventos FIFA de doble jornada los accesos al Nu Stadium se congestionan 60-90 min antes del primer partido (15:30 hs).',
+      '👜 Clear Bag Policy obligatoria: SOLO se permiten bolsos transparentes (plástico/PVC transparente hasta 12" x 6" x 12" / 30x15x30 cm) o carteras de mano muy pequeñas (clutch). Mochilas y bolsos opacos quedan afuera.',
+      '🔋 Jornada larga de 2 partidos (15:30 hs y 18:30 hs): llevar entradas ya descargadas en el wallet del celular y al menos 1 powerbank por cada Auto (Auto 1 y Auto 2) dentro del bolso transparente para no quedarse sin batería a la vuelta.',
+      '☀️ Llevar gorra y protector solar aplicado desde el departamento para el primer partido de las 15:30 hs, y un buzo liviano atado a la cintura para cuando refresque en la Gran Final de las 18:30 hs.'
+    ]
+  },
+  {
+    dayNumber: 14,
+    dateStr: 'Lun 1 Feb',
+    dayOfWeek: 'Lunes',
+    dateFull: '1 de Febrero de 2027',
+    type: 'shopping',
+    eventShortLabel: 'Compras / Playa',
+    title: 'Sawgrass Mills (Clearance Outlets) & Última Playa en Seacoast Suites',
+    highlight: 'Mañana y primera tarde en Sawgrass Mills (el outlet más grande de EE.UU., a 50 km, ideal para tiendas Clearance de Nike, Adidas y Burlington). Tardecita de última playa en Seacoast Suites y armado de las 11 valijas.',
+    schedule: [
+      { time: '08:45', activity: 'Desayuno en los departamentos Deluxe de Seacoast Suites on Miami Beach (5101 Collins Ave).', type: 'food' },
+      { time: '09:15', activity: 'Salida sincronizada en 2x UberXL hacia Sawgrass Mills en Sunrise (50 km / ~45-50 min).', notes: 'Ir temprano garantiza conseguir mejores talles en las tiendas Clearance antes de que se llene el mall.', type: 'transport' },
+      { time: '10:00', activity: 'Apertura de Sawgrass Mills (el outlet más grande de EE.UU.): arrancar directo por Nike Clearance / Nike Factory Store, Adidas Outlet y Burlington.', type: 'shopping' },
+      { time: '13:30', activity: 'Almuerzo rápido en el Food Court o Cheesecake Factory / P.F. Chang\'s de The Oasis en Sawgrass Mills.', type: 'food' },
+      { time: '15:30', activity: 'Regreso en 2x UberXL hacia Seacoast Suites on Miami Beach (50 km) para llegar con luz de tarde.', type: 'transport' },
+      { time: '16:30', activity: '🏖️ Tardecita de última playa con salida directa desde Seacoast Suites on Miami Beach y despedida del mar.', type: 'ride' },
+      { time: '19:00', activity: '🧳 Armado y pesaje definitivo de las 11 valijas en los departamentos Deluxe (check-out mañana a las 07:15 hs).', notes: 'Tener pasaportes, tarjetas de embarque y equipaje de mano separados antes de dormir.', type: 'tip' },
+      { time: '21:00', activity: 'Última cena en Miami Beach y descanso temprano para madrugar rumbo al aeropuerto MIA.', type: 'food' }
+    ],
+    teenFocus: [
+      'Cazar últimas oportunidades en Nike Clearance, Adidas Outlet y Burlington en el outlet más grande de EE.UU. (Sawgrass Mills)',
+      'Último chapuzón de tardecita en la playa de Seacoast Suites',
+      'Dejar mochilas de mano listas para los vuelos de regreso'
+    ],
+    adultFocus: [
+      'Recorrer Sawgrass Mills (50 km) con estrategia de mañana + primera tarde para evitar horas pico de regreso',
+      'Disfrutar la última tarde de playa con salida directa desde los departamentos Deluxe',
+      'Dejar las 11 valijas cerradas y pesadas antes de acostarse (mañana 07:15 hs check-out hacia MIA)'
+    ],
+    uberRecommendation: {
+      departureTime: '09:15',
+      destination: 'Seacoast Suites on Miami Beach ➔ Sawgrass Mills (Sunrise, FL)',
+      distanceKm: 50,
+      estMinutes: 48,
+      recommendedDropoff: 'Entrada principal de Sawgrass Mills junto a Nike / The Colonnade Outlets (12801 W Sunrise Blvd)',
+      returnTip: 'Salir de Sawgrass Mills alrededor de las 15:30 hs evita el tráfico pesado vespertino de la I-95 / I-595 hacia Miami Beach.'
+    },
+    mealsTip: 'Aprovechar el Food Court o The Oasis en Sawgrass Mills a las 13:30 hs para almorzar rápido y no perder tiempo de compras ni de la última tardecita de playa.',
+    expertTips: [
+      '🛍️ Estrategia Sawgrass Mills (50 km): es gigante (más de 350 locales). Vayan directo primero a Nike Clearance/Factory, Adidas y Burlington entre 10:00 y 13:00 hs mientras hay stock fresco de talles.',
+      '🏖️ Corte a las 15:30 hs: regresar a esa hora les regala la última tardecita de playa en Seacoast Suites on Miami Beach antes de armar las 11 valijas.',
+      '⚖️ Operativo 11 Valijas: controlar peso máximo (23 kg en bodega) y que no queden líquidos >100 ml en los bolsos de mano porque mañana a las 07:15 hs salimos hacia el Aeropuerto de Miami (MIA).'
+    ]
+  },
+  {
+    dayNumber: 15,
+    dateStr: 'Mar 2 Feb',
+    dayOfWeek: 'Martes',
+    dateFull: '2 de Febrero de 2027',
+    type: 'travel',
+    eventShortLabel: 'Regreso',
+    title: 'Check-out Seacoast Suites (07:15 hs) & Vuelos Copa Airlines MIA ➔ PTY ➔ ROS',
+    highlight: '07:15 hs Check-out de Seacoast Suites y salida en 2x UberXL al Aeropuerto de Miami (MIA, a 20 km). Vuelo Copa CM 440 (MIA 11:21 ➔ PTY 14:30) y conexión CM 882 (PTY 15:23 ➔ Rosario 00:16 del mié 3 feb).',
+    schedule: [
+      { time: '06:30', activity: 'Último café en los deptos Deluxe de Seacoast Suites, revisión de pasaportes de los 11 viajeros, enchufes y cajas de seguridad.', type: 'tip' },
+      { time: '07:15', activity: 'Check-out formal de Seacoast Suites on Miami Beach (5101 Collins Ave) y pedido sincronizado de 2x UberXL rumbo al Aeropuerto Internacional de Miami (MIA, a 20 km).', notes: 'Con 11 valijas + carry-ons, verificar que ambos vehículos sean SUV/Minivan UberXL amplios.', type: 'transport' },
+      { time: '07:50', activity: 'Llegada a Terminal de Copa Airlines en MIA (Terminal J / Concourse J). Despacho de las 11 valijas y paso por seguridad TSA.', type: 'tip' },
+      { time: '11:21', activity: '✈️ VUELO COPA AIRLINES CM 440: Despegue desde Miami (MIA) 11:21 hs rumbo a Ciudad de Panamá (PTY).', type: 'ride' },
+      { time: '14:30', activity: 'Aterrizaje en Aeropuerto Internacional de Tocumen, Panamá (PTY). ¡Conexión rápida de 53 minutos! Dirigirse directo a la puerta de embarque de CM 882.', notes: 'Sin pasar migraciones en Panamá: solo caminar directo de puerta a puerta dentro de la terminal.', type: 'transport' },
+      { time: '15:23', activity: '✈️ CONEXIÓN COPA AIRLINES CM 882: Despegue desde Panamá (PTY) 15:23 hs rumbo a Rosario, Argentina (ROS).', type: 'ride' },
+      { time: '00:16', activity: '🏠 Llegada al Aeropuerto Internacional de Rosario (ROS) a las 00:16 hs de la madrugada del miércoles 3 de febrero. ¡Fin de un viaje inolvidable!', type: 'tip' }
+    ],
+    teenFocus: [
+      'Tener auriculares, celulares cargados y películas descargadas para los vuelos CM 440 y CM 882',
+      'Caminar rápido todos juntos en Panamá (PTY) entre puertas: ¡es una conexión ágil de 53 min!'
+    ],
+    adultFocus: [
+      'Control de los 11 pasaportes y despacho simultáneo de las 11 valijas en el mostrador de Copa Airlines en MIA (~08:00 hs)',
+      'Coordinar los 2x UberXL a las 07:15 hs con espacio suficiente para todas las valijas hasta MIA (20 km)'
+    ],
+    uberRecommendation: {
+      departureTime: '07:15',
+      destination: 'Seacoast Suites on Miami Beach ➔ Aeropuerto Internacional de Miami (MIA)',
+      distanceKm: 20,
+      estMinutes: 30,
+      recommendedDropoff: 'Miami International Airport (MIA) · Salidas Internacionales / Copa Airlines (Concourse J)',
+      returnTip: 'Por la cantidad de valijas (11 viajeros), si ven un auto chico al asignarse el UberXL, cancelar en los primeros 2 min y pedir UberXXL o una minivan grande en el lobby.'
+    },
+    mealsTip: 'Desayunar algo liviano en Seacoast o en la zona de embarque de MIA después de pasar TSA (entre 09:00 y 10:30 hs), ya que Copa Airlines sirve almuerzo/cena a bordo en ambos vuelos.',
+    expertTips: [
+      '🚐 Atención 07:15 hs con 11 valijas rumbo a MIA (20 km): en Miami Beach los UberXL estándar a veces son SUV 3 filas con baúl justo para 5-6 personas + 5 valijas grandes. Pedir con margen a las 07:15 hs da tiempo de sobra para llegar ~3 horas antes del CM 440 (11:21 hs).',
+      '⚡ Conexión exprés en Panamá (PTY): llegan a las 14:30 hs en el CM 440 y el CM 882 sale a las 15:23 hs (53 min). Lleven ya impresos/en wallet los dos boarding passes desde MIA y caminen directo a la puerta del vuelo a Rosario antes de pasar al Duty Free.',
+      '🇦🇷 Llegada a Rosario (ROS): el CM 882 aterriza a las 00:16 hs del miércoles 3 de febrero; coordinar con anticipación los traslados de regreso desde Fisherton.'
+    ]
   }
 ];
 
@@ -993,6 +1225,134 @@ export const ATTRACTIONS: Attraction[] = [
     queueStrategy: 'Fila rápida habitualmente.',
     hasSingleRider: true,
     virtualQueueOrLL: 'Universal Express / Single Rider'
+  },
+
+  // --- UNIVERSAL EPIC UNIVERSE ---
+  {
+    id: 'stardust-racers',
+    name: 'Stardust Racers',
+    park: 'Universal Epic Universe',
+    parkShort: 'Epic Universe',
+    land: 'Celestial Park',
+    category: 'rollercoaster',
+    targetAudience: 'teens',
+    adrenalineLevel: 5,
+    techImmersionLevel: 5,
+    minHeightCm: 122,
+    minHeightInches: 48,
+    description: 'Doble montaña rusa de lanzamiento paralelo que alcanza 100 km/h y 40 metros de altura. Ambos trenes compiten y se entrelazan en el "Celestial Spin", iluminando la noche sin luces en la vía.',
+    whyForGroup: 'La nueva joya extrema de Orlando junto a VelociCoaster: adrenalina pura para Renato, Tuto, José, Máximo, Josefina y Luisina.',
+    queueStrategy: 'Subir al caer la tarde o de noche para disfrutar los trenes iluminados. Tiene Single Rider y casilleros gratuitos obligatorios.',
+    hasSingleRider: true,
+    virtualQueueOrLL: 'Universal Express / Single Rider / Fila regular'
+  },
+  {
+    id: 'mario-kart-bowsers-challenge',
+    name: "Mario Kart: Bowser's Challenge",
+    park: 'Universal Epic Universe',
+    parkShort: 'Epic Universe',
+    land: 'SUPER NINTENDO WORLD',
+    category: 'simulator',
+    targetAudience: 'all',
+    adrenalineLevel: 2,
+    techImmersionLevel: 5,
+    minHeightCm: 102,
+    minHeightInches: 40,
+    description: 'Recorrido interactivo con visores de realidad aumentada dentro del Castillo de Bowser: manejan el volante y lanzan caparazones a los Koopalings para ganar la Copa Dorada.',
+    whyForGroup: 'Diversión competitiva ideal para los 11 viajeros juntos (adultos vs adolescentes acumulando monedas digitales).',
+    queueStrategy: 'Ir en Rope Drop a las 09:00 AM en punto o aprovechar Single Rider.',
+    hasSingleRider: true,
+    virtualQueueOrLL: 'Universal Express / Single Rider'
+  },
+  {
+    id: 'mine-cart-madness',
+    name: 'Mine-Cart Madness (Donkey Kong)',
+    park: 'Universal Epic Universe',
+    parkShort: 'Epic Universe',
+    land: 'SUPER NINTENDO WORLD',
+    category: 'rollercoaster',
+    targetAudience: 'all',
+    adrenalineLevel: 3,
+    techImmersionLevel: 5,
+    minHeightCm: 102,
+    minHeightInches: 40,
+    description: 'Montaña rusa familiar revolucionaria con riel oculto que genera la ilusión real de saltar sobre vías rotas y barrancos en Donkey Kong Country.',
+    whyForGroup: 'Tecnología patentada única en el mundo: emocionante para los chicos y muy disfrutable para los 5 adultos.',
+    queueStrategy: 'Hacer inmediatamente después de Mario Kart en la mañana o por fila Single Rider.',
+    hasSingleRider: true,
+    virtualQueueOrLL: 'Single Rider / Fila regular'
+  },
+  {
+    id: 'battle-at-the-ministry',
+    name: 'Harry Potter and the Battle at the Ministry',
+    park: 'Universal Epic Universe',
+    parkShort: 'Epic Universe',
+    land: 'The Wizarding World of Harry Potter – Ministry of Magic',
+    category: 'dark_ride',
+    targetAudience: 'all',
+    adrenalineLevel: 3,
+    techImmersionLevel: 5,
+    minHeightCm: 102,
+    minHeightInches: 40,
+    description: 'Viajas por el Metro-Floo desde el París mágico de 1920 hasta el inmenso atrio del Ministerio británico para el juicio de Dolores Umbridge en ascensores omnidireccionales.',
+    whyForGroup: 'Escala cinematográfica al nivel de Rise of the Resistance: obligatoria para los 11 integrantes del grupo.',
+    queueStrategy: 'Priorizar en la primera hora de la mañana o verificar fila en la app oficial de Universal.',
+    hasSingleRider: true,
+    virtualQueueOrLL: 'Universal Express / Single Rider'
+  },
+  {
+    id: 'monsters-unchained',
+    name: 'Monsters Unchained: The Frankenstein Experiment',
+    park: 'Universal Epic Universe',
+    parkShort: 'Epic Universe',
+    land: 'Dark Universe',
+    category: 'dark_ride',
+    targetAudience: 'teens',
+    adrenalineLevel: 4,
+    techImmersionLevel: 5,
+    minHeightCm: 122,
+    minHeightInches: 48,
+    description: 'La atracción más oscura y tecnológicamente avanzada de Dark Universe: brazos robóticos KUKA de última generación rodeados de Drácula, el Hombre Lobo y el Monstruo de Frankenstein.',
+    whyForGroup: 'Ambientación gótica impresionante y movimientos dinámicos intensos que fascinan a adolescentes y adultos.',
+    queueStrategy: 'La fila avanza muy rápido por su alta capacidad horaria; ideal para media tarde.',
+    hasSingleRider: true,
+    virtualQueueOrLL: 'Universal Express / Single Rider'
+  },
+  {
+    id: 'curse-of-the-werewolf',
+    name: 'Curse of the Werewolf',
+    park: 'Universal Epic Universe',
+    parkShort: 'Epic Universe',
+    land: 'Dark Universe',
+    category: 'rollercoaster',
+    targetAudience: 'teens',
+    adrenalineLevel: 4,
+    techImmersionLevel: 4,
+    minHeightCm: 102,
+    minHeightInches: 40,
+    description: 'Montaña rusa giratoria (spinning coaster) familiar-intensa con lanzamiento adelante y atrás a 60 km/h atravesando el bosque maldito de Darkmoor.',
+    whyForGroup: 'Giro libre de los carros según el peso de cada grupo, haciendo cada vuelta distinta para los chicos.',
+    queueStrategy: 'Hacer junto con Monsters Unchained entre las 16:30 y 18:30 hs.',
+    hasSingleRider: true,
+    virtualQueueOrLL: 'Universal Express / Single Rider'
+  },
+  {
+    id: 'hiccups-wing-gliders',
+    name: "Hiccup's Wing Gliders",
+    park: 'Universal Epic Universe',
+    parkShort: 'Epic Universe',
+    land: 'How to Train Your Dragon – Isle of Berk',
+    category: 'rollercoaster',
+    targetAudience: 'all',
+    adrenalineLevel: 3,
+    techImmersionLevel: 4,
+    minHeightCm: 102,
+    minHeightInches: 40,
+    description: 'Montaña rusa de doble lanzamiento suave estilo Hagrid que planea sobre la laguna y los barcos vikingos de Isle of Berk a 72 km/h junto a Hipo y Chimuelo.',
+    whyForGroup: 'Ideal para subir todos juntos disfrutando las vistas completas de la isla vikinga sin inversiones extremas.',
+    queueStrategy: 'Excelente para hacer justo después del almuerzo en Mead Hall.',
+    hasSingleRider: false,
+    virtualQueueOrLL: 'Universal Express / Fila regular'
   },
 
   // --- DISNEY'S HOLLYWOOD STUDIOS ---
@@ -1317,22 +1677,35 @@ export const UBER_ROUTES: UberRoute[] = [
     drivingMinutesNormal: 22,
     drivingMinutesPeak: 30,
     estCostPerUberXL: 34, // total x2 = $68
-    pickupAdvice: 'Salida recomendada: 08:05 AM para llegar al Rope Drop de las 09:00 AM tras pasar el control de seguridad de CityWalk.',
+    pickupAdvice: 'Salida recomendada: 07:55 AM (Mar 26 Ene) / 08:05 AM (Mié 20 Ene) para llegar al Rope Drop tras pasar el control de seguridad de CityWalk.',
     dropoffAdvice: 'Zona exacta: Piso 5 (Level 5) de la mega estructura central de estacionamientos (área señalizada "Guest Drop-off / Rideshare").',
     carSyncTips: 'Bajan por las escaleras mecánicas hacia la seguridad de CityWalk. Para el regreso nocturno: SUBIR al Piso 5 ANTES de pedir los 2 UberXL para no hacer esperar a los choferes.',
     exactZoneCoordinates: 'Universal Parking Garage - Level 5 Rideshare Hub (Señalización Jurassic Park / Cat in the Hat)'
   },
   {
+    id: 'celebration-to-epic-universe',
+    destinationName: 'Universal Epic Universe (Nuevo Campus)',
+    category: 'universal',
+    distanceKm: 20.5,
+    drivingMinutesNormal: 22,
+    drivingMinutesPeak: 30,
+    estCostPerUberXL: 32, // total x2 = $64
+    pickupAdvice: 'Salida recomendada (Mié 27 Ene): 07:40 hs desde Celebration Suites hacia el nuevo campus sobre Epic Blvd / Universal Blvd (NO ir al parking viejo de CityWalk).',
+    dropoffAdvice: 'Zona exacta: Loop de Rideshare / Drop-off exclusivo de Universal Epic Universe frente a la entrada Chronos Plaza.',
+    carSyncTips: 'Confirmar en las 2 apps de Uber (Auto 1 y Auto 2) que el destino diga exactamente "Universal Epic Universe" y no "Universal Studios Florida", ya que están separados por varios kilómetros.',
+    exactZoneCoordinates: 'Universal Epic Universe Rideshare Drop-off (Epic Blvd / Chronos Gate)'
+  },
+  {
     id: 'celebration-to-kia-center',
-    destinationName: 'Kia Center · Orlando Magic (Downtown NBA)',
+    destinationName: 'Kia Center · Orlando Magic vs. Bulls (Downtown NBA)',
     category: 'shopping',
-    distanceKm: 32.0,
-    drivingMinutesNormal: 30,
-    drivingMinutesPeak: 38,
-    estCostPerUberXL: 42, // total x2 = $84
-    pickupAdvice: 'Llegar 1 hora antes del partido de los Magic al Downtown de Orlando (400 W Church St).',
+    distanceKm: 35.0,
+    drivingMinutesNormal: 32,
+    drivingMinutesPeak: 42,
+    estCostPerUberXL: 45, // total x2 = $90
+    pickupAdvice: 'ALERTA EXPERTO (Jue 28 Ene): Pedir los 2x UberXL a las 16:45 hs desde Celebration Suites para esquivar la hora pico en la I-4 Este y llegar con margen al partido de las 19:00 hs (400 W Church St).',
     dropoffAdvice: 'Zona exacta: Hughey Ave & W Church St, a pasos del acceso principal de Church Street Station.',
-    carSyncTips: 'Recordar para los 11: el estadio NO acepta efectivo (100% digital/tarjeta) y tiene política de bolsos estricta (máximo 4.5" x 6.5", sin mochilas).',
+    carSyncTips: 'Recordar para los 11: entradas digitales ya descargadas en el celular, estadio 100% cashless (sin efectivo) y política de bolsos estricta (NO mochilas de parque; solo carteras tipo sobre de hasta 4.5" x 6.5").',
     exactZoneCoordinates: 'Kia Center Rideshare Drop-off (Hughey Ave & Church St Loop)'
   },
   {

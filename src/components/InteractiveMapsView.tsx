@@ -344,7 +344,7 @@ export const InteractiveMapsView: React.FC = () => {
                   brandFilter === 'all' ? 'bg-slate-900 text-white shadow-xs' : 'text-slate-600 hover:text-slate-900'
                 }`}
               >
-                Todos (7)
+                Todos (8)
               </button>
               <button
                 onClick={() => setBrandFilter('disney')}
@@ -360,7 +360,7 @@ export const InteractiveMapsView: React.FC = () => {
                   brandFilter === 'universal' ? 'bg-indigo-600 text-white shadow-xs' : 'text-slate-600 hover:text-slate-900'
                 }`}
               >
-                Universal (2)
+                Universal (3)
               </button>
               <button
                 onClick={() => setBrandFilter('nba')}
