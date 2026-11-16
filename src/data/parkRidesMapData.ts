@@ -20,7 +20,7 @@ export interface ParkRideLocation {
   minHeightCm?: number;
   defaultWaitMinutes: number; // Promedio histórico enero si la API está fuera de horario o cerrada
   description: string;
-  groupTip: string; // Tip específico para los 5 adultos y 6 adolescentes
+  groupTip: string; // Tip específico para los 5 adultos y 7 adolescentes
   hasSingleRider?: boolean;
   virtualQueueOrLL?: string;
 }
@@ -56,7 +56,7 @@ export const PARK_MAPS_DATA: ParkMapInfo[] = [
       name: 'TTC Rideshare Loop (Drop-off UberXL)',
       lat: 28.3995,
       lng: -81.5746,
-      notes: 'Los Uber dejan a los 10 en el Transportation and Ticket Center (TTC). Desde allí se toma el Monorail o Ferry gratis hacia el castillo.',
+      notes: 'Los 2 UberXL dejan a los 12 en el Transportation and Ticket Center (TTC). Desde allí se toma el Monorail o Ferry gratis hacia el castillo.',
     },
     rides: [
       {
@@ -72,7 +72,7 @@ export const PARK_MAPS_DATA: ParkMapInfo[] = [
         minHeightCm: 122,
         defaultWaitMinutes: 65,
         description: 'Montaña rusa de aceleración futurista montados como en una motocicleta digital.',
-        groupTip: 'Imperdible para los 5 adolescentes. Requiere fila virtual en la app My Disney Experience a las 7:00 AM o compra de Lightning Lane Single Pass.',
+        groupTip: 'Imperdible para los 7 adolescentes. Requiere fila virtual en la app My Disney Experience a las 7:00 AM o compra de Lightning Lane Single Pass.',
         virtualQueueOrLL: 'Fila Virtual (7:00 AM / 13:00 PM) o LL Single Pass',
       },
       {
@@ -104,7 +104,7 @@ export const PARK_MAPS_DATA: ParkMapInfo[] = [
         minHeightCm: 102,
         defaultWaitMinutes: 40,
         description: 'El tren minero más salvaje del oeste. Curvas peraltadas por cañones de roca roja.',
-        groupTip: 'Apta para todos los 11 integrantes sin mareos. Ideal hacerla al atardecer.',
+        groupTip: 'Apta para los 12 integrantes sin mareos. Ideal hacerla al atardecer.',
         virtualQueueOrLL: 'Lightning Lane Multi Pass',
       },
       {
@@ -244,7 +244,7 @@ export const PARK_MAPS_DATA: ParkMapInfo[] = [
         minHeightCm: 102,
         defaultWaitMinutes: 40,
         description: 'Vuelo en ala delta suspendido frente a una pantalla IMAX gigante con aromas y viento real.',
-        groupTip: 'Agradable y emocionante para los 10 por igual. Pidan fila B1 para estar en el centro superior.',
+        groupTip: 'Agradable y emocionante para los 12 por igual. Pidan fila B1 para estar en el centro superior.',
       },
       {
         id: 'epcot-remy',
@@ -322,7 +322,7 @@ export const PARK_MAPS_DATA: ParkMapInfo[] = [
         minHeightCm: 102,
         defaultWaitMinutes: 50,
         description: 'Caídas libres múltiples e impredecibles en el ascensor embrujado del Hollywood Tower Hotel.',
-        groupTip: 'Dosis máxima de adrenalina. Los 5 adolescentes querrán repetirla.',
+        groupTip: 'Dosis máxima de adrenalina. Los 7 adolescentes querrán repetirla.',
       },
       {
         id: 'hs-rock-roller',
@@ -353,7 +353,7 @@ export const PARK_MAPS_DATA: ParkMapInfo[] = [
         minHeightCm: 97,
         defaultWaitMinutes: 45,
         description: 'Cabina interactiva para 6 personas piloteando el Halcón Milenario como pilotos, artilleros e ingenieros.',
-        groupTip: 'Dividir a los 10 en 2 vuelos de 5 o pedir que los chicos sean los 2 pilotos que manejan la nave.',
+        groupTip: 'Dividir a los 12 en 2 vuelos de 6 o pedir que los chicos sean los 2 pilotos que manejan la nave.',
         hasSingleRider: true,
       },
       {
@@ -510,7 +510,7 @@ export const PARK_MAPS_DATA: ParkMapInfo[] = [
         minHeightCm: 130,
         defaultWaitMinutes: 50,
         description: 'La montaña rusa de lanzamiento más rápida y con mayor tiempo de gravedad cero de Florida (113 km/h).',
-        groupTip: 'La reina indiscutida de la adrenalina para los 5 chicos. El "Mosasaurus Roll" sobre el agua es legendario.',
+        groupTip: 'La reina indiscutida de la adrenalina para los 7 chicos. El "Mosasaurus Roll" sobre el agua es legendario.',
         hasSingleRider: true,
       },
       {
@@ -720,7 +720,7 @@ export const PARK_MAPS_DATA: ParkMapInfo[] = [
         minHeightCm: 102,
         defaultWaitMinutes: 35,
         description: 'Parodia de Krustyland en una montaña rusa virtual proyectada sobre un domo gigante de 24 metros.',
-        groupTip: 'Al salir pueden probar las donas gigantes rosas "Lard Lad Donuts" que alcanzan para los 10.',
+        groupTip: 'Al salir pueden probar las donas gigantes rosas "Lard Lad Donuts" que alcanzan para compartir entre los 12.',
       },
       {
         id: 'usf-et',
@@ -768,7 +768,7 @@ export const PARK_MAPS_DATA: ParkMapInfo[] = [
         minHeightCm: 122,
         defaultWaitMinutes: 55,
         description: 'Doble montaña rusa de lanzamiento simultáneo hasta 100 km/h donde dos trenes compiten e interactúan en el aire sin rieles debajo en giros invertidos.',
-        groupTip: 'La atracción más extrema de Epic Universe. Casilleros gratis antes de subir; los 6 adolescentes eligen lado Verde o Amarillo para competir.',
+        groupTip: 'La atracción más extrema de Epic Universe. Casilleros gratis antes de subir; los 7 adolescentes eligen lado Verde o Amarillo para competir.',
         hasSingleRider: true,
         virtualQueueOrLL: 'Express Pass',
       },
@@ -785,7 +785,7 @@ export const PARK_MAPS_DATA: ParkMapInfo[] = [
         minHeightCm: 122,
         defaultWaitMinutes: 20,
         description: 'Carrusel celestial giratorio 360° en el corazón de Celestial Park con música orquestal y criaturas astrales iluminadas.',
-        groupTip: 'Espectacular de noche cuando se enciende todo Celestial Park; gran punto de encuentro para los 11 viajeros.',
+        groupTip: 'Espectacular de noche cuando se enciende todo Celestial Park; gran punto de encuentro para los 12 viajeros.',
       },
       {
         id: 'epic-mario-kart',
@@ -800,7 +800,7 @@ export const PARK_MAPS_DATA: ParkMapInfo[] = [
         minHeightCm: 102,
         defaultWaitMinutes: 75,
         description: 'Carrera interactiva con visores de realidad aumentada dentro del Castillo de Bowser lanzando caparazones por las pistas icónicas de Mario Kart.',
-        groupTip: 'Ir en la primera hora de apertura (Early Park Entry / Rope Drop). Apto y divertidísimo para los 5 adultos y los 6 chicos.',
+        groupTip: 'Ir en la primera hora de apertura (Early Park Entry / Rope Drop). Apto y divertidísimo para los 5 adultos y los 7 chicos.',
         hasSingleRider: true,
       },
       {
@@ -895,7 +895,7 @@ export const PARK_MAPS_DATA: ParkMapInfo[] = [
         minHeightCm: 102,
         defaultWaitMinutes: 55,
         description: 'Montaña rusa familiar de lanzamiento suave que sobrevuela la aldea vikinga de Berk y la laguna junto a Chimuelo.',
-        groupTip: 'Equilibrio perfecto para que los 11 viajeros suban juntos: fluida, veloz pero sin inversiones.',
+        groupTip: 'Equilibrio perfecto para que los 12 viajeros suban juntos: fluida, veloz pero sin inversiones.',
       },
       {
         id: 'epic-dragon-racers',
@@ -968,7 +968,7 @@ export const PARK_MAPS_DATA: ParkMapInfo[] = [
         land: 'Kia Center Atrium (Nivel 1)',
         defaultWaitMinutes: 0,
         description: 'Tienda oficial de la NBA con camisetas oficiales (Paolo Banchero, Franz Wagner), gorras, pelotas y merchandising exclusivo.',
-        groupTip: 'Ideal para que los 6 chicos compren recuerdos oficiales de la NBA antes del inicio del juego.',
+        groupTip: 'Ideal para que los 7 chicos compren recuerdos oficiales de la NBA antes del inicio del juego.',
       },
       {
         id: 'church-street-station',
@@ -981,7 +981,7 @@ export const PARK_MAPS_DATA: ParkMapInfo[] = [
         land: 'Historic Downtown Orlando (a 300m del estadio)',
         defaultWaitMinutes: 0,
         description: 'Distrito peatonal histórico frente al estadio con cervecerías artesanales, hamburgueserías y pizzerías para cenar antes o después del partido.',
-        groupTip: 'Punto de encuentro gastronómico perfecto para los 11 antes de pedir los 2x UberXL de regreso a Celebration Suites.',
+        groupTip: 'Punto de encuentro gastronómico perfecto para los 12 antes de pedir los 2x UberXL de regreso a Celebration Suites.',
       },
     ],
   },

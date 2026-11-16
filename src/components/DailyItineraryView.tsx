@@ -37,6 +37,7 @@ export const DailyItineraryView: React.FC<DailyItineraryViewProps> = ({
 
   const activeDay: ItineraryDay = ITINERARY.find(d => d.dayNumber === selectedDayNumber) || ITINERARY[0];
   const isDay12PrivateCombi = activeDay.dayNumber === 12;
+  const isDay15PrivateVan = activeDay.dayNumber === 15;
   const totalDays = ITINERARY.length;
 
   const handleSaveNote = () => {
@@ -239,7 +240,11 @@ export const DailyItineraryView: React.FC<DailyItineraryViewProps> = ({
                     `📅 *PLAN DÍA ${activeDay.dayNumber}: ${activeDay.dateStr}*${activeDay.statusBadge ? ` (${activeDay.statusBadge})` : ''}`,
                     `📍 *Destino:* ${activeDay.title}`,
                     `✨ *Foco:* ${activeDay.highlight}`,
-                    `🚗 *Salida UberXL:* ${activeDay.uberRecommendation.departureTime} hs hacia ${activeDay.uberRecommendation.destination} (~${activeDay.uberRecommendation.distanceKm} km)`,
+                    isDay12PrivateCombi
+                      ? `🚐 *Traslado Agencia Orlando ➔ Miami:* ${activeDay.uberRecommendation.departureTime} hs para los 12 pasajeros hacia ${activeDay.uberRecommendation.destination} (~${activeDay.uberRecommendation.distanceKm} km)`
+                      : isDay15PrivateVan
+                      ? `🚐 *Van Privada (Agencia) ➔ MIA:* ${activeDay.uberRecommendation.departureTime} hs desde Seacoast Suites hacia ${activeDay.uberRecommendation.destination} (12 pax + valijas)`
+                      : `🚗 *Salida 2x UberXL (6+6 pax):* ${activeDay.uberRecommendation.departureTime} hs hacia ${activeDay.uberRecommendation.destination} (~${activeDay.uberRecommendation.distanceKm} km)`,
                     activeDay.quickServiceRecommendation ? `🍔 *Almuerzo sugerido:* ${activeDay.quickServiceRecommendation.name}` : '',
                     ``,
                     `📲 Abrir App: ${appUrl}`,
@@ -284,16 +289,16 @@ export const DailyItineraryView: React.FC<DailyItineraryViewProps> = ({
                 <Bus className="w-5 h-5" />
               </div>
               <div>
-                <div className="flex items-center gap-2">
+                <div className="flex flex-wrap items-center gap-2">
                   <span className="text-xs font-bold text-indigo-900 uppercase tracking-wider">
-                    Traslado Orlando ➔ Miami ya Contratado en el Paquete (Sin Uber)
+                    Traslado Terrestre Contratado por Agencia · 12 Pasajeros (Sin Uber)
                   </span>
                   <span className="text-[11px] text-indigo-800 bg-indigo-100 px-2 py-0.5 rounded font-semibold">
                     Salida: {activeDay.uberRecommendation.departureTime} hs
                   </span>
                 </div>
                 <p className="text-xs text-slate-700 mt-1">
-                  <strong>Trayecto interurbano:</strong> Celebration Suites ➔ Seacoast Suites on Miami Beach (5101 Collins Ave, deptos Deluxe 1 y 2 dorm. c/ salida directa a la playa · ~{activeDay.uberRecommendation.distanceKm} km).
+                  <strong>Trayecto interurbano:</strong> Celebration Suites ➔ Seacoast Suites on Miami Beach (5101 Collins Ave, 3 departamentos Deluxe con salida directa a la playa · ~{activeDay.uberRecommendation.distanceKm} km).
                 </p>
                 <p className="text-xs text-slate-600 mt-0.5">
                   <strong>Parada técnica rápida:</strong> Fort Drum Service Plaza (km 190) para llegar antes del mediodía y aprovechar todo el sábado de playa.
@@ -302,7 +307,35 @@ export const DailyItineraryView: React.FC<DailyItineraryViewProps> = ({
             </div>
 
             <div className="px-3 py-1.5 bg-white text-indigo-800 border border-indigo-200 rounded-lg text-xs font-semibold shrink-0">
-              Incluido en el paquete ✓
+              Contratado por agencia ✓
+            </div>
+          </div>
+        ) : isDay15PrivateVan ? (
+          <div className="p-4 sm:p-5 bg-indigo-50/80 border-b border-indigo-100 flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div className="flex items-start gap-3">
+              <div className="w-9 h-9 rounded-xl bg-indigo-600 text-white flex items-center justify-center shrink-0 mt-0.5">
+                <Bus className="w-5 h-5" />
+              </div>
+              <div>
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="text-xs font-bold text-indigo-900 uppercase tracking-wider">
+                    🚐 Traslado en Van Privada Contratada por Agencia (Sin Uber)
+                  </span>
+                  <span className="text-[11px] text-indigo-800 bg-indigo-100 px-2 py-0.5 rounded font-semibold">
+                    Salida: 07:15 hs
+                  </span>
+                </div>
+                <p className="text-xs text-slate-700 mt-1">
+                  <strong>Trayecto al aeropuerto:</strong> Hotel Seacoast Suites on Miami Beach ➔ Aeropuerto Internacional de Miami (MIA · ~{activeDay.uberRecommendation.distanceKm} km · vuelo Copa CM 283 a las 11:21 hs).
+                </p>
+                <p className="text-xs text-slate-600 mt-0.5">
+                  <strong>Capacidad total:</strong> Ideal para trasladar cómodamente a los <strong>12 pasajeros con todas las valijas llenas de compras</strong>.
+                </p>
+              </div>
+            </div>
+
+            <div className="px-3 py-1.5 bg-white text-indigo-800 border border-indigo-200 rounded-lg text-xs font-semibold shrink-0">
+              Van Privada Agencia ✓
             </div>
           </div>
         ) : (
@@ -314,14 +347,16 @@ export const DailyItineraryView: React.FC<DailyItineraryViewProps> = ({
               <div>
                 <div className="flex flex-wrap items-center gap-2">
                   <span className="text-xs font-bold text-emerald-800 uppercase tracking-wider">
-                    Logística 2x UberXL recomendada (11 Pasajeros)
+                    {activeDay.dayNumber === 1
+                      ? 'Sin traslado de agencia · 2x UberXL (12 Pax · +1 Uber extra si hay valijas)'
+                      : 'Logística 2x UberXL recomendada (12 Pasajeros · 6+6 pax sin valijas)'}
                   </span>
                   <span className="text-[11px] text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded font-semibold">
                     Salida: {activeDay.uberRecommendation.departureTime} hs
                   </span>
                 </div>
                 <p className="text-xs text-slate-700 mt-1">
-                  <strong>Destino:</strong> {activeDay.uberRecommendation.destination} ({activeDay.uberRecommendation.distanceKm} km · ~{activeDay.uberRecommendation.estMinutes} min{activeDay.dayNumber >= 13 ? ' desde Seacoast Suites (Miami Beach)' : ' desde Celebration Suites'}).
+                  <strong>Destino:</strong> {activeDay.uberRecommendation.destination} ({activeDay.uberRecommendation.distanceKm} km · ~{activeDay.uberRecommendation.estMinutes} min{activeDay.dayNumber >= 13 ? ' desde Seacoast Suites (Miami Beach)' : activeDay.dayNumber === 1 ? ' desde Aeropuerto MCO' : ' desde Celebration Suites'}).
                 </p>
                 <p className="text-xs text-slate-600 mt-0.5">
                   <strong>Zona exacta de descenso (Drop-off):</strong> {activeDay.uberRecommendation.recommendedDropoff}
@@ -368,7 +403,7 @@ export const DailyItineraryView: React.FC<DailyItineraryViewProps> = ({
           <div className="p-5 bg-amber-50/40">
             <div className="flex items-center gap-2 text-xs font-bold text-amber-800 uppercase tracking-wider mb-2">
               <Sparkles className="w-4 h-4 text-amber-600" />
-              <span>Foco Adrenalina (6 Adolescentes · 13 a 15 años)</span>
+              <span>Foco Adrenalina (7 Adolescentes · 13 a 15 años)</span>
             </div>
             <ul className="space-y-1.5">
               {activeDay.teenFocus.map((item, idx) => (
@@ -457,7 +492,7 @@ export const DailyItineraryView: React.FC<DailyItineraryViewProps> = ({
               <div className="flex items-center justify-between gap-2 mb-2">
                 <div className="flex items-center gap-2 text-xs font-bold text-amber-900 uppercase tracking-wider">
                   <Smartphone className="w-4 h-4 text-amber-600" />
-                  <span>Restaurante Quick Service Recomendado (Con Mobile Order para 11)</span>
+                  <span>Restaurante Quick Service Recomendado (Con Mobile Order para 12)</span>
                 </div>
                 <span className="text-[11px] font-bold text-amber-800 bg-amber-100 px-2 py-0.5 rounded">
                   {activeDay.quickServiceRecommendation.location}
@@ -470,7 +505,7 @@ export const DailyItineraryView: React.FC<DailyItineraryViewProps> = ({
                 <strong>Especialidad:</strong> {activeDay.quickServiceRecommendation.specialty}
               </p>
               <p className="text-xs text-amber-900 mt-1 font-medium bg-white/70 p-2 rounded border border-amber-200/60">
-                💡 <strong>Por qué es ideal para nuestro grupo de 11:</strong> {activeDay.quickServiceRecommendation.whyFor10Pax}
+                💡 <strong>Por qué es ideal para nuestro grupo de 12:</strong> {activeDay.quickServiceRecommendation.whyFor10Pax}
               </p>
             </div>
           </div>
@@ -486,7 +521,7 @@ export const DailyItineraryView: React.FC<DailyItineraryViewProps> = ({
                   <span>Tips de Experto · Optimización y Logística del Día</span>
                 </div>
                 <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-indigo-100 text-indigo-800 border border-indigo-200">
-                  11 Viajeros · 2x UberXL
+                  {isDay15PrivateVan ? '12 Viajeros · Van Privada Agencia' : isDay12PrivateCombi ? '12 Viajeros · Traslado Agencia' : '12 Viajeros · 2x UberXL (6+6)'}
                 </span>
               </div>
               <ul className="space-y-2">
@@ -507,7 +542,7 @@ export const DailyItineraryView: React.FC<DailyItineraryViewProps> = ({
             <div>
               <div className="flex items-center gap-2 text-xs font-bold text-slate-900 mb-1">
                 <Utensils className="w-4 h-4 text-amber-600" />
-                <span>Gastronomía & Snacks para 11 Personas</span>
+                <span>Gastronomía & Snacks para 12 Personas</span>
               </div>
               <p className="text-xs text-slate-600 leading-relaxed">
                 {activeDay.mealsTip}

@@ -1,6 +1,6 @@
 {
   "name": "Remix App-Disney-2027-v2",
-  "description": "Itinerario interactivo día por día, atracciones de adrenalina y simuladores, logística UberXL, compras de tecnología y outlets, y clima para el grupo de 10 personas en Celebration Suites.",
+  "description": "Itinerario interactivo día por día, atracciones de adrenalina y simuladores, logística UberXL, compras de tecnología y outlets, y clima para el grupo de 12 personas en Celebration Suites y Seacoast Suites.",
   "requestFramePermissions": [],
   "majorCapabilities": [
     "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"

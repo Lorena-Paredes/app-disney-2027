@@ -107,7 +107,7 @@ export const MiamiSportsView: React.FC = () => {
       `📅 *Fecha:* ${game.dateStr}`,
       `⏰ *Horario:* ${game.timeOrlando} (19:00 hs Orlando) / ${game.timeArgentina}`,
       `🚗 *Alerta 2x UberXL:* Pedir a las 16:45 hs desde Celebration Suites (~35 km por I-4 Este)`,
-      `👥 *Grupo (11 pax):* 5 adultos y 6 chicos (Renato, Tuto, José, Máximo, Josefina y Luisina)`,
+      `👥 *Grupo (12 pax):* 5 adultos y 7 chicos (Renato, Tuto, José, Máximo, Josefina, Luisina y Bruno)`,
       ``,
       `⚠️ *REGLAS OBLIGATORIAS DEL KIA CENTER:*`,
       `• Solo bolsos muy chicos de hasta 4.5" x 6.5" (sin mochilas de parque).`,
@@ -136,7 +136,7 @@ export const MiamiSportsView: React.FC = () => {
               <span>NBA en Orlando · Temporada 2026/2027</span>
               <span>·</span>
               <span className="text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-full font-bold">
-                11 Pasajeros (5 Adultos + 6 Chicos)
+                12 Pasajeros (5 Adultos + 7 Chicos)
               </span>
             </div>
             
@@ -190,7 +190,7 @@ export const MiamiSportsView: React.FC = () => {
           <div className="p-3 bg-emerald-50/70 border border-emerald-100 rounded-2xl">
             <span className="text-[10px] uppercase font-bold text-emerald-700 block">Logística Grupo</span>
             <span className="font-extrabold text-base text-slate-900 font-mono">2x Uber XL</span>
-            <span className="text-[11px] text-slate-500 block">5 en Auto 1 · 6 en Auto 2</span>
+            <span className="text-[11px] text-slate-500 block">6 en Auto 1 · 6 en Auto 2 (sin valijas)</span>
           </div>
 
           <div className="p-3 bg-purple-50/70 border border-purple-100 rounded-2xl">
@@ -224,7 +224,7 @@ export const MiamiSportsView: React.FC = () => {
               • PROHIBIDAS mochilas de cualquier tipo, morrales, mochilas de los parques temáticos y riñoneras grandes.
             </p>
             <p className="text-slate-600">
-              💡 <em>Consejo para los 11:</em> Ir al estadio únicamente con celulares, billeteras delgadas y documentos en los bolsillos. No lleven mochilas para no tener que pagar lockers externos.
+              💡 <em>Consejo para los 12:</em> Ir al estadio únicamente con celulares, billeteras delgadas y documentos en los bolsillos. No lleven mochilas para no tener que pagar lockers externos.
             </p>
           </div>
         </div>
@@ -437,7 +437,7 @@ export const MiamiSportsView: React.FC = () => {
       <div className="bg-white rounded-3xl p-6 sm:p-7 border border-slate-200 shadow-xs space-y-4">
         <h3 className="font-extrabold text-lg text-slate-900 flex items-center gap-2">
           <Car className="w-5 h-5 text-blue-600" />
-          <span>Cómo Llegar y Moverse en los 2 Uber XL (11 Personas)</span>
+          <span>Cómo Llegar y Moverse en los 2 Uber XL (12 Personas)</span>
         </h3>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs leading-relaxed">
@@ -457,16 +457,16 @@ export const MiamiSportsView: React.FC = () => {
           <div className="p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-1.5">
             <span className="font-bold text-slate-900 flex items-center gap-1.5 text-sm">
               <Users className="w-4 h-4 text-blue-600" />
-              <span>Distribución de los 11 Pasajeros</span>
+              <span>Distribución de los 12 Pasajeros</span>
             </span>
             <p className="text-slate-600">
-              • <strong>Auto 1 (5 personas):</strong> Lorena, Renato, Máximo, Celia y Juan.
+              • <strong>Auto 1 (6 personas):</strong> Lorena, Celia, Juan, Renato, Máximo y Bruno.
             </p>
             <p className="text-slate-600">
-              • <strong>Auto 2 (6 personas):</strong> Carolina, Fofi, Tuto, Luisina, Josefina y José.
+              • <strong>Auto 2 (6 personas):</strong> Carolina, Fofi, Tuto, José, Josefina y Luisina.
             </p>
             <p className="text-indigo-700 font-semibold">
-              Al pedir 2 UberXL (capacidad hasta 6 pasajeros c/u), los 11 van cómodos sin necesidad de alquilar autos ni pagar estacionamientos caros ($35+ en Downtown).
+              Los 12 viajeros ocupan exactamente el máximo legal de los 2 UberXL (6 pasajeros por auto) sin valijas, sin necesidad de alquilar autos ni pagar estacionamientos caros ($35+ en Downtown).
             </p>
           </div>
         </div>
@@ -542,7 +542,7 @@ export const MiamiSportsView: React.FC = () => {
           {showInterMiami && (
             <div className="p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-2.5 text-xs text-slate-700 animate-in fade-in">
               <div className="font-bold text-slate-900">
-                Tips de Experto para los 11 viajeros en el Nu Stadium:
+                Tips de Experto para los 12 viajeros en el Nu Stadium (2x UberXL · 6+6 sin valijas):
               </div>
               <p>
                 • <strong>2x UberXL con tiempo (~13:45 hs desde Miami Beach):</strong> en jornadas dobles FIFA el tránsito en las adyacencias se carga rápido; llegar con margen asegura pasar seguridad tranquilos antes de las 15:30 hs.

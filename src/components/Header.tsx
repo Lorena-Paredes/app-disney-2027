@@ -24,6 +24,7 @@ export const Header: React.FC<HeaderProps> = ({
   onOpenQuickVoice
 }) => {
   const [showTravelersModal, setShowTravelersModal] = useState(false);
+  const [travelerFilter, setTravelerFilter] = useState<'all' | 'adults' | 'teens'>('all');
 
   const adults = TRAVELERS.filter(t => t.role === 'adult');
   const teens = TRAVELERS.filter(t => t.role === 'teen');
@@ -48,7 +49,7 @@ export const Header: React.FC<HeaderProps> = ({
                     Orlando 2027
                   </span>
                   <span className="text-[11px] text-slate-500 font-medium whitespace-nowrap hidden sm:inline">
-                    19 Ene al 2 Feb · 11 Pasajeros
+                    19 Ene al 2 Feb · 12 Pasajeros
                   </span>
                 </div>
               </button>
@@ -184,7 +185,7 @@ export const Header: React.FC<HeaderProps> = ({
                 <button
                   onClick={onOpenQuickService}
                   className="hidden xl:flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-semibold text-amber-800 bg-amber-50 border border-amber-200 rounded-lg hover:bg-amber-100 transition-colors whitespace-nowrap"
-                  title="Lugares de comida rápida con Mobile Order para 11"
+                  title="Lugares de comida rápida con Mobile Order para 12"
                 >
                   <Utensils className="w-3.5 h-3.5 text-amber-600" />
                   <span>Comida Rápida</span>
@@ -194,11 +195,11 @@ export const Header: React.FC<HeaderProps> = ({
               <button
                 onClick={() => setShowTravelersModal(true)}
                 className="flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-medium text-slate-700 bg-slate-100 rounded-lg hover:bg-slate-200 transition-colors whitespace-nowrap"
-                title="Ver lista de los 11 integrantes"
+                title="Ver lista de los 12 integrantes"
               >
                 <Users className="w-3.5 h-3.5 text-blue-600" />
-                <span className="hidden sm:inline">11 Viajeros</span>
-                <span className="sm:hidden">11 Pax</span>
+                <span className="hidden sm:inline">12 Viajeros</span>
+                <span className="sm:hidden">12 Pax</span>
               </button>
 
               <button
@@ -291,7 +292,7 @@ export const Header: React.FC<HeaderProps> = ({
             <MapPin className="w-3.5 h-3.5 text-blue-400 shrink-0" />
             <span className="text-slate-300">Base:</span>
             <span className="font-semibold text-white">Celebration Suites (Kissimmee)</span>
-            <span className="text-slate-400 hidden md:inline">· 11 Pasajeros · Distancias en km</span>
+            <span className="text-slate-400 hidden md:inline">· 12 Pasajeros · Distancias en km</span>
           </div>
 
           <div className="flex items-center gap-3 text-[11px] sm:text-xs text-slate-300 overflow-x-auto scrollbar-none">
@@ -324,8 +325,8 @@ export const Header: React.FC<HeaderProps> = ({
           <div className="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-slate-200 max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between pb-4 border-b border-slate-100">
               <div>
-                <h3 className="text-lg font-bold text-slate-900">Grupo de Viaje (11 Personas)</h3>
-                <p className="text-xs text-slate-500">Celebration Suites & Seacoast Suites Miami · 19 Ene al 2 Feb 2027</p>
+                <h3 className="text-lg font-bold text-slate-900">Grupo de Viaje (12 Personas)</h3>
+                <p className="text-xs text-slate-500">5 Adultos + 7 Adolescentes · Celebration Suites & Seacoast Suites Miami</p>
               </div>
               <button
                 onClick={() => setShowTravelersModal(false)}
@@ -335,44 +336,97 @@ export const Header: React.FC<HeaderProps> = ({
               </button>
             </div>
 
-            <div className="mt-4 space-y-4">
-              <div>
-                <div className="text-xs font-bold text-blue-700 uppercase tracking-wider mb-2">
-                  5 Adultos Coordinadores
-                </div>
-                <div className="grid grid-cols-2 gap-2">
-                  {adults.map(adult => (
-                    <div key={adult.id} className="p-2.5 rounded-lg bg-blue-50/60 border border-blue-100 text-xs">
-                      <div className="font-bold text-slate-900">{adult.name}</div>
-                      <div className="text-slate-600 text-[11px]">{adult.relation}</div>
-                    </div>
-                  ))}
-                </div>
-              </div>
+            {/* Filter Buttons: Todos (12) / Adultos (5) / Adolescentes (7) */}
+            <div className="mt-4 flex items-center gap-1 p-1 bg-slate-100 rounded-xl">
+              <button
+                onClick={() => setTravelerFilter('all')}
+                className={`flex-1 py-1.5 px-2.5 text-xs font-bold rounded-lg transition-colors whitespace-nowrap ${
+                  travelerFilter === 'all' ? 'bg-white text-slate-900 shadow-xs' : 'text-slate-600 hover:text-slate-900'
+                }`}
+              >
+                Todos (12)
+              </button>
+              <button
+                onClick={() => setTravelerFilter('adults')}
+                className={`flex-1 py-1.5 px-2.5 text-xs font-bold rounded-lg transition-colors whitespace-nowrap ${
+                  travelerFilter === 'adults' ? 'bg-white text-blue-700 shadow-xs' : 'text-slate-600 hover:text-slate-900'
+                }`}
+              >
+                Adultos (5)
+              </button>
+              <button
+                onClick={() => setTravelerFilter('teens')}
+                className={`flex-1 py-1.5 px-2.5 text-xs font-bold rounded-lg transition-colors whitespace-nowrap ${
+                  travelerFilter === 'teens' ? 'bg-white text-amber-700 shadow-xs' : 'text-slate-600 hover:text-slate-900'
+                }`}
+              >
+                Adolescentes (7)
+              </button>
+            </div>
 
-              <div>
-                <div className="text-xs font-bold text-amber-700 uppercase tracking-wider mb-2">
-                  6 Adolescentes (Renato, Tuto, José, Máximo, Josefina y Luisina)
+            <div className="mt-4 space-y-4">
+              {(travelerFilter === 'all' || travelerFilter === 'adults') && (
+                <div>
+                  <div className="text-xs font-bold text-blue-700 uppercase tracking-wider mb-2">
+                    5 Adultos Coordinadores
+                  </div>
+                  <div className="grid grid-cols-2 gap-2">
+                    {adults.map(adult => (
+                      <div key={adult.id} className="p-2.5 rounded-lg bg-blue-50/60 border border-blue-100 text-xs">
+                        <div className="flex items-center justify-between gap-1">
+                          <span className="font-bold text-slate-900">{adult.name}</span>
+                          <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-blue-100 text-blue-800">Depto {adult.department}</span>
+                        </div>
+                        <div className="text-slate-600 text-[11px]">{adult.relation}</div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-                <div className="grid grid-cols-2 gap-2">
-                  {teens.map(teen => (
-                    <div key={teen.id} className="p-2.5 rounded-lg bg-amber-50/60 border border-amber-100 text-xs">
-                      <div className="font-bold text-slate-900">{teen.name} ({teen.age} años)</div>
-                      <div className="text-slate-600 text-[11px]">{teen.relation}</div>
-                    </div>
-                  ))}
+              )}
+
+              {(travelerFilter === 'all' || travelerFilter === 'teens') && (
+                <div>
+                  <div className="text-xs font-bold text-amber-700 uppercase tracking-wider mb-2">
+                    7 Adolescentes (Renato, Tuto, José, Máximo, Josefina, Luisina y Bruno)
+                  </div>
+                  <div className="grid grid-cols-2 gap-2">
+                    {teens.map(teen => (
+                      <div key={teen.id} className="p-2.5 rounded-lg bg-amber-50/60 border border-amber-100 text-xs">
+                        <div className="flex items-center justify-between gap-1">
+                          <span className="font-bold text-slate-900">{teen.name} ({teen.age} años)</span>
+                          <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-amber-100 text-amber-800">Depto {teen.department}</span>
+                        </div>
+                        <div className="text-slate-600 text-[11px]">{teen.relation}</div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
+              )}
+
+              <div className="p-3.5 bg-blue-50/50 rounded-xl border border-blue-200 text-xs text-slate-700 space-y-1.5">
+                <div className="font-bold text-slate-900">
+                  🏠 Distribución en 3 Departamentos (Celebration Suites & Seacoast Suites):
+                </div>
+                <p>• <strong>Depto 1 (5 pax):</strong> Carolina, Fofi, Tuto, Luisina y Josefina.</p>
+                <p>• <strong>Depto 2 (4 pax):</strong> Lorena, Celia, Renato y Máximo.</p>
+                <p>• <strong>Depto 3 (3 pax):</strong> Juan, José y Bruno.</p>
+                <p className="text-[11px] text-blue-800 font-medium pt-0.5">
+                  ℹ️ Los 7 adolescentes tienen total flexibilidad para rotar y dormir entre los 3 departamentos.
+                </p>
               </div>
 
               <div className="p-3.5 bg-slate-50 rounded-xl border border-slate-200 text-xs text-slate-600 space-y-1.5">
-                <div className="font-semibold text-slate-900">Distribución de Vehículos para 2x UberXL:</div>
-                <p>• <strong>Auto 1 (5 pax):</strong> Lorena, Celia, Juan, Renato, Máximo</p>
-                <p>• <strong>Auto 2 (6 pax):</strong> Carolina, Fofi, Tuto, José, Josefina, Luisina</p>
-                <div className="mt-2 pt-1.5 border-t border-slate-200 text-[11px] text-slate-600">
-                  🏠 <strong>Hospedaje de Josefina:</strong> Ya resuelto, va en el departamento junto con la familia de Caro, Fofi, Tuto y Luisina.
-                </div>
-                <p className="text-indigo-700 font-semibold pt-1">
-                  • <strong>Traslado Orlando ➔ Miami (30 Ene · 07:00 hs):</strong> Ya contratado en el paquete hacia Seacoast Suites on Miami Beach (5101 Collins Ave, deptos Deluxe 1 y 2 dorm. c/ salida directa a la playa).
+                <div className="font-semibold text-slate-900">Logística de Traslados (12 Pasajeros):</div>
+                <p>• <strong>Parques, Estadios y Outlets (2x UberXL · 6 + 6 pax):</strong></p>
+                <p className="pl-2"><strong>Auto 1 (6 pax):</strong> Lorena, Celia, Juan, Renato, Máximo, Bruno</p>
+                <p className="pl-2"><strong>Auto 2 (6 pax):</strong> Carolina, Fofi, Tuto, José, Josefina, Luisina</p>
+                <p className="text-[11px] text-slate-500 pl-2">Capacidad máxima legal exacta de 6 pasajeros por UberXL sin valijas.</p>
+                <p className="pt-1">• <strong>Día 1 (MCO ➔ Hotel):</strong> Sin traslado de agencia. 2x UberXL (livianos); sumar 1 Uber estándar adicional solo para equipaje si llevan valijas vacías que no entren.</p>
+                <p className="text-indigo-700 font-semibold pt-0.5">
+                  • <strong>Día 12 (Orlando ➔ Miami · 30 Ene 07:00 hs):</strong> Traslado terrestre contratado por agencia para los 12 pasajeros hacia Seacoast Suites.
+                </p>
+                <p className="text-emerald-800 font-semibold pt-0.5">
+                  • <strong>Día 15 (Miami ➔ MIA · 2 Feb 07:15 hs):</strong> 🚐 Traslado en Van Privada contratada por agencia para los 12 pasajeros con todas las valijas llenas de compras.
                 </p>
               </div>
             </div>

@@ -250,7 +250,7 @@ export const InteractiveMapsView: React.FC = () => {
           <p class="text-xs text-slate-600 leading-relaxed">${ride.description}</p>
 
           <div class="mt-2.5 p-2 bg-blue-50/80 rounded-xl text-[11px] text-blue-900 border border-blue-100">
-            <strong>Consejo para los 11:</strong> ${ride.groupTip}
+            <strong>Consejo para los 12:</strong> ${ride.groupTip}
           </div>
 
           ${ride.minHeightCm ? `<div class="mt-1 text-[10px] text-slate-400">📏 Altura mínima requerida: <strong>${ride.minHeightCm} cm</strong></div>` : ''}

@@ -70,7 +70,7 @@ export const AttractionsRadarView: React.FC = () => {
               Adrenalina Pura para los Adolescentes vs Simuladores High-Tech para Todos
             </h2>
             <p className="text-sm text-slate-600 mt-1 max-w-3xl">
-              Filtra las mejores montañas rusas de velocidad para Renato, Tuto, José, Máximo, Josefina y Luisina, o los simuladores inmersivos de última generación donde los 11 disfrutarán por igual.
+              Filtra las mejores montañas rusas de velocidad para Renato, Tuto, José, Máximo, Josefina, Luisina y Bruno, o los simuladores inmersivos de última generación donde los 12 disfrutarán por igual.
             </p>
           </div>
 
@@ -278,7 +278,7 @@ export const AttractionsRadarView: React.FC = () => {
                 <div className="mt-3 p-3 bg-slate-50 rounded-xl border border-slate-200 text-xs">
                   <div className="font-semibold text-slate-900 mb-0.5 flex items-center gap-1.5">
                     <Award className="w-3.5 h-3.5 text-amber-600" />
-                    <span>Para nuestro grupo de 10:</span>
+                    <span>Para nuestro grupo de 12:</span>
                   </div>
                   <p className="text-slate-600">
                     {ride.whyForGroup}

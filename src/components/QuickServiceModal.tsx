@@ -30,7 +30,7 @@ export const QuickServiceModal: React.FC<QuickServiceModalProps> = ({ isOpen, on
               <span>Guía Gastronómica de Parques</span>
             </div>
             <h3 className="text-xl font-bold text-slate-900">
-              Restaurantes Quick Service (Comida Rápida con Mobile Order) para 11 Personas
+              Restaurantes Quick Service (Comida Rápida con Mobile Order) para 12 Personas
             </h3>
             <p className="text-xs text-slate-600 mt-1">
               Seleccionados específicamente por su gran capacidad de mesas contiguas bajo techo, aire acondicionado potente y soporte de pedidos móviles desde la app para no perder 45 minutos haciendo fila.
@@ -71,16 +71,16 @@ export const QuickServiceModal: React.FC<QuickServiceModalProps> = ({ isOpen, on
           ))}
         </div>
 
-        {/* Strategy Alert Box for 10 People */}
+        {/* Strategy Alert Box for 12 People */}
         <div className="mt-3 p-3.5 rounded-xl bg-amber-50 border border-amber-200 text-xs text-amber-900 space-y-1 shrink-0">
           <div className="font-bold flex items-center gap-1.5">
             <Smartphone className="w-4 h-4 text-amber-700" />
-            <span>Estrategia de Mobile Order para un grupo de 10:</span>
+            <span>Estrategia de Mobile Order para un grupo de 12:</span>
           </div>
           <p className="text-slate-700 leading-relaxed">
-            1. En la app oficial de Disney (My Disney Experience) o Universal, <strong>1 o 2 adultos</strong> cargan el pedido de los 10 con 20 minutos de anticipación mientras caminan hacia el restaurante.<br />
+            1. En la app oficial de Disney (My Disney Experience) o Universal, <strong>1 o 2 adultos</strong> cargan el pedido de los 12 con 20 minutos de anticipación mientras caminan hacia el restaurante.<br />
             2. Al aproximarse, presionan <em>"I'm Here, Prepare My Food"</em>.<br />
-            3. Mientras la comida se prepara, 2 personas del grupo entran al salón climatizado a conseguir y juntar mesas para los 10. ¡Esto evita el caos y ahorra más de media hora!
+            3. Mientras la comida se prepara, 2 personas del grupo entran al salón climatizado a conseguir y juntar mesas para los 12. ¡Esto evita el caos y ahorra más de media hora!
           </p>
         </div>
 
@@ -126,7 +126,7 @@ export const QuickServiceModal: React.FC<QuickServiceModalProps> = ({ isOpen, on
 
                   <div className="font-semibold text-amber-900 mt-2 flex items-center gap-1">
                     <Users className="w-3.5 h-3.5 text-amber-700" />
-                    <span>Ventaja para nuestro grupo de 11:</span>
+                    <span>Ventaja para nuestro grupo de 12:</span>
                   </div>
                   <div className="text-slate-700 mt-0.5 leading-relaxed bg-white p-2 rounded border border-slate-200/70">
                     {rest.highlightsFor10Pax}

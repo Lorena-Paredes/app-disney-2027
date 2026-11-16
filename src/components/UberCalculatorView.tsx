@@ -18,7 +18,7 @@ export const UberCalculatorView: React.FC = () => {
   const totalPerCar = baseCostPerCar + tipPerCar;
 
   const totalFor2Cars = totalPerCar * 2;
-  const costPerPerson = totalFor2Cars / 11;
+  const costPerPerson = totalFor2Cars / 12;
 
   return (
     <div className="space-y-6">
@@ -28,13 +28,13 @@ export const UberCalculatorView: React.FC = () => {
           <div>
             <div className="flex items-center gap-2 text-xs font-semibold text-emerald-700 uppercase tracking-wider mb-1">
               <Car className="w-3.5 h-3.5" />
-              <span>Logística de Traslados · 11 Pasajeros en 2x UberXL</span>
+              <span>Logística de Traslados · 12 Pasajeros en 2x UberXL (6+6 sin valijas)</span>
             </div>
             <h2 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">
               Calculador de Rutas, Tiempos y Costos desde Celebration Suites
             </h2>
             <p className="text-sm text-slate-600 mt-1 max-w-3xl">
-              Mover a 11 personas sin alquilar auto ahorra costos de estacionamiento ($30/día por auto en parques) y evita estrés de manejo. Utilicen 2 vehículos UberXL (hasta 6 pasajeros cada uno) pedidos en simultáneo (Auto 1 con 5 pax y Auto 2 con 6 pax). Distancias en kilómetros (km).
+              Para los <strong>parques, estadios (Kia Center y Nu Stadium) y outlets</strong>, los <strong>12 viajeros</strong> ocupan exactamente el <strong>máximo legal de los 2 vehículos UberXL (6 pasajeros por auto) sin valijas</strong>, evitando el costo de alquiler de autos y $60 USD diarios en estacionamiento. Distancias en kilómetros (km).
             </p>
           </div>
 
@@ -49,16 +49,36 @@ export const UberCalculatorView: React.FC = () => {
           </div>
         </div>
 
-        {/* Private Combi Notice for Orlando - Miami */}
-        <div className="mt-4 p-3.5 bg-indigo-50 border border-indigo-200 rounded-xl flex items-start gap-3 text-xs">
-          <Bus className="w-5 h-5 text-indigo-600 shrink-0 mt-0.5" />
-          <div>
-            <span className="font-bold text-indigo-950">
-              Traslado Orlando ➔ Miami (Sábado 30 de Enero · Salida 07:00 hs):
-            </span>
-            <p className="text-indigo-900 mt-0.5">
-              El traslado Orlando ➔ Miami <strong>ya está contratado en el paquete</strong> hacia <strong>Seacoast Suites on Miami Beach</strong> (5101 Collins Ave, deptos Deluxe de 1 y 2 dormitorios con salida directa a la playa, ~380 km). Salida puntual a las <strong>07:00 hs</strong> desde Celebration Suites.
-            </p>
+        {/* Special Transfers Summary (Día 1, Día 12 & Día 15) */}
+        <div className="mt-4 grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+          <div className="p-3.5 bg-amber-50 border border-amber-200 rounded-xl flex items-start gap-2.5">
+            <AlertTriangle className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
+            <div>
+              <span className="font-bold text-amber-950">Día 1 (Mar 19 Ene · MCO 15:35 hs):</span>
+              <p className="text-amber-900 mt-0.5 leading-relaxed">
+                <strong>Sin traslado de agencia.</strong> Al viajar livianos a la ida se piden <strong>2x UberXL (máx. legal 6 pax c/u)</strong>; si llevan valijas vacías que no entren en cada baúl, sumar <strong>1 Uber estándar adicional en el momento</strong> solo para equipaje.
+              </p>
+            </div>
+          </div>
+
+          <div className="p-3.5 bg-indigo-50 border border-indigo-200 rounded-xl flex items-start gap-2.5">
+            <Bus className="w-4 h-4 text-indigo-600 shrink-0 mt-0.5" />
+            <div>
+              <span className="font-bold text-indigo-950">Día 12 (Sáb 30 Ene · 07:00 hs):</span>
+              <p className="text-indigo-900 mt-0.5 leading-relaxed">
+                <strong>Traslado terrestre contratado por agencia</strong> de Orlando a Miami para los <strong>12 pasajeros</strong> hacia <strong>Seacoast Suites on Miami Beach</strong> (5101 Collins Ave, 3 deptos, ~380 km).
+              </p>
+            </div>
+          </div>
+
+          <div className="p-3.5 bg-emerald-50 border border-emerald-200 rounded-xl flex items-start gap-2.5">
+            <Bus className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+            <div>
+              <span className="font-bold text-emerald-950">Día 15 (Mar 2 Feb · 07:15 hs):</span>
+              <p className="text-emerald-900 mt-0.5 leading-relaxed">
+                🚐 <strong>Traslado en Van Privada contratada por agencia</strong> desde Seacoast Suites al Aeropuerto de Miami (MIA, vuelo 11:21 hs), ideal para los <strong>12 pasajeros con todas las valijas llenas de compras</strong>.
+              </p>
+            </div>
           </div>
         </div>
 
@@ -184,7 +204,7 @@ export const UberCalculatorView: React.FC = () => {
                 <p className="text-slate-600 leading-relaxed">
                   <strong>Descenso:</strong> Transportation and Ticket Center (TTC) Rideshare Loop. Ningún Uber puede entrar al frente del castillo.<br />
                   <strong>Acceso al parque:</strong> Desde el TTC se toma el <em>Express Monorail</em> o el gran <em>Ferryboat</em> (20-25 min extras).<br />
-                  <strong>Regreso:</strong> Tomar el Monorriel o Ferry de regreso al TTC y pedir los 2 UberXL allí para los 11 viajeros.
+                  <strong>Regreso:</strong> Tomar el Monorriel o Ferry de regreso al TTC y pedir los 2 UberXL allí para los 12 viajeros.
                 </p>
               </div>
 
@@ -223,11 +243,11 @@ export const UberCalculatorView: React.FC = () => {
             </div>
           </div>
 
-          {/* 5-Step Protocol Guide for the 11 Travelers */}
+          {/* 5-Step Protocol Guide for the 12 Travelers */}
           <div className="bg-white rounded-2xl border border-slate-200 shadow-xs p-6">
             <h4 className="text-base font-bold text-slate-900 mb-4 flex items-center gap-2">
               <CheckCircle className="w-5 h-5 text-emerald-600" />
-              Protocolo Práctico para los 2 UberXL (11 Viajeros)
+              Protocolo Práctico para los 2 UberXL (12 Viajeros · Máx. Legal 6+6)
             </h4>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
@@ -239,18 +259,18 @@ export const UberCalculatorView: React.FC = () => {
               </div>
 
               <div className="p-3.5 bg-slate-50 rounded-xl border border-slate-200 space-y-1">
-                <span className="font-bold text-slate-900">2. División Fija de Grupos (5 + 6 pax)</span>
+                <span className="font-bold text-slate-900">2. División Fija de Grupos (6 + 6 pax sin valijas)</span>
                 <p className="text-slate-600">
-                  • <strong>Auto 1 (5 pax):</strong> Lorena, Celia, Juan, Renato, Máximo<br />
+                  • <strong>Auto 1 (6 pax):</strong> Lorena, Celia, Juan, Renato, Máximo, Bruno<br />
                   • <strong>Auto 2 (6 pax):</strong> Carolina, Fofi, Tuto, José, Josefina, Luisina<br />
-                  Al tener grupos fijos y definidos, nadie se pierde ni duda a qué auto subir.
+                  Ocupan exactamente el máximo legal de 6 pasajeros por UberXL para parques, estadios (Kia Center y Nu Stadium) y outlets.
                 </p>
               </div>
 
               <div className="p-3.5 bg-slate-50 rounded-xl border border-slate-200 space-y-1">
                 <span className="font-bold text-slate-900">3. Solicitud Sincronizada</span>
                 <p className="text-slate-600">
-                  Esperar a que los 11 estén listos con zapatillas y mochilas en el lobby de Celebration Suites antes de pedir. Tardan en promedio 4 a 8 minutos en llegar.
+                  Esperar a que los 12 estén listos con zapatillas y mochilas en el lobby de Celebration Suites antes de pedir. Tardan en promedio 4 a 8 minutos en llegar.
                 </p>
               </div>
 
@@ -353,7 +373,7 @@ export const UberCalculatorView: React.FC = () => {
             <div className="mt-5 p-4 rounded-xl bg-slate-900 text-white space-y-3">
               <div>
                 <div className="text-[11px] text-slate-400 uppercase tracking-wider font-semibold">
-                  Total para los 2 UberXL (11 personas)
+                  Total para los 2 UberXL (12 personas)
                 </div>
                 <div className="text-3xl font-extrabold text-amber-400 font-mono mt-0.5 tabular-nums">
                   ${totalFor2Cars.toFixed(2)} <span className="text-sm font-sans text-slate-300">USD</span>
@@ -372,11 +392,11 @@ export const UberCalculatorView: React.FC = () => {
                 onClick={() => {
                   const appUrl = window.location.href.split('#')[0];
                   const msg = [
-                    `🚗 *ESTIMADO TRASLADO 2x UBERXL (11 PERSONAS)*`,
+                    `🚗 *ESTIMADO TRASLADO 2x UBERXL (12 PERSONAS · 6+6)*`,
                     `📍 *Destino:* ${activeRoute.destinationName}`,
                     `📏 *Distancia:* ${activeRoute.distanceKm} km (~${activeRoute.drivingMinutesNormal} min)`,
                     `💵 *Total 2x UberXL (con propina):* $${totalFor2Cars.toFixed(2)} USD`,
-                    `👤 *Por persona (11 pax):* $${costPerPerson.toFixed(2)} USD`,
+                    `👤 *Por persona (12 pax):* $${costPerPerson.toFixed(2)} USD`,
                     `📌 *Descenso:* ${activeRoute.dropoffAdvice.slice(0, 100)}...`,
                     ``,
                     `📲 Ver rutas y mapas en la Web App: ${appUrl}`,

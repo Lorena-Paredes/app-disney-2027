@@ -176,7 +176,7 @@ export default function App() {
           </div>
 
           <div className="text-slate-400 text-center sm:text-right">
-            11 Pasajeros · 5 Adultos & 6 Adolescentes · Combi a Miami
+            12 Pasajeros · 5 Adultos & 7 Adolescentes · Traslado a Miami y Van a MIA
           </div>
         </div>
       </footer>

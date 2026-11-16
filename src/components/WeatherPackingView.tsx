@@ -252,7 +252,7 @@ export const WeatherPackingView: React.FC = () => {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-slate-100">
           <div>
             <h3 className="text-base font-bold text-slate-900">
-              Checklist de Empaque para las 10 Personas
+              Checklist de Empaque para las 12 Personas
             </h3>
             <p className="text-xs text-slate-500 mt-0.5">
               Artículos esenciales para que nada falte al armar las valijas antes de salir.
