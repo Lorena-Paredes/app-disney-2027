@@ -1,6 +1,6 @@
 {
-  "name": "Remix App-Disney-2027-v2",
-  "description": "Itinerario interactivo día por día, atracciones de adrenalina y simuladores, logística UberXL, compras de tecnología y outlets, y clima para el grupo de 12 personas en Celebration Suites y Seacoast Suites.",
+  "name": "Remix Remix App-Disney-2027-v2",
+  "description": "Itinerario interactivo día por día para 12 viajeros (5 adultos y 7 adolescentes): Bloque Disney (20–23 Ene), día libre y outlets (24 Ene), Bloque Universal con Agustina (25–27 Ene), NBA Orlando Magic (28 Ene), FIFA en Miami (31 Ene) y Van Privada confirmada a MIA (2 Feb).",
   "requestFramePermissions": [],
   "majorCapabilities": [
     "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"

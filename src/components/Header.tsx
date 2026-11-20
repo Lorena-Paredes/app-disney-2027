@@ -49,7 +49,7 @@ export const Header: React.FC<HeaderProps> = ({
                     Orlando 2027
                   </span>
                   <span className="text-[11px] text-slate-500 font-medium whitespace-nowrap hidden sm:inline">
-                    19 Ene al 2 Feb · 12 Pasajeros
+                    19 Ene al 2 Feb · 12 Viajeros
                   </span>
                 </div>
               </button>
@@ -292,28 +292,28 @@ export const Header: React.FC<HeaderProps> = ({
             <MapPin className="w-3.5 h-3.5 text-blue-400 shrink-0" />
             <span className="text-slate-300">Base:</span>
             <span className="font-semibold text-white">Celebration Suites (Kissimmee)</span>
-            <span className="text-slate-400 hidden md:inline">· 12 Pasajeros · Distancias en km</span>
+            <span className="text-slate-400 hidden md:inline">· 12 Viajeros · Distancias en km</span>
           </div>
 
-          <div className="flex items-center gap-3 text-[11px] sm:text-xs text-slate-300 overflow-x-auto scrollbar-none">
-            <span>
-              <strong className="text-white">4 Días</strong> Disney
+          <div className="flex items-center gap-2.5 text-[11px] sm:text-xs text-slate-300 overflow-x-auto scrollbar-none">
+            <span className="whitespace-nowrap">
+              <strong className="text-white">Disney</strong> (20–23 Ene)
             </span>
             <span>·</span>
-            <span>
-              <strong className="text-white">3 Días</strong> Universal (c/ Epic Universe)
+            <span className="whitespace-nowrap">
+              <strong className="text-white">Libre</strong> (24 Ene)
             </span>
             <span>·</span>
-            <span>
-              <strong className="text-white">3 Días</strong> Outlets
+            <span className="whitespace-nowrap">
+              <strong className="text-white">Universal</strong> c/ Agustina (25–27 Ene)
             </span>
             <span>·</span>
             <span className="text-emerald-300 font-bold whitespace-nowrap">
-              ✅ NBA (28 Ene) · ✅ FIFA Nu Stadium (31 Ene)
+              ✅ NBA (28 Ene) · ✅ FIFA (31 Ene)
             </span>
             <span>·</span>
-            <span className="text-indigo-300 font-medium whitespace-nowrap">
-              Miami Seacoast Suites (30 Ene–2 Feb)
+            <span className="text-emerald-300 font-bold whitespace-nowrap">
+              ✅ Van Privada MIA Confirmada (2 Feb)
             </span>
           </div>
         </div>
@@ -416,17 +416,17 @@ export const Header: React.FC<HeaderProps> = ({
               </div>
 
               <div className="p-3.5 bg-slate-50 rounded-xl border border-slate-200 text-xs text-slate-600 space-y-1.5">
-                <div className="font-semibold text-slate-900">Logística de Traslados (12 Pasajeros):</div>
+                <div className="font-semibold text-slate-900">Logística de Traslados (12 Viajeros):</div>
                 <p>• <strong>Parques, Estadios y Outlets (2x UberXL · 6 + 6 pax):</strong></p>
                 <p className="pl-2"><strong>Auto 1 (6 pax):</strong> Lorena, Celia, Juan, Renato, Máximo, Bruno</p>
                 <p className="pl-2"><strong>Auto 2 (6 pax):</strong> Carolina, Fofi, Tuto, José, Josefina, Luisina</p>
-                <p className="text-[11px] text-slate-500 pl-2">Capacidad máxima legal exacta de 6 pasajeros por UberXL sin valijas.</p>
+                <p className="text-[11px] text-slate-500 pl-2">Capacidad máxima legal exacta de 6 viajeros por UberXL sin valijas. En el Bloque Universal (25–27 Ene) nos encontramos con Agustina en los parques.</p>
                 <p className="pt-1">• <strong>Día 1 (MCO ➔ Hotel):</strong> Sin traslado de agencia. 2x UberXL (livianos); sumar 1 Uber estándar adicional solo para equipaje si llevan valijas vacías que no entren.</p>
                 <p className="text-indigo-700 font-semibold pt-0.5">
-                  • <strong>Día 12 (Orlando ➔ Miami · 30 Ene 07:00 hs):</strong> Traslado terrestre contratado por agencia para los 12 pasajeros hacia Seacoast Suites.
+                  • <strong>Día 12 (Orlando ➔ Miami · 30 Ene 07:00 hs):</strong> Traslado terrestre contratado por agencia para los 12 viajeros hacia Seacoast Suites.
                 </p>
-                <p className="text-emerald-800 font-semibold pt-0.5">
-                  • <strong>Día 15 (Miami ➔ MIA · 2 Feb 07:15 hs):</strong> 🚐 Traslado en Van Privada contratada por agencia para los 12 pasajeros con todas las valijas llenas de compras.
+                <p className="text-emerald-800 font-bold pt-0.5">
+                  • <strong>Día 15 (Miami ➔ MIA · 2 Feb 07:15 hs):</strong> ✅🚐 Van Privada Confirmada (hotel Miami ➔ MIA) para los 12 viajeros con todas las valijas llenas de compras (Copa CM 440 / CM 882).
                 </p>
               </div>
             </div>

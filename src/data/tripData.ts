@@ -52,6 +52,13 @@ export interface ItineraryDay {
     departureTime: string;
   };
   expertTips?: string[];
+  ticketBlock?: {
+    blockLabel: string;
+    passName: string;
+    validityWindow: string;
+    companionNote?: string;
+    theme: 'disney' | 'universal' | 'rest';
+  };
   quickServiceRecommendation?: {
     name: string;
     location: string;
@@ -65,6 +72,7 @@ export interface Attraction {
   name: string;
   park: 'Universal Islands of Adventure' | 'Universal Studios Florida' | 'Universal Epic Universe' | "Disney's Hollywood Studios" | "Disney's Animal Kingdom" | "Disney's EPCOT" | "Disney's Magic Kingdom";
   parkShort: string;
+  visitDayLabel?: string;
   land: string;
   category: 'rollercoaster' | 'simulator' | 'dark_ride' | 'water_thrill' | 'show';
   targetAudience: 'teens' | 'all'; // 'teens' = foco adrenalina 13-15; 'all' = imperdible todo el grupo
@@ -341,7 +349,7 @@ export const ITINERARY: ItineraryDay[] = [
       { time: '18:00', activity: 'Check-in en Celebration Suites. Distribución en 3 departamentos para las 12 personas: Depto 1 (Carolina, Fofi, Tuto, Luisina y Josefina), Depto 2 (Lorena, Celia, Renato y Máximo) y Depto 3 (Juan, José y Bruno).', notes: 'Los 7 adolescentes tienen flexibilidad para rotar entre los departamentos. Revisar wi-fi y enchufes para cargar todos los celulares.', type: 'tip' },
       { time: '19:15', activity: 'Salida de abastecimiento a Walmart Supercenter #5214 Vine St (a solo 4.5 km / 6 min de Celebration Suites).', notes: 'Comprar packs de agua mineral (40 botellas), snacks, frutas, barritas de cereal y desayunos para los parques.', type: 'shopping' },
       { time: '21:00', activity: 'Cena distendida en Old Town Kissimmee (al lado del hotel, se puede ir caminando) o pizza en el suite.', type: 'food' },
-      { time: '22:30', activity: 'Descanso temprano: ¡mañana arranca el primer gran día de parque!', type: 'tip' }
+      { time: '22:30', activity: 'Descanso temprano: ¡mañana arranca el Bloque Disney en EPCOT a ritmo tranquilo tras el vuelo!', type: 'tip' }
     ],
     teenFocus: ['Recargar celulares, acomodarse en los 3 departamentos (rotación flexible para los 7 adolescentes) y probar la piscina'],
     adultFocus: ['Coordinar los 2x UberXL desde MCO (+ 1 Uber estándar si sobran valijas), comprar provisiones en Walmart y chequear eSIM'],
@@ -356,7 +364,8 @@ export const ITINERARY: ItineraryDay[] = [
     mealsTip: 'Comprar snacks tipo Oreo, frutos secos, barritas y botellitas de agua en Walmart: en Disney y Universal se permite ingresar comida sellada y botellas de agua.',
     expertTips: [
       '🚗 Tip de Experto · Llegada a MCO sin traslado de agencia: al viajar livianos a la ida se piden 2x UberXL (capacidad máxima legal: 6 pasajeros por auto = 12 viajeros) hacia Celebration Suites. Si llevan valijas vacías para compras que no entren con las 6 personas en cada baúl, sumar 1 Uber estándar adicional en el momento solo para el equipaje.',
-      '🏠 Distribución en 3 Departamentos (Celebration Suites): Depto 1 (Carolina, Fofi, Tuto, Luisina y Josefina), Depto 2 (Lorena, Celia, Renato y Máximo) y Depto 3 (Juan, José y Bruno), aclarando que los 7 adolescentes tienen flexibilidad para rotar entre los departamentos.'
+      '🏠 Distribución en 3 Departamentos (Celebration Suites): Depto 1 (Carolina, Fofi, Tuto, Luisina y Josefina), Depto 2 (Lorena, Celia, Renato y Máximo) y Depto 3 (Juan, José y Bruno), aclarando que los 7 adolescentes tienen flexibilidad para rotar entre los departamentos.',
+      '🎟️ Bloque Disney (Pase 4-Park Magic Ticket · ventana del 20 al 26 de enero): mañana 20 de enero arrancamos de forma estratégica y tranquila en EPCOT para entrar en ritmo sin agotarse después del viaje.'
     ]
   },
   {
@@ -365,47 +374,60 @@ export const ITINERARY: ItineraryDay[] = [
     dayOfWeek: 'Miércoles',
     dateFull: '20 de Enero de 2027',
     type: 'park',
-    title: 'Parque 1 · Universal\'s Islands of Adventure',
-    parkName: 'Islands of Adventure',
-    parkCode: 'universal_ioa',
-    highlight: 'Día de pura adrenalina: VelociCoaster, Hagrid\'s Motorbike, Hulk Coaster y Harry Potter.',
+    eventShortLabel: 'Disney 1/4',
+    title: 'Parque 1 · Disney\'s EPCOT (Bloque Disney 1/4)',
+    parkName: 'Disney\'s EPCOT',
+    parkCode: 'disney_epcot',
+    highlight: 'Arranque tranquilo del Bloque Disney (Pase 4-Park Magic Ticket · ventana 20 al 26 ene) para recorrer a buen ritmo después del viaje: Guardians of the Galaxy: Cosmic Rewind, Soarin\', Remy\'s Ratatouille y Luminous.',
+    ticketBlock: {
+      blockLabel: 'Bloque Disney · Día 1 de 4',
+      passName: 'Pase 4-Park Magic Ticket',
+      validityWindow: 'Ventana válida: 20 al 26 de enero de 2027',
+      theme: 'disney'
+    },
     schedule: [
-      { time: '07:30', activity: 'Desayuno en los suites y alistarse con mochilas listas y zapatillas deportivas.', type: 'food' },
-      { time: '08:05', activity: 'Pedir sincronizados 2x UberXL hacia Universal Orlando Drop-off hub (23.3 km).', type: 'transport' },
-      { time: '08:35', activity: 'Llegada al hub de Universal (Piso 5), paso por seguridad de CityWalk y caminata a los molinetes de IOA.', type: 'transport' },
-      { time: '09:00', activity: 'Apertura oficial (Rope Drop): ir directo a Hagrid\'s Magical Creatures Motorbike Adventure o VelociCoaster.', type: 'ride' },
-        { time: '10:30', activity: 'Jurassic World VelociCoaster (¡el highlight absoluto para los 7 adolescentes!).', type: 'ride', notes: 'Los casilleros para celulares y mochilas son obligatorios y gratuitos junto a la entrada.' },
-      { time: '12:00', activity: 'The Wizarding World of Harry Potter: Hogsmeade + Harry Potter and the Forbidden Journey (¡alucinante para todo el grupo!).', type: 'ride' },
-      { time: '13:30', activity: 'Almuerzo en Three Broomsticks (Las Tres Escobas) en Hogsmeade.', type: 'food' },
-      { time: '15:00', activity: 'The Amazing Adventures of Spider-Man (simulador 3D legendario para todos) + The Incredible Hulk Coaster (teens).', type: 'ride' },
-      { time: '17:00', activity: 'Jurassic Park River Adventure (Splash moderado) o Skull Island: Reign of Kong.', type: 'ride' },
-      { time: '19:00', activity: 'Repetir la montaña rusa preferida de noche (VelociCoaster iluminada es una locura).', type: 'ride' },
-      { time: '20:30', activity: 'Cena distendida en Universal CityWalk (Cowfish o Antojitos Mexicanos) y regreso en 2x UberXL a Celebration Suites.', type: 'food' }
+      { time: '06:55', activity: 'Alarma de Fila Virtual: a las 07:00:00 AM ingresar en app My Disney Experience para solicitar cupo de Guardians of the Galaxy: Cosmic Rewind.', type: 'tip' },
+      { time: '08:15', activity: 'Desayuno relajado en los 3 departamentos de Celebration Suites (sin corridas tras el viaje de ayer) y salida sincronizada en 2x UberXL hacia EPCOT (13.7 km).', type: 'transport' },
+      { time: '08:45', activity: 'Llegada al Lote Este de Rideshare frente a la esfera Spaceship Earth y acceso fluido a World Celebration y World Discovery.', type: 'transport' },
+      { time: '09:15', activity: 'Guardians of the Galaxy: Cosmic Rewind según grupo de llamada (¡la mejor montaña rusa de Disney, súper fluida para los 12 viajeros!).', type: 'ride' },
+      { time: '10:45', activity: 'Test Track (diseño de autos y velocidad a 105 km/h; Single Rider disponible para los 7 chicos) y Mission: SPACE (Naranja extrema / Verde suave).', type: 'ride' },
+      { time: '12:15', activity: 'Soarin\' Around the World en World Nature (simulador de vuelo en ala delta con aromas y brisa) y Spaceship Earth.', type: 'ride' },
+      { time: '13:30', activity: 'Almuerzo cómodo en Connections Eatery (salón climatizado gigante con enchufes USB para cargar celulares de los 12).', type: 'food' },
+      { time: '15:00', activity: 'Paseo a buen ritmo por World Showcase: Pabellón de Francia ➔ Remy\'s Ratatouille Adventure (simulador 3D sin rieles) y panadería Les Halles.', type: 'ride' },
+      { time: '17:00', activity: 'Recorrido panorámico por los 11 países de World Showcase (México, Noruega: Frozen Ever After, Japón, Italia y Alemania).', type: 'shopping' },
+      { time: '20:30', activity: 'Ubicarse junto a la laguna de World Showcase para el show nocturno "Luminous: The Symphony of Us" (21:00 hs).', type: 'ride' },
+      { time: '21:30', activity: 'Regreso en 2x UberXL hacia Celebration Suites (13.7 km).', type: 'transport' }
     ],
     teenFocus: [
-      'VelociCoaster (0 a 112 km/h en 2.4s, gravedad cero sobre la laguna)',
-      'Hagrid\'s Magical Creatures Motorbike Adventure (7 lanzamientos)',
-      'The Incredible Hulk Coaster (lanzamiento inicial de 67 km/h y 7 inversiones)'
+      'Guardians of the Galaxy: Cosmic Rewind (lanzamiento hacia atrás, rotación 360° y música de Queen / Earth Wind & Fire)',
+      'Test Track (aceleración a 105 km/h) y Mission: SPACE Misión Naranja (fuerzas G reales)',
+      'Probar sodas internacionales exóticas en Club Cool de Coca-Cola (¡probar la Beverly de broma!)'
     ],
     adultFocus: [
-      'Harry Potter and the Forbidden Journey (vuelo inmersivo en el castillo)',
-      'The Amazing Adventures of Spider-Man (simulador 4K)',
-      'Paseo temático por Hogsmeade con Butterbeer (cerveza de manteca)'
+      'Arranque gradual y placentero después del vuelo: avenidas amplias, pabellones internacionales y sin desgaste extremo',
+      'Guardians of the Galaxy (riel ultrasuave sin sacudones), Soarin\' Around the World y Remy\'s Ratatouille',
+      'Degustación gastronómica en los pabellones de Francia, Italia y Japón en World Showcase'
     ],
     uberRecommendation: {
-      departureTime: '08:05',
-      destination: 'Celebration Suites ➔ Universal Drop-off Hub',
-      distanceKm: 23.3,
-      estMinutes: 24,
-      recommendedDropoff: 'Universal Orlando Resort Guest Drop-off (Piso 5 del estacionamiento central)',
-      returnTip: 'A la salida (20:30-21:00), subir al piso 5 de la estación de Uber en CityWalk ANTES de pedir los 2 autos.'
+      departureTime: '08:15',
+      destination: 'Celebration Suites ➔ Disney\'s EPCOT',
+      distanceKm: 13.7,
+      estMinutes: 18,
+      recommendedDropoff: 'Rideshare Drop-off EPCOT (Lote Este frente a la esfera de Spaceship Earth)',
+      returnTip: 'Al terminar Luminous, caminar por el lateral izquierdo de Spaceship Earth hacia el estacionamiento este ANTES de pedir ambos UberXL (6+6 pax).'
     },
-    mealsTip: 'Probar la Butterbeer Frozen en Hogsmeade. En Three Broomsticks pedir "The Great Feast" para 12 personas.',
+    mealsTip: 'En el pabellón de Francia, pasar por Les Halles Boulangerie-Patisserie para probar croissants, baguettes rellenas y macarons.',
+    expertTips: [
+      '🎟️ Bloque Disney 1/4 (Pase 4-Park Magic Ticket · ventana 20 al 26 de enero): arrancar por EPCOT al día siguiente del vuelo permite entrar en ritmo disfrutando atracciones top sin correr desde las 6 AM.',
+      '🚗 Pedido sincronizado de 2x UberXL a las 08:15 hs (13.7 km / ~18 min): llegan directo al Lote Este frente a la esfera Spaceship Earth.',
+      '🔌 En Connections Eatery a las 13:30 hs aprovechen los puertos USB en las mesas largas para recargar celulares y powerbanks de los 12 viajeros.',
+      '🎬 Mañana 21 de enero seguimos con el Bloque Disney 2/4 en Hollywood Studios (¡conviene acostarse temprano para llegar con energía al Rope Drop de Star Wars!).'
+    ],
     quickServiceRecommendation: {
-      name: 'Three Broomsticks (Las Tres Escobas)',
-      location: 'Hogsmeade (Islands of Adventure)',
-      specialty: 'Platos familiares de costillas, pollo asado, papas y ensalada fresca',
-      whyFor10Pax: 'Pidiendo dos o tres bandejas gigantes "The Great Feast" comen los 12 con abundancia y a menor costo que comprando platos individuales.'
+      name: 'Connections Eatery',
+      location: 'World Celebration (EPCOT)',
+      specialty: 'Hamburguesas gourmet, pizzas napolitanas, waffles y ensaladas',
+      whyFor10Pax: 'Espacio enorme con aire acondicionado y enchufes para cargar todos los celulares de los 7 adolescentes mientras comen.'
     }
   },
   {
@@ -414,33 +436,40 @@ export const ITINERARY: ItineraryDay[] = [
     dayOfWeek: 'Jueves',
     dateFull: '21 de Enero de 2027',
     type: 'park',
-    title: 'Parque 2 · Disney\'s Hollywood Studios',
+    eventShortLabel: 'Disney 2/4',
+    title: 'Parque 2 · Disney\'s Hollywood Studios (Bloque Disney 2/4)',
     parkName: 'Disney\'s Hollywood Studios',
     parkCode: 'disney_hs',
-    highlight: 'Segundo de los 4 parques iniciales: Star Wars: Rise of the Resistance, Tower of Terror, Rock \'n\' Roller y show Fantasmic!.',
+    highlight: 'Segundo parque del Bloque Disney (4-Park Magic Ticket): Star Wars: Rise of the Resistance, Tower of Terror, Rock \'n\' Roller Coaster, Toy Story Land y show Fantasmic!.',
+    ticketBlock: {
+      blockLabel: 'Bloque Disney · Día 2 de 4',
+      passName: 'Pase 4-Park Magic Ticket',
+      validityWindow: 'Ventana válida: 20 al 26 de enero de 2027',
+      theme: 'disney'
+    },
     schedule: [
-      { time: '07:30', activity: 'Desayuno rápido en suite. (A las 07:00 hs abrir app My Disney Experience si van a coordinar Lightning Lane/reservas).', type: 'tip' },
+      { time: '07:30', activity: 'Desayuno rápido en los suites. (A las 07:00 hs abrir app My Disney Experience si coordinan Lightning Lane).', type: 'tip' },
       { time: '08:00', activity: 'Salida sincronizada en 2x UberXL rumbo a Disney\'s Hollywood Studios (11.6 km).', type: 'transport' },
-      { time: '08:25', activity: 'Llegada al loop de Rideshare exclusivo y paso por seguridad. Entrar con tiempo para el Rope Drop.', type: 'transport' },
-      { time: '09:00', activity: 'Apertura: Star Wars: Rise of the Resistance (¡la mayor obra maestra tecnológica de Disney!).', type: 'ride' },
-      { time: '10:45', activity: 'Millennium Falcon: Smugglers Run (pilotean 6 personas la nave espacial juntos).', type: 'ride' },
-      { time: '12:00', activity: 'The Twilight Zone Tower of Terror (adrenalina pura en caída libre para teens y adultos audaces).', type: 'ride' },
-      { time: '13:00', activity: 'Rock \'n\' Roller Coaster Starring Aerosmith (lanzamiento a oscuras con looping).', type: 'ride' },
+      { time: '08:25', activity: 'Llegada al loop de Rideshare exclusivo (a solo 150 m de los molinetes) y paso por seguridad para el Rope Drop.', type: 'transport' },
+      { time: '09:00', activity: 'Apertura: Star Wars: Rise of the Resistance (¡la mayor obra maestra tecnológica de Disney para los 12!).', type: 'ride' },
+      { time: '10:45', activity: 'Millennium Falcon: Smugglers Run (dividir los 12 en 2 tripulaciones exactas de 6 personas para pilotear la nave).', type: 'ride' },
+      { time: '12:00', activity: 'The Twilight Zone Tower of Terror (adrenalina pura en caída libre para los 7 adolescentes y adultos audaces).', type: 'ride' },
+      { time: '13:00', activity: 'Rock \'n\' Roller Coaster Starring Aerosmith (lanzamiento a oscuras de 0 a 92 km/h con 3 inversiones; Single Rider disponible).', type: 'ride' },
       { time: '14:15', activity: 'Almuerzo en ABC Commissary: salón climatizado inmenso con Mobile Order para 12.', type: 'food' },
-      { time: '15:30', activity: 'Toy Story Land: Slinky Dog Dash (montaña rusa familiar con lanzamientos) + Toy Story Mania.', type: 'ride' },
+      { time: '15:30', activity: 'Toy Story Land: Slinky Dog Dash (montaña rusa familiar con doble lanzamiento) + Toy Story Mania.', type: 'ride' },
       { time: '17:30', activity: 'Mickey & Minnie\'s Runaway Railway (tecnología trackless sin lentes 3D fascinante).', type: 'ride' },
       { time: '19:30', activity: 'Tomar ubicaciones en el anfiteatro de Fantasmic! (show nocturno con agua, láseres y pirotecnia).', type: 'ride' },
       { time: '21:30', activity: 'Salida ágil y regreso en 2x UberXL hacia Celebration Suites.', type: 'transport' }
     ],
     teenFocus: [
-      'The Twilight Zone Tower of Terror (caídas aleatorias)',
-      'Rock \'n\' Roller Coaster (0 a 92 km/h en 2.8s con música de Aerosmith a todo volumen)',
-      'Rise of the Resistance (escapar del Star Destroyer de Kylo Ren)'
+      'The Twilight Zone Tower of Terror (caídas libres aleatorias)',
+      'Rock \'n\' Roller Coaster (0 a 92 km/h en 2.8s con música de Aerosmith y fila Single Rider)',
+      'Star Wars: Rise of the Resistance (escapar del Star Destroyer de Kylo Ren)'
     ],
     adultFocus: [
       'Rise of the Resistance (efectos prácticos, animatrónicos hiperrealistas y simulador)',
-      'Millennium Falcon (manejar los controles de la nave)',
-      'Show Fantasmic! (uno de los mejores espectáculos de Disney)'
+      'Millennium Falcon (2 cabinas de 6 personas para los 12 viajeros)',
+      'Show Fantasmic! (uno de los mejores espectáculos nocturnos de Disney)'
     ],
     uberRecommendation: {
       departureTime: '08:00',
@@ -451,6 +480,11 @@ export const ITINERARY: ItineraryDay[] = [
       returnTip: 'Al terminar Fantasmic!, caminar directamente al loop de Uber para evitar la marea de salida.'
     },
     mealsTip: 'Para grupos de 12 personas, ABC Commissary permite hacer Mobile Order en la app de Disney para que la comida esté lista apenas lleguen.',
+    expertTips: [
+      '🎟️ Bloque Disney 2/4 (Pase 4-Park Magic Ticket): Hollywood Studios queda a solo 11.6 km (~16 min) de Celebration Suites y tiene el acceso de UberXL más cómodo de todo Disney.',
+      '🚀 En Millennium Falcon: Smugglers Run las cabinas son exactamente para 6 personas: ¡los 12 viajeros ocupan 2 cabinas completas sin desconocidos!',
+      '🏰 Mañana 22 de enero toca Magic Kingdom (Bloque Disney 3/4): recordar poner alarma a las 06:55 AM para pedir la Fila Virtual de TRON Lightcycle / Run.'
+    ],
     quickServiceRecommendation: {
       name: 'ABC Commissary',
       location: 'Commissary Lane (Hollywood Studios)',
@@ -464,10 +498,17 @@ export const ITINERARY: ItineraryDay[] = [
     dayOfWeek: 'Viernes',
     dateFull: '22 de Enero de 2027',
     type: 'park',
-    title: 'Parque 3 · Disney\'s Magic Kingdom',
+    eventShortLabel: 'Disney 3/4',
+    title: 'Parque 3 · Disney\'s Magic Kingdom (Bloque Disney 3/4)',
     parkName: 'Disney\'s Magic Kingdom',
     parkCode: 'disney_mk',
-    highlight: 'Tercero de los 4 parques iniciales: TRON Lightcycle / Run, Space Mountain, Big Thunder y el show Happily Ever After en el castillo.',
+    highlight: 'Tercer parque del Bloque Disney (4-Park Magic Ticket): TRON Lightcycle / Run, Space Mountain, Big Thunder Mountain, Seven Dwarfs y el show Happily Ever After en el castillo.',
+    ticketBlock: {
+      blockLabel: 'Bloque Disney · Día 3 de 4',
+      passName: 'Pase 4-Park Magic Ticket',
+      validityWindow: 'Ventana válida: 20 al 26 de enero de 2027',
+      theme: 'disney'
+    },
     schedule: [
       { time: '06:55', activity: 'Alarma de Fila Virtual: a las 07:00:00 AM ingresar en app My Disney Experience para solicitar cupo en TRON Lightcycle / Run.', type: 'tip' },
       { time: '07:45', activity: 'Salida sincronizada en 2x UberXL hacia el Transportation and Ticket Center (TTC) de Magic Kingdom (15.8 km).', type: 'transport' },
@@ -477,14 +518,14 @@ export const ITINERARY: ItineraryDay[] = [
       { time: '11:30', activity: 'Fantasyland: Seven Dwarfs Mine Train (montaña rusa con vagones oscilantes) y Peter Pan\'s Flight.', type: 'ride' },
       { time: '13:00', activity: 'Almuerzo en Columbia Harbour House (planta alta tranquila con aire acondicionado y mesas grandes para los 12) o Pecos Bill.', type: 'food' },
       { time: '14:30', activity: 'Frontierland y Adventureland: Big Thunder Mountain Railroad y Pirates of the Caribbean.', type: 'ride' },
-      { time: '16:30', activity: 'Haunted Mansion (la mansión embrujada con efectos holográficos deslumbrantes).', type: 'ride' },
+      { time: '16:30', activity: 'Haunted Mansion (la mansión embrujada con efectos holográficos deslumbrantes) y Buzz Lightyear\'s Space Ranger Spin.', type: 'ride' },
       { time: '18:00', activity: 'Paseo por Main Street y descanso con helados en Plaza Ice Cream Parlor.', type: 'food' },
       { time: '20:00', activity: 'Happily Ever After: el icónico show de proyecciones sobre el castillo, canciones de Disney y fuegos artificiales.', type: 'ride' },
       { time: '21:30', activity: 'Ferry o Monorriel de regreso al TTC y toma de los 2x UberXL hacia Celebration Suites.', type: 'transport' }
     ],
     teenFocus: [
       'TRON Lightcycle / Run (posición acostado sobre la moto de luz y lanzamiento a 97 km/h)',
-      'Space Mountain (clásico de velocidad a oscuras)',
+      'Space Mountain (clásico de velocidad a oscuras en Tomorrowland)',
       'Big Thunder Mountain Railroad'
     ],
     adultFocus: [
@@ -502,9 +543,9 @@ export const ITINERARY: ItineraryDay[] = [
     },
     mealsTip: 'Columbia Harbour House en Liberty Square ofrece mesas en el piso superior con vista a la calle y aire acondicionado perfecto para los 12.',
     expertTips: [
-      'Salida clave a las 07:45 hs en 2x UberXL hacia el TTC (15.8 km): sumen 20-25 min para cruzar Seven Seas Lagoon en Ferry o Monorriel.',
-      'En Columbia Harbour House suban directo al 2° piso: casi siempre hay mesas largas disponibles para sentar a los 12 juntos con aire acondicionado.',
-      'Mañana sábado 23 cerramos el primer bloque con Animal Kingdom en formato medio día + pileta para que nadie llegue agotado al domingo de compras.'
+      '🎟️ Bloque Disney 3/4 (Pase 4-Park Magic Ticket): salida clave a las 07:45 hs en 2x UberXL hacia el TTC (15.8 km) sumando 20-25 min para cruzar Seven Seas Lagoon en Ferry o Monorriel.',
+      '🍽️ En Columbia Harbour House suban directo al 2° piso: casi siempre hay mesas largas disponibles para sentar a los 12 juntos con aire acondicionado.',
+      '🦁 Mañana 23 de enero cerramos el Bloque Disney en Animal Kingdom en formato efectivo (medio día + tarde de pileta) para llegar descansados al día libre del 24.'
     ],
     quickServiceRecommendation: {
       name: 'Columbia Harbour House',
@@ -519,10 +560,17 @@ export const ITINERARY: ItineraryDay[] = [
     dayOfWeek: 'Sábado',
     dateFull: '23 de Enero de 2027',
     type: 'park',
-    title: 'Parque 4 · Disney\'s Animal Kingdom (Medio Día) & Tarde de Pileta',
+    eventShortLabel: 'Disney 4/4',
+    title: 'Parque 4 · Disney\'s Animal Kingdom (Cierre Bloque Disney 4/4)',
     parkName: 'Disney\'s Animal Kingdom',
     parkCode: 'disney_ak',
-    highlight: 'Cierre del bloque inicial de 4 parques: mañana efectiva en Avatar Flight of Passage, Safaris y Everest, y salida temprana (15:30 hs) para descansar antes del domingo libre.',
+    highlight: 'Cierre completo del Bloque Disney dentro de la ventana del Pase 4-Park Magic Ticket (20–26 ene): mañana efectiva en Avatar Flight of Passage, Safaris y Expedition Everest, y tarde de pileta antes del día libre del 24.',
+    ticketBlock: {
+      blockLabel: 'Bloque Disney · Día 4 de 4 (Cierre)',
+      passName: 'Pase 4-Park Magic Ticket',
+      validityWindow: 'Ventana válida: 20 al 26 de enero de 2027 (¡4 parques completados con 3 días de margen!)',
+      theme: 'disney'
+    },
     schedule: [
       { time: '07:00', activity: 'Despertador temprano: Animal Kingdom abre a las 08:00 AM y es el parque más cercano a Celebration Suites (10.9 km).', type: 'tip' },
       { time: '07:25', activity: 'Salida sincronizada en 2x UberXL rumbo a Disney\'s Animal Kingdom (10.9 km / ~14 min).', type: 'transport' },
@@ -533,17 +581,17 @@ export const ITINERARY: ItineraryDay[] = [
       { time: '13:15', activity: 'Almuerzo liviano y nutritivo en Satu\'li Canteen (Pandora) con Mobile Order grupal.', type: 'food' },
       { time: '14:30', activity: 'Festival of the Lion King (espectáculo acrobático sentado en carpa climatizada — cero caminata).', type: 'ride' },
       { time: '15:30', activity: 'Salida temprana en 2x UberXL hacia Celebration Suites para tarde de pileta, reposeras y recuperación muscular.', type: 'transport' },
-      { time: '19:30', activity: 'Cena distendida en Texas Roadhouse (Kissimmee 192, a 5 min): mañana domingo 24 se duerme sin despertador.', type: 'food' }
+      { time: '19:30', activity: 'Cena distendida en Texas Roadhouse (Kissimmee 192, a 5 min): ¡mañana 24 de enero es día libre de descanso, pileta, outlets y Walmart!', type: 'food' }
     ],
     teenFocus: [
       'Expedition Everest (usar fila Single Rider para subir 2 veces seguidas sin desgaste)',
       'Avatar Flight of Passage (sentir respirar al banshee entre las piernas)',
-      'Tarde libre de pileta en Celebration Suites tras 4 días seguidos de parques'
+      'Tarde libre de pileta en Celebration Suites tras completar los 4 parques de Disney'
     ],
     adultFocus: [
       'Avatar Flight of Passage y Kilimanjaro Safaris por la mañana sin calor ni cansancio',
       'Festival of the Lion King (show sentado de nivel Broadway)',
-      'Regreso a las 15:30 hs para cortar la seguidilla de caminatas antes del domingo de descanso/compras'
+      'Cierre perfecto del Bloque Disney regresando a las 15:30 hs a descansar'
     ],
     uberRecommendation: {
       departureTime: '07:25',
@@ -555,9 +603,9 @@ export const ITINERARY: ItineraryDay[] = [
     },
     mealsTip: 'Satu\'li Canteen en Pandora tiene los mejores bowls saludables de Disney y las famosas Cheeseburger Steamed Pods.',
     expertTips: [
-      'Estrategia anti-fatiga del 4° parque consecutivo: Animal Kingdom queda a solo 10.9 km (~14 min). Saliendo en 2x UberXL a las 07:25 hs hacemos los imperdibles temprano y volvemos a las 15:30 hs a la pileta.',
-      'Usen Single Rider en Expedition Everest si los 7 adolescentes quieren repetir mientras los adultos disfrutan de las vistas de Asia o un café.',
-      'Mañana domingo 24 es día completo de descanso y compras: no pongan despertador temprano.'
+      '🎟️ Bloque Disney 4/4 completado: cerramos los 4 parques de Disney (EPCOT, Hollywood Studios, Magic Kingdom y Animal Kingdom) perfectamente dentro de la ventana del Pase 4-Park Magic Ticket (20 al 26 de enero).',
+      '⚡ Estrategia anti-fatiga: Animal Kingdom está a solo 10.9 km (~14 min). Saliendo a las 07:25 hs hacemos todo lo imperdible temprano y volvemos a las 15:30 hs a la pileta.',
+      '🛍️ Mañana 24 de enero es día libre completo para descanso, pileta, outlets (Nike/Adidas) y Walmart antes de arrancar el Bloque Universal el 25 junto a Agustina.'
     ],
     quickServiceRecommendation: {
       name: "Satu'li Canteen",
@@ -572,42 +620,48 @@ export const ITINERARY: ItineraryDay[] = [
     dayOfWeek: 'Domingo',
     dateFull: '24 de Enero de 2027',
     type: 'shopping',
-    title: 'Día de Descanso & Compras 1 · Outlets I-Drive & Best Buy',
-    highlight: 'Domingo estratégico de recuperación física entre los dos bloques de parques: mañana libre, botines en Nike & Adidas Outlet ("Hash Wall") y tecnología en Best Buy.',
+    eventShortLabel: 'Libre / Outlets',
+    title: 'Día Libre · Descanso, Pileta, Outlets (Nike/Adidas) & Walmart',
+    highlight: 'Jornada bisagra de recuperación física entre el Bloque Disney y el Bloque Universal: mañana sin despertador y pileta en Celebration Suites, tarde de outlets (Nike y Adidas) y reabastecimiento en Walmart.',
+    ticketBlock: {
+      blockLabel: 'Día Libre · Pausa Estratégica',
+      passName: 'Descanso + Compras & Provisiones',
+      validityWindow: 'Bisagra entre Bloque Disney (20–23 ene) y Bloque Universal (25–27 ene)',
+      theme: 'rest'
+    },
     schedule: [
-      { time: '10:00', activity: 'Mañana sin despertador y desayuno relajado en Celebration Suites. Recuperar piernas tras los primeros 4 parques.', type: 'tip' },
-      { time: '11:30', activity: 'Salida en 2x UberXL rumbo a Orlando International Premium Outlets en I-Drive (22.2 km / ~25 min).', type: 'transport' },
-      { time: '12:00', activity: 'Parada prioritaria 1: Nike Factory Store (buscar el "Hash Wall" al fondo para botines de fútbol y zapatillas).', type: 'shopping' },
-      { time: '13:30', activity: 'Parada prioritaria 2: Adidas Outlet Store (indumentaria deportiva, camisetas y botines Predator/X/Copa).', type: 'shopping' },
-      { time: '14:45', activity: 'Almuerzo en el Food Court o en Shake Shack / Five Guys en International Drive.', type: 'food' },
-      { time: '16:15', activity: 'Traslado corto en 2x UberXL a Best Buy Millenia (4155 Millenia Blvd, a 3.5 km).', type: 'transport' },
-      { time: '16:30', activity: 'Visita de tecnología: ver notebooks (MacBook Air/Pro, laptops gaming Asus/Lenovo), tablets, iPads, powerbanks Anker y accesorios.', type: 'shopping' },
-      { time: '18:45', activity: 'Regreso a Celebration Suites para dejar compras y descansar antes de la trilogía de parques del 25, 26 y 27.', type: 'transport' },
-      { time: '20:30', activity: 'Cena tranquila en Ford\'s Garage (Kissimmee 192, a 5 min) o pizza en el suite y dormir temprano.', type: 'food' }
+      { time: '09:30', activity: 'Mañana sin despertador, desayuno relajado en los 3 departamentos y disfrute de la pileta de Celebration Suites para recuperar piernas tras los 4 parques Disney.', type: 'tip' },
+      { time: '12:00', activity: 'Salida en 2x UberXL rumbo a Orlando International Premium Outlets en I-Drive (22.2 km) o Vineland Premium Outlets (12.7 km).', type: 'transport' },
+      { time: '12:30', activity: 'Parada prioritaria 1: Nike Factory / Clearance Store (buscar el "Hash Wall" al fondo para botines de fútbol y zapatillas para los 7 chicos).', type: 'shopping' },
+      { time: '14:00', activity: 'Parada prioritaria 2: Adidas Outlet Store (botines Predator/X/Copa, camisetas y promos 2x1 / 50% OFF en el segundo par).', type: 'shopping' },
+      { time: '15:15', activity: 'Almuerzo distendido en el Food Court o en Shake Shack / Five Guys.', type: 'food' },
+      { time: '16:45', activity: 'Parada opcional de tecnología en Best Buy Millenia (a 3.5 km de I-Drive Outlets) para ver notebooks, powerbanks Anker y accesorios.', type: 'shopping' },
+      { time: '18:15', activity: 'Reabastecimiento en Walmart Supercenter #5214 Vine St (a solo 4.5 km de Celebration Suites): reponer packs de agua mineral, frutas, barritas y snacks para los 3 días intensos de Universal.', type: 'shopping' },
+      { time: '20:00', activity: 'Cena relajada en Ford\'s Garage (Kissimmee 192, a 5 min) o pizza en los suites y descanso temprano: ¡mañana 25 arrancamos el Bloque Universal junto a Agustina!', type: 'food' }
     ],
     teenFocus: [
-      'Dormir hasta tarde y recuperar piernas para la trilogía EPCOT + Universal Studios + Epic Universe',
-      'Probarse botines de fútbol de última gama en Nike ("Hash Wall") y Adidas',
-      'Mirar laptops gamer, auriculares y accesorios en Best Buy Millenia'
+      'Dormir sin despertador y disfrutar la pileta de Celebration Suites para recargar energía',
+      'Probarse botines de fútbol y zapatillas en Nike ("Hash Wall") y Adidas Outlet',
+      'Elegir snacks y bebidas en Walmart para las mochilas de los 3 días de Universal'
     ],
     adultFocus: [
-      'Pausa física total de caminatas de parque en domingo (cuando los parques están más llenos)',
-      'Ver notebooks, tablets y powerbanks en Best Buy (Open-Box y garantía oficial)',
-      'Compras de indumentaria con cuponera digital VIP de Simon Outlets'
+      'Pausa física total de caminatas de parque entre el Bloque Disney y el Bloque Universal',
+      'Aprovechar cuponeras VIP digitales en Nike/Adidas y reabastecer los 3 departamentos en Walmart',
+      'Coordinar horario de encuentro para mañana 25 de enero con Agustina en Universal'
     ],
     uberRecommendation: {
-      departureTime: '11:30',
-      destination: 'Celebration Suites ➔ Orlando Int. Premium Outlets',
+      departureTime: '12:00',
+      destination: 'Celebration Suites ➔ Outlets (Nike/Adidas) & Walmart Vine St',
       distanceKm: 22.2,
       estMinutes: 25,
-      recommendedDropoff: 'Puerta principal junto al Food Court (4951 International Dr)',
-      returnTip: 'A las 16:15 hs pedir los 2x UberXL desde Outlets hacia Best Buy Millenia (solo 3.5 km / 8 min).'
+      recommendedDropoff: 'Puerta principal junto a Nike / Food Court (International o Vineland Outlets) y luego Walmart #5214 (4.5 km del hotel)',
+      returnTip: 'Si vuelven con bolsas de compras, pasar directo por Walmart #5214 Vine St (a 6 min del hotel) o enviar a 2 adultos en 1 Uber estándar para el súper.'
     },
-    mealsTip: 'Para no perder tiempo en compras, almorzar ágil en Shake Shack o el Food Court; por la noche Ford\'s Garage sobre la 192 está a 5 min de Celebration Suites.',
+    mealsTip: 'Aprovechar el paso por Walmart #5214 a la tarde para reponer 2 packs de agua mineral, frutas y desayunos para los 3 días seguidos de Universal (25, 26 y 27).',
     expertTips: [
-      'Domingo inteligente fuera de los parques: mientras Orlando tiene sus filas más altas del fin de semana, nuestro grupo descansa y aprovecha los outlets.',
-      'Llevar una mochila vacía o carry-on liviano para guardar las cajas de botines sin cargar bolsas incómodas.',
-      'A la noche dejar cargados celulares y powerbanks: mañana lunes 25 arranca la trilogía de 3 parques seguidos (EPCOT ➔ Universal Studios ➔ Epic Universe) y a las 06:55 AM hay que pedir Fila Virtual.'
+      '🏊 Mañana de pileta y recuperación real: después de 4 días de parques Disney, descansar sin despertador hasta media mañana renueva energías para toda la semana.',
+      '👟 Estrategia Nike & Adidas: llevar una mochila vacía o carry-on liviano para guardar cajas de botines y activar la cuponera VIP de Simon Outlets.',
+      '🎢 Mañana 25 de enero se abre la ventana del Pase 3-Day Ticket de Universal: arrancamos en Universal\'s Islands of Adventure junto a Agustina (¡salimos 08:05 hs en 2x UberXL!).'
     ]
   },
   {
@@ -616,51 +670,60 @@ export const ITINERARY: ItineraryDay[] = [
     dayOfWeek: 'Lunes',
     dateFull: '25 de Enero de 2027',
     type: 'park',
-    title: 'Parque 5 · Disney\'s EPCOT (Trilogía Día 1/3)',
-    parkName: 'Disney\'s EPCOT',
-    parkCode: 'disney_epcot',
-    highlight: 'Inicio de la trilogía 25-26-27 de enero: Guardians of the Galaxy: Cosmic Rewind (¡la mejor montaña rusa de Disney!), Soarin\', Remy\'s Ratatouille y Luminous.',
+    eventShortLabel: 'Universal 1/3',
+    title: 'Parque 5 · Universal\'s Islands of Adventure (Bloque Universal 1/3 · Con Agustina)',
+    parkName: 'Islands of Adventure',
+    parkCode: 'universal_ioa',
+    highlight: 'Apertura del Bloque Universal (Pase 3-Day Ticket válido desde el 25 de enero de 2027) ¡junto a Agustina!: pura adrenalina en VelociCoaster, Hagrid\'s Motorbike, Hulk Coaster y Hogwarts.',
+    ticketBlock: {
+      blockLabel: 'Bloque Universal · Día 1 de 3',
+      passName: 'Pase 3-Day Ticket Universal',
+      validityWindow: 'Ventana válida: a partir del 25 de enero de 2027',
+      companionNote: '¡Junto a Agustina!',
+      theme: 'universal'
+    },
     schedule: [
-      { time: '06:55', activity: 'Alarma de Fila Virtual: a las 07:00:00 AM ingresar en My Disney Experience para solicitar cupo de Guardians of the Galaxy: Cosmic Rewind.', type: 'tip' },
-      { time: '08:00', activity: 'Desayuno en Celebration Suites y salida sincronizada en 2x UberXL hacia EPCOT (13.7 km).', type: 'transport' },
-      { time: '08:30', activity: 'Llegada al Lote Este de Rideshare y Rope drop hacia World Celebration y World Discovery.', type: 'transport' },
-      { time: '09:00', activity: 'Subida a Guardians of the Galaxy: Cosmic Rewind según grupo de llamada (rotación 360° y temazos de rock).', type: 'ride' },
-      { time: '10:45', activity: 'Soarin\' Around the World en World Nature (simulador de vuelo en ala delta con olores y brisa marina) o Test Track.', type: 'ride' },
-      { time: '12:15', activity: 'Spaceship Earth (viaje nostálgico adentro de la icónica esfera geodésica).', type: 'ride' },
-      { time: '13:30', activity: 'Almuerzo en Connections Eatery (salón climatizado gigante con enchufes USB para cargar celulares de los 12).', type: 'food' },
-      { time: '15:00', activity: 'Paseo por World Showcase: Pabellón de Francia ➔ Remy\'s Ratatouille Adventure (simulador 3D sin rieles).', type: 'ride' },
-      { time: '17:00', activity: 'Recorrido relajado por los 11 países de World Showcase (México, Noruega: Frozen Ever After, Japón, Italia y Alemania).', type: 'shopping' },
-      { time: '20:30', activity: 'Ubicarse en el borde de la laguna de World Showcase para el show nocturno "Luminous: The Symphony of Us" (21:00 hs).', type: 'ride' },
-      { time: '21:30', activity: 'Retorno en 2x UberXL hacia Celebration Suites.', type: 'transport' }
+      { time: '07:30', activity: 'Desayuno energético en Celebration Suites con mochilas compactas, agua de Walmart y zapatillas cómodas.', type: 'food' },
+      { time: '08:05', activity: 'Pedir sincronizados los 2x UberXL (6+6 pax) hacia Universal Orlando Drop-off Hub (23.3 km).', type: 'transport' },
+      { time: '08:35', activity: 'Llegada al Piso 5 del estacionamiento central, seguridad de CityWalk y punto de encuentro con Agustina en el arco de Islands of Adventure.', type: 'transport' },
+      { time: '09:00', activity: 'Apertura oficial (Rope Drop): ir directo a Hagrid\'s Magical Creatures Motorbike Adventure (7 lanzamientos) o VelociCoaster.', type: 'ride' },
+      { time: '10:30', activity: 'Jurassic World VelociCoaster (¡el highlight absoluto de adrenalina para los 7 adolescentes!).', type: 'ride', notes: 'Los casilleros para celulares y mochilas son obligatorios y gratuitos junto a la entrada.' },
+      { time: '12:00', activity: 'The Wizarding World of Harry Potter: Hogsmeade + Harry Potter and the Forbidden Journey dentro del Castillo de Hogwarts.', type: 'ride' },
+      { time: '13:30', activity: 'Almuerzo grupal en Three Broomsticks (Las Tres Escobas) en Hogsmeade con bandejas "The Great Feast".', type: 'food' },
+      { time: '15:00', activity: 'The Amazing Adventures of Spider-Man (simulador 3D legendario para todos) + The Incredible Hulk Coaster (teens).', type: 'ride' },
+      { time: '17:00', activity: 'Jurassic Park River Adventure (Splash moderado) o Skull Island: Reign of Kong.', type: 'ride' },
+      { time: '19:00', activity: 'Repetir la montaña rusa preferida de noche (VelociCoaster iluminada sobre la laguna es una locura).', type: 'ride' },
+      { time: '20:30', activity: 'Cena distendida en Universal CityWalk (Cowfish o Antojitos Mexicanos) junto a Agustina y regreso en 2x UberXL a Celebration Suites.', type: 'food' }
     ],
     teenFocus: [
-      'Guardians of the Galaxy: Cosmic Rewind (lanzamiento hacia atrás, giros controlados y música de Queen / Earth Wind & Fire)',
-      'Probar sodas internacionales exóticas en Club Cool de Coca-Cola (¡probar la Beverly de broma!)'
+      'VelociCoaster (0 a 112 km/h en 2.4s, gravedad cero sobre la laguna — ¡imperdible #1!)',
+      'Hagrid\'s Magical Creatures Motorbike Adventure (7 lanzamientos y caída libre vertical)',
+      'The Incredible Hulk Coaster (lanzamiento inicial de 67 km/h y 7 inversiones)'
     ],
     adultFocus: [
-      'Guardians of the Galaxy (suavidad absoluta en el riel, cero vibración brusca)',
-      'Soarin\' Around the World y Remy\'s Ratatouille Adventure',
-      'Degustación gastronómica en los pabellones de Francia, Italia y Japón en World Showcase'
+      'Compartir el inicio del Bloque Universal junto a Agustina con piernas descansadas tras el día libre del 24',
+      'Harry Potter and the Forbidden Journey y The Amazing Adventures of Spider-Man (simulador 4K)',
+      'Paseo temático por Hogsmeade con Butterbeer Frozen'
     ],
     uberRecommendation: {
-      departureTime: '08:00',
-      destination: 'Celebration Suites ➔ Disney\'s EPCOT',
-      distanceKm: 13.7,
-      estMinutes: 18,
-      recommendedDropoff: 'Rideshare Drop-off EPCOT (Lote Este frente a la esfera de Spaceship Earth)',
-      returnTip: 'Al terminar Luminous, caminar por el lateral izquierdo de Spaceship Earth hacia el estacionamiento este ANTES de pedir ambos UberXL.'
+      departureTime: '08:05',
+      destination: 'Celebration Suites ➔ Universal Drop-off Hub (CityWalk Piso 5)',
+      distanceKm: 23.3,
+      estMinutes: 24,
+      recommendedDropoff: 'Universal Orlando Resort Guest Drop-off (Piso 5 del estacionamiento central)',
+      returnTip: 'A la salida (20:30-21:00), subir al Piso 5 de la estación de Uber en CityWalk ANTES de pedir los 2x UberXL.'
     },
-    mealsTip: 'En el pabellón de Francia, pasar por Les Halles Boulangerie-Patisserie para probar croissants, baguettes rellenas y macarons.',
+    mealsTip: 'Probar la Butterbeer Frozen en Hogsmeade. En Three Broomsticks pedir 2 o 3 fuentes gigantes "The Great Feast" para compartir en grupo.',
     expertTips: [
-      'Trilogía 1/3 — Pedido clave de 2x UberXL a las 08:00 hs (13.7 km / ~18 min): llegan frescos tras el domingo de compras y coordinan Guardians of the Galaxy desde las 07:00 AM.',
-      'En Connections Eatery a las 13:30 hs aprovechen los puertos USB en las mesas largas para recargar celulares y powerbanks de los 12 viajeros.',
-      'Cuiden las piernas en World Showcase (es una caminata de 2 km alrededor del lago): el martes 26 toca Universal Studios y el miércoles 27 el plato fuerte, Universal Epic Universe.'
+      '🎟️ Bloque Universal 1/3 (Pase 3-Day Ticket · válido desde el 25 de enero · junto a Agustina): arrancamos con la mayor dosis de adrenalina del viaje después del día libre del 24.',
+      '🚗 Logística 2x UberXL (08:05 hs · 23.3 km): destino "Universal Orlando Resort Guest Drop-off" (Piso 5 de CityWalk). Al volver, subir al Piso 5 antes de solicitar los autos.',
+      '🔐 Casilleros gratuitos: en VelociCoaster, Hulk y Forbidden Journey llevar mochilas compactas o agrupar pertenencias para entrar y salir rápido de los lockers.'
     ],
     quickServiceRecommendation: {
-      name: 'Connections Eatery',
-      location: 'World Celebration (EPCOT)',
-      specialty: 'Hamburguesas gourmet, pizzas napolitanas, waffles y ensaladas',
-      whyFor10Pax: 'Espacio enorme con aire acondicionado y enchufes para cargar todos los celulares de los 7 adolescentes mientras comen.'
+      name: 'Three Broomsticks (Las Tres Escobas)',
+      location: 'Hogsmeade (Islands of Adventure)',
+      specialty: 'Platos familiares de costillas, pollo asado, papas y ensalada fresca',
+      whyFor10Pax: 'Pidiendo dos o tres bandejas gigantes "The Great Feast" comen todos con abundancia y a menor costo que comprando platos individuales.'
     }
   },
   {
@@ -669,21 +732,29 @@ export const ITINERARY: ItineraryDay[] = [
     dayOfWeek: 'Martes',
     dateFull: '26 de Enero de 2027',
     type: 'park',
-    title: 'Parque 6 · Universal Studios Florida (Trilogía Día 2/3)',
+    eventShortLabel: 'Universal 2/3',
+    title: 'Parque 6 · Universal Studios Florida (Bloque Universal 2/3 · Con Agustina)',
     parkName: 'Universal Studios Florida',
     parkCode: 'universal_studios',
-    highlight: 'Día de menor afluencia estadística de filas en Universal Studios: Escape from Gringotts, Revenge of the Mummy, Rip Ride Rockit y Diagon Alley.',
+    highlight: 'Segundo día del Bloque Universal (Pase 3-Day Ticket) junto a Agustina: menor afluencia estadística de filas para Escape from Gringotts, Revenge of the Mummy, Rip Ride Rockit y Diagon Alley.',
+    ticketBlock: {
+      blockLabel: 'Bloque Universal · Día 2 de 3',
+      passName: 'Pase 3-Day Ticket Universal',
+      validityWindow: 'Ventana válida: a partir del 25 de enero de 2027',
+      companionNote: '¡Junto a Agustina!',
+      theme: 'universal'
+    },
     schedule: [
       { time: '07:35', activity: 'Desayuno en suites con zapatillas cómodas y botellas de agua en mochilas compactas.', type: 'food' },
       { time: '07:55', activity: 'Pedir sincronizados los 2x UberXL hacia Universal Orlando Drop-off Hub (23.3 km).', type: 'transport' },
-      { time: '08:30', activity: 'Llegada al Piso 5 del estacionamiento central, seguridad de CityWalk y caminata a Universal Studios Florida.', type: 'transport' },
-      { time: '09:00', activity: 'Entrada directa a Diagon Alley tras la pared de ladrillos: Harry Potter and the Escape from Gringotts con mínima fila de martes.', type: 'ride' },
+      { time: '08:30', activity: 'Llegada al Piso 5 del estacionamiento central, seguridad de CityWalk y encuentro con Agustina en el globo giratorio de Universal Studios.', type: 'transport' },
+      { time: '09:00', activity: 'Entrada directa a Diagon Alley tras la pared de ladrillos: Harry Potter and the Escape from Gringotts con mínima fila.', type: 'ride' },
       { time: '10:30', activity: 'Revenge of the Mummy (montaña rusa bajo techo con fuego real y aceleraciones brutales).', type: 'ride' },
       { time: '11:45', activity: 'Hollywood Rip Ride Rockit (subida a 90° y música a elección) + Race Through New York Starring Jimmy Fallon.', type: 'ride' },
       { time: '13:15', activity: 'Almuerzo en Fast Food Boulevard (Springfield de Los Simpsons) o Leaky Cauldron en Diagon Alley.', type: 'food' },
       { time: '14:45', activity: 'TRANSFORMERS: The Ride 3D (simulador de batalla urbana) y Despicable Me Minion Mayhem.', type: 'ride' },
       { time: '16:15', activity: 'MEN IN BLACK Alien Attack (competencia grupal de disparos láser: Auto 1 vs Auto 2).', type: 'ride' },
-      { time: '17:45', activity: 'E.T. Adventure (clásico encantador para los 12) y última vuelta de los adolescentes en Gringotts o Mummy.', type: 'ride' },
+      { time: '17:45', activity: 'E.T. Adventure (clásico encantador para todos) y última vuelta de los adolescentes en Gringotts o Mummy.', type: 'ride' },
       { time: '19:45', activity: 'Cena relajada en Universal CityWalk (Hard Rock Cafe o Antojitos) y regreso en 2x UberXL para dormir bien antes de Epic Universe.', type: 'food' }
     ],
     teenFocus: [
@@ -692,7 +763,7 @@ export const ITINERARY: ItineraryDay[] = [
       'Escape from Gringotts (caída en riel y dragón ucraniano escupefuego)'
     ],
     adultFocus: [
-      'Inmersión arquitectónica en Diagon Alley (ver el dragón de Gringotts rugir fuego cada 10 min)',
+      'Inmersión arquitectónica en Diagon Alley junto a Agustina (ver el dragón de Gringotts rugir fuego cada 10 min)',
       'TRANSFORMERS The Ride 3D y simuladores bajo techo con aire acondicionado',
       'Competencia grupal en MEN IN BLACK Alien Attack para ver quién saca más puntos'
     ],
@@ -706,10 +777,10 @@ export const ITINERARY: ItineraryDay[] = [
     },
     mealsTip: 'En Leaky Cauldron pedir Fish & Chips y Cottage Pie. En Diagon Alley prueben el helado de manteca (Butterbeer Ice Cream) en Florean Fortescue\'s.',
     expertTips: [
-      'Trilogía 2/3 — Ventaja del martes 26: estadísticamente los martes de enero tienen 25-35% menos fila en simuladores y montañas rusas de Universal Studios Florida.',
-      'Logística 2x UberXL a las 07:55 hs (23.3 km / ~24 min): ir al Hub tradicional de CityWalk Piso 5 (¡OJO: mañana miércoles 27 Epic Universe queda en otro campus distinto sobre Epic Blvd!).',
-      'Casilleros gratuitos: en Gringotts, Mummy y Rip Ride Rockit agrupen mochilas en 1 o 2 bolsos compactos para entrar y salir rápido de los lockers.',
-      'Salir del parque antes de las 20:30 hs para dormir 8 horas: mañana miércoles toca madrugar para estrenar Universal Epic Universe.'
+      '🎟️ Bloque Universal 2/3 (Pase 3-Day Ticket · junto a Agustina): estadísticamente esta jornada tiene 25-35% menos fila en simuladores y montañas rusas de Universal Studios Florida.',
+      '🚗 Logística 2x UberXL a las 07:55 hs (23.3 km / ~24 min): ir al Hub tradicional de CityWalk Piso 5 (¡OJO: mañana 27 Epic Universe queda en otro campus distinto sobre Epic Blvd!).',
+      '🔐 Casilleros gratuitos: en Gringotts, Mummy y Rip Ride Rockit agrupen mochilas en 1 o 2 bolsos compactos para entrar y salir rápido de los lockers.',
+      '😴 Salir del parque antes de las 20:30 hs para dormir 8 horas: mañana 27 de enero cerramos el Bloque Universal estrenando Universal Epic Universe.'
     ],
     quickServiceRecommendation: {
       name: 'Fast Food Boulevard (Springfield)',
@@ -724,17 +795,25 @@ export const ITINERARY: ItineraryDay[] = [
     dayOfWeek: 'Miércoles',
     dateFull: '27 de Enero de 2027',
     type: 'park',
-    title: 'Parque 7 · Universal Epic Universe (Trilogía Día 3/3)',
+    eventShortLabel: 'Universal 3/3',
+    title: 'Parque 7 · Universal Epic Universe (Bloque Universal 3/3 · Con Agustina)',
     parkName: 'Universal Epic Universe',
     parkCode: 'universal_epic',
-    highlight: '¡El gran 7° parque de Orlando! 5 mundos inmersivos: SUPER NINTENDO WORLD, Dark Universe, Isle of Berk, Ministry of Magic y la doble coaster Stardust Racers.',
+    highlight: '¡Gran cierre del Bloque Universal (Pase 3-Day Ticket) junto a Agustina y 7° parque de Orlando! 5 mundos inmersivos: SUPER NINTENDO WORLD, Dark Universe, Isle of Berk, Ministry of Magic y Stardust Racers.',
+    ticketBlock: {
+      blockLabel: 'Bloque Universal · Día 3 de 3 (Cierre)',
+      passName: 'Pase 3-Day Ticket Universal',
+      validityWindow: 'Ventana válida: a partir del 25 de enero de 2027',
+      companionNote: '¡Junto a Agustina!',
+      theme: 'universal'
+    },
     schedule: [
       { time: '07:15', activity: 'Desayuno energético temprano en Celebration Suites. Verificar la App oficial de Universal Orlando (Mobile Order y tiempos en vivo).', type: 'food' },
       { time: '07:40', activity: 'Pedir sincronizados los 2x UberXL rumbo al nuevo campus de Universal Epic Universe (20.5 km, acceso por Epic Blvd / Universal Blvd).', type: 'transport', notes: 'ATENCIÓN: No confundir en la app de Uber con el campus antiguo de CityWalk; seleccionar "Universal Epic Universe".' },
-      { time: '08:15', activity: 'Ingreso por el portal monumental Chronos hacia Celestial Park y preparación para el Rope Drop.', type: 'transport' },
+      { time: '08:15', activity: 'Encuentro con Agustina e ingreso por el portal monumental Chronos hacia Celestial Park listos para el Rope Drop.', type: 'transport' },
       { time: '09:00', activity: 'Portal 1 — SUPER NINTENDO WORLD: Mario Kart: Bowser\'s Challenge (realidad aumentada) y Mine-Cart Madness (Donkey Kong Country con saltos de vía).', type: 'ride', notes: 'Los chicos pueden usar las pulseras Power-Up Band para interactuar con bloques y minijuegos; Yoshi\'s Adventure ofrece vistas panorámicas.' },
       { time: '11:30', activity: 'Portal 2 — The Wizarding World of Harry Potter – Ministry of Magic: recorrer el París mágico de los años 20 y subir a Harry Potter and the Battle at the Ministry.', type: 'ride', notes: 'Una de las atracciones más espectaculares jamás creadas (ascensores omnidireccionales y efectos prácticos gigantes).' },
-      { time: '13:30', activity: 'Almuerzo en Mead Hall (Isle of Berk) o Toadstool Cafe (Super Nintendo World) usando Mobile Order grupal para los 12.', type: 'food' },
+      { time: '13:30', activity: 'Almuerzo en Mead Hall (Isle of Berk) o Toadstool Cafe (Super Nintendo World) usando Mobile Order grupal.', type: 'food' },
       { time: '14:45', activity: 'Portal 3 — How to Train Your Dragon – Isle of Berk: montaña rusa familiar Hiccup\'s Wing Gliders, Dragon Racer\'s Rally y Fyre Drill.', type: 'ride' },
       { time: '17:00', activity: 'Portal 4 — Dark Universe: Monsters Unchained: The Frankenstein Experiment (tecnología robótica KUKA de nueva generación) y Curse of the Werewolf.', type: 'ride' },
       { time: '19:15', activity: 'Celestial Park de noche — Stardust Racers: la doble montaña rusa de lanzamiento paralelo a 100 km/h iluminando el cielo nocturno.', type: 'ride', notes: '¡Imperdible de noche! Los trenes cometa brillan sin iluminación externa de rieles mientras se cruzan en el aire.' },
@@ -746,8 +825,8 @@ export const ITINERARY: ItineraryDay[] = [
       'Monsters Unchained y Curse of the Werewolf en Dark Universe'
     ],
     adultFocus: [
-      'Harry Potter and the Battle at the Ministry (escala cinematográfica impresionante en el Ministerio de Magia)',
-      'Mario Kart: Bowser\'s Challenge (competencia en 3D/AR para adultos y chicos por igual)',
+      'Gran cierre del Bloque Universal junto a Agustina estrenando el parque más moderno del mundo',
+      'Harry Potter and the Battle at the Ministry y Mario Kart: Bowser\'s Challenge',
       'Arquitectura y gastronomía de Isle of Berk y el espectáculo nocturno de Celestial Park'
     ],
     uberRecommendation: {
@@ -758,11 +837,11 @@ export const ITINERARY: ItineraryDay[] = [
       recommendedDropoff: 'Universal Epic Universe Rideshare Loop (acceso por Epic Blvd junto a Chronos Plaza)',
       returnTip: 'Al cerrar el parque, salgan por la plaza central Chronos hacia el loop de Rideshare de Epic Blvd ANTES de pedir los 2x UberXL.'
     },
-    mealsTip: 'Mead Hall en Isle of Berk tiene salones vikingos enormes ideales para sentar a los 12 juntos y fuentes "Thawfest Platter" para compartir. En Super Nintendo World, Toadstool Cafe requiere Mobile Order temprano.',
+    mealsTip: 'Mead Hall en Isle of Berk tiene salones vikingos enormes ideales para sentar al grupo junto y fuentes "Thawfest Platter" para compartir. En Super Nintendo World, Toadstool Cafe requiere Mobile Order temprano.',
     expertTips: [
-      'Trilogía 3/3 — Ubicación distinta de Uber: Universal Epic Universe está a 20.5 km de Celebration Suites (al sur de Sand Lake Rd / Epic Blvd), NO en CityWalk. Verificar que ambos choferes marquen "Universal Epic Universe".',
-      'Orden inteligente de portales: ataquen SUPER NINTENDO WORLD (Mario Kart + Mine-Cart) o Ministry of Magic a las 09:00 AM en punto, y dejen Stardust Racers para después de las 18:30 hs cuando cae la noche (¡es otro planeta iluminado!).',
-      'Mañana jueves 28 de enero tenemos mañana tranquila de compras/descanso y luego NBA Orlando Magic vs. Chicago Bulls: esta noche antes de dormir dejar descargadas las entradas digitales del Kia Center en el celular y separar carteras pequeñas (prohibidas las mochilas de parque en el estadio).'
+      '🎟️ Bloque Universal 3/3 (Pase 3-Day Ticket · junto a Agustina) — Ubicación distinta de Uber: Universal Epic Universe está a 20.5 km de Celebration Suites (sobre Epic Blvd), NO en CityWalk. Verificar que ambos choferes marquen "Universal Epic Universe".',
+      '🌌 Orden inteligente de portales: ataquen SUPER NINTENDO WORLD (Mario Kart + Mine-Cart) o Ministry of Magic a las 09:00 AM en punto, y dejen Stardust Racers para después de las 18:30 hs cuando cae la noche.',
+      '🏀 Mañana jueves 28 de enero tenemos mañana tranquila de descanso y luego NBA Orlando Magic vs. Chicago Bulls en Kia Center: esta noche dejar descargadas las entradas digitales en el wallet y separar carteras pequeñas (prohibidas las mochilas de parque en el estadio).'
     ],
     quickServiceRecommendation: {
       name: 'Mead Hall (Isle of Berk)',
@@ -782,14 +861,14 @@ export const ITINERARY: ItineraryDay[] = [
     bannerHeadline: '🏀 Partido Confirmado NBA: Orlando Magic vs. Chicago Bulls · Kia Center (19:00 hs)',
     bannerTransportNote: '🚗 2x UberXL a las 16:45 hs (35 km)',
     title: 'Mañana Libre / Descanso & NBA: Orlando Magic vs. Chicago Bulls',
-    highlight: '✅ ¡Entradas listas! Mañana libre y de descanso total tras la trilogía de parques; a las 19:00 hs partido oficial NBA en el Kia Center (400 W Church St, a 35 km).',
+    highlight: '✅ ¡Entradas listas! Mañana libre y de descanso total tras el Bloque Universal (Islands of Adventure, Universal Studios y Epic Universe); a las 19:00 hs partido oficial NBA en el Kia Center (400 W Church St, a 35 km).',
     logisticAlert: {
       departureTime: '16:45',
       title: 'Alerta Logística NBA · Pedir 2x UberXL a las 16:45 hs en punto',
       message: 'El Kia Center queda a 35 km desde Celebration Suites por la I-4 Este. Pedir los 2 UberXL a las 16:45 hs evita la congestión de hora pico en la I-4, permite ingresar sin corridas, ver el precalentamiento en cancha y recorrer el Magic Team Shop.'
     },
     schedule: [
-      { time: '10:00', activity: 'Mañana libre sin despertador y desayuno relajado en Celebration Suites. Descanso físico tras 3 días seguidos de parques.', type: 'tip' },
+      { time: '10:00', activity: 'Mañana libre sin despertador y desayuno relajado en Celebration Suites. Descanso físico tras los 3 días seguidos del Bloque Universal.', type: 'tip' },
       { time: '11:30', activity: 'Pileta del hotel, relax en los departamentos o caminata tranquila por Old Town Kissimmee (al lado del hotel).', notes: 'Mañana pensada para recargar energía y cuidar piernas (mañana viernes 29 queda entero para compras finales).', type: 'tip' },
       { time: '13:30', activity: 'Almuerzo tranquilo en Celebration Suites o en algún local cercano sobre la 192.', type: 'food' },
       { time: '15:30', activity: 'Ducha, cambio de ropa y control de tickets: verificar que las entradas estén guardadas en Apple/Google Wallet y dejar TODAS las mochilas de parque en el suite.', notes: 'En el Kia Center NO permiten mochilas de parque. Llevar solo lo mínimo en bolsillos o carteras sobre muy chicas.', type: 'tip' },
@@ -804,7 +883,7 @@ export const ITINERARY: ItineraryDay[] = [
       'Mañana libre de descanso y pileta para llegar al 100% al partido'
     ],
     adultFocus: [
-      'Mañana tranquila de descanso real tras la trilogía EPCOT + Universal Studios + Epic Universe',
+      'Mañana tranquila de descanso real tras el Bloque Universal (Islands of Adventure + Universal Studios + Epic Universe)',
       'Traslado cómodo en 2x UberXL a las 16:45 hs (6 pasajeros por auto) evitando manejar por la I-4',
       'Vivir el espectáculo NBA en vivo junto a los 7 chicos'
     ],
@@ -1002,7 +1081,7 @@ export const ITINERARY: ItineraryDay[] = [
     expertTips: [
       '🛍️ Estrategia Sawgrass Mills (50 km): es gigante (más de 350 locales). Vayan directo primero a Nike Clearance/Factory, Adidas y Burlington entre 10:00 y 13:00 hs mientras hay stock fresco de talles.',
       '🏖️ Corte a las 15:30 hs: regresar a esa hora les regala la última tardecita de playa en Seacoast Suites on Miami Beach antes de armar las 12 valijas.',
-      '⚖️ Operativo 12 Valijas: controlar peso máximo (23 kg en bodega) y que no queden líquidos >100 ml en los bolsos de mano; mañana a las 07:15 hs nos busca la Van Privada contratada por agencia hacia MIA.'
+      '⚖️ Operativo 12 Valijas: controlar peso máximo (23 kg en bodega) y que no queden líquidos >100 ml en los bolsos de mano; mañana a las 07:15 hs nos busca la Van Privada Confirmada hacia MIA.'
     ]
   },
   {
@@ -1011,12 +1090,15 @@ export const ITINERARY: ItineraryDay[] = [
     dayOfWeek: 'Martes',
     dateFull: '2 de Febrero de 2027',
     type: 'travel',
+    statusBadge: '✅ Van Privada Confirmada',
     eventShortLabel: 'Regreso',
-    title: 'Check-out Seacoast Suites (07:15 hs) & Van Privada a MIA · Vuelos Copa',
-    highlight: '07:15 hs Check-out de Seacoast Suites y 🚐 Traslado en Van Privada contratada por agencia al Aeropuerto de Miami (MIA, a 20 km) para los 12 pasajeros con todas las valijas llenas de compras. Vuelo Copa CM 440 (MIA 11:21 ➔ PTY 14:30) y conexión CM 882 (PTY 15:23 ➔ Rosario 00:16 del mié 3 feb).',
+    bannerHeadline: '🚐 Traslado Privado en Van CONFIRMADO (Seacoast Suites ➔ MIA · 07:15 hs) & Vuelos Copa Airlines',
+    bannerTransportNote: '✈️ Copa CM 440 (11:21 hs) + CM 882 (PTY ➔ ROS)',
+    title: 'Check-out Seacoast Suites (07:15 hs) & Van Privada Confirmada a MIA · Vuelos Copa',
+    highlight: '✅ Van Privada CONFIRMADA: 07:15 hs Check-out de Seacoast Suites y traslado privado en van al Aeropuerto Internacional de Miami (MIA, a 20 km) para los 12 viajeros con todas las valijas llenas de compras. Vuelos de regreso de Copa Airlines: CM 440 (MIA 11:21 ➔ PTY 14:30) y conexión CM 882 (PTY 15:23 ➔ Rosario 00:16 del mié 3 feb).',
     schedule: [
       { time: '06:30', activity: 'Último café en los 3 departamentos de Seacoast Suites, revisión de pasaportes de los 12 viajeros, enchufes y cajas de seguridad.', type: 'tip' },
-      { time: '07:15', activity: '🚐 Traslado en Van Privada contratada por agencia a las 07:15 hs desde Seacoast Suites on Miami Beach (5101 Collins Ave) hacia el Aeropuerto Internacional de Miami (MIA, a 20 km).', notes: 'Ideal para trasladar cómodamente a los 12 pasajeros con todas las valijas llenas de compras y equipaje de mano (sin pedir Uber).', type: 'transport' },
+      { time: '07:15', activity: '✅🚐 TRASLADO EN VAN PRIVADA CONFIRMADA a las 07:15 hs desde Seacoast Suites on Miami Beach (5101 Collins Ave) hacia el Aeropuerto Internacional de Miami (MIA, a 20 km).', notes: 'Servicio confirmado para trasladar cómodamente a los 12 viajeros con todas las valijas llenas de compras y equipaje de mano (sin pedir Uber).', type: 'transport' },
       { time: '07:50', activity: 'Llegada a Terminal de Copa Airlines en MIA (Terminal J / Concourse J). Despacho de las 12 valijas (y compras extra) y paso por seguridad TSA.', type: 'tip' },
       { time: '11:21', activity: '✈️ VUELO COPA AIRLINES CM 440: Despegue desde Miami (MIA) 11:21 hs rumbo a Ciudad de Panamá (PTY).', type: 'ride' },
       { time: '14:30', activity: 'Aterrizaje en Aeropuerto Internacional de Tocumen, Panamá (PTY). ¡Conexión rápida de 53 minutos! Dirigirse directo a la puerta de embarque de CM 882.', notes: 'Sin pasar migraciones en Panamá: solo caminar directo de puerta a puerta dentro de la terminal.', type: 'transport' },
@@ -1029,19 +1111,19 @@ export const ITINERARY: ItineraryDay[] = [
     ],
     adultFocus: [
       'Control de los 12 pasaportes y despacho simultáneo de todas las valijas en el mostrador de Copa Airlines en MIA (~08:00 hs)',
-      'Abordar cómodamente la Van Privada contratada por agencia a las 07:15 hs con los 12 pasajeros y las valijas llenas de compras rumbo a MIA (20 km)'
+      'Abordar cómodamente la Van Privada Confirmada a las 07:15 hs con los 12 viajeros y las valijas llenas de compras rumbo a MIA (20 km)'
     ],
     uberRecommendation: {
       departureTime: '07:15',
-      destination: 'Seacoast Suites on Miami Beach ➔ Aeropuerto Internacional de Miami (MIA · Van Privada)',
+      destination: 'Seacoast Suites on Miami Beach ➔ Aeropuerto Internacional de Miami (MIA · Van Privada Confirmada)',
       distanceKm: 20,
       estMinutes: 30,
       recommendedDropoff: 'Miami International Airport (MIA) · Salidas Internacionales / Copa Airlines (Concourse J)',
-      returnTip: '🚐 Traslado en Van Privada contratada por agencia a las 07:15 hs: reemplaza a los Uber para trasladar cómodamente a los 12 pasajeros con todas las valijas llenas de compras.'
+      returnTip: '✅ Van Privada Confirmada a las 07:15 hs: reemplaza a los Uber para trasladar cómodamente a los 12 viajeros con todas las valijas llenas de compras.'
     },
     mealsTip: 'Desayunar algo liviano en Seacoast o en la zona de embarque de MIA después de pasar TSA (entre 09:00 y 10:30 hs), ya que Copa Airlines sirve almuerzo/cena a bordo en ambos vuelos.',
     expertTips: [
-      '🚐 Traslado en Van Privada contratada por agencia (07:15 hs rumbo a MIA, 20 km): reemplaza a los Uber para trasladar cómodamente a los 12 pasajeros con todas las valijas llenas de compras, llegando ~3 horas antes del vuelo CM 440 (11:21 hs).',
+      '✅🚐 Van Privada Confirmada (07:15 hs rumbo a MIA, 20 km): reemplaza a los Uber para trasladar cómodamente a los 12 viajeros con todas las valijas llenas de compras, llegando ~3 horas antes del vuelo Copa CM 440 (11:21 hs).',
       '⚡ Conexión exprés en Panamá (PTY): llegan a las 14:30 hs en el CM 440 y el CM 882 sale a las 15:23 hs (53 min). Lleven ya impresos/en wallet los dos boarding passes desde MIA y caminen directo a la puerta del vuelo a Rosario antes de pasar al Duty Free.',
       '🇦🇷 Llegada a Rosario (ROS): el CM 882 aterriza a las 00:16 hs del miércoles 3 de febrero; coordinar con anticipación los traslados de regreso desde Fisherton.'
     ]
@@ -1049,324 +1131,72 @@ export const ITINERARY: ItineraryDay[] = [
 ];
 
 export const ATTRACTIONS: Attraction[] = [
-  // --- UNIVERSAL ISLANDS OF ADVENTURE ---
+  // --- 1. DISNEY'S EPCOT (DÍA 2 · 20 ENE · BLOQUE DISNEY 1/4) ---
   {
-    id: 'veloci-coaster',
-    name: 'Jurassic World VelociCoaster',
-    park: 'Universal Islands of Adventure',
-    parkShort: 'Islands of Adventure',
-    land: 'Jurassic Park',
-    category: 'rollercoaster',
-    targetAudience: 'teens',
-    adrenalineLevel: 5,
-    techImmersionLevel: 5,
-    minHeightCm: 130,
-    minHeightInches: 51,
-    description: 'La montaña rusa de lanzamiento más extrema y premiada de Florida. 2 lanzamientos brutales (hasta 112 km/h en 2.4s), "Top Hat" de 47 metros sobre la laguna y caída con inversión en gravedad cero.',
-    whyForGroup: 'El imperdible #1 absoluto para Renato, Tuto, José, Máximo, Josefina, Luisina y Bruno. Pura adrenalina sin tregua.',
-    queueStrategy: 'Ir directo en el Rope Drop matutino o última hora antes del cierre. Casilleros gratuitos con huella o pase incluidos antes del detector de metales.',
-    hasSingleRider: true,
-    virtualQueueOrLL: 'Universal Express aceptado / Fila regular / Single Rider'
-  },
-  {
-    id: 'hagrid-motorbike',
-    name: "Hagrid's Magical Creatures Motorbike Adventure",
-    park: 'Universal Islands of Adventure',
-    parkShort: 'Islands of Adventure',
-    land: 'The Wizarding World of Harry Potter - Hogsmeade',
+    id: 'cosmic-rewind',
+    name: 'Guardians of the Galaxy: Cosmic Rewind',
+    park: "Disney's EPCOT",
+    parkShort: 'EPCOT',
+    visitDayLabel: 'Día 2 · 20 Ene · Disney 1/4',
+    land: 'World Discovery',
     category: 'rollercoaster',
     targetAudience: 'all',
     adrenalineLevel: 4,
-    techImmersionLevel: 5,
-    minHeightCm: 122,
-    minHeightInches: 48,
-    description: 'Montaña rusa de historia única con 7 lanzamientos, caída vertical libre en riel y motos mágicas donde viajas en la moto o en el sidecar a través del Bosque Prohibido.',
-    whyForGroup: 'Sensación de velocidad increíble pero muy suave en el recorrido; apta tanto para los chicos fanáticos de la adrenalina como para los adultos.',
-    queueStrategy: 'Hacerla en Rope Drop temprano o a la hora del almuerzo (~13:30 hs). La fila suele rondar 60-90 min.',
-    hasSingleRider: true,
-    virtualQueueOrLL: 'No acepta Express convencional en ciertas temporadas / Single Rider disponible'
-  },
-  {
-    id: 'hulk-coaster',
-    name: 'The Incredible Hulk Coaster',
-    park: 'Universal Islands of Adventure',
-    parkShort: 'Islands of Adventure',
-    land: 'Marvel Super Hero Island',
-    category: 'rollercoaster',
-    targetAudience: 'teens',
-    adrenalineLevel: 5,
-    techImmersionLevel: 4,
-    minHeightCm: 137,
-    minHeightInches: 54,
-    description: 'Lanzamiento propulsado por tubo gamma de 0 a 67 km/h en 2 segundos directamente hacia un giro de gravedad cero sobre el agua, con 7 inversiones y banda sonora de Patrick Stump.',
-    whyForGroup: 'Fuerza G impresionante que los adolescentes amarán desde el primer instante.',
-    queueStrategy: 'Tiene fila Single Rider muy eficiente si el grupo no tiene problema en sentarse en filas separadas.',
-    hasSingleRider: true,
-    virtualQueueOrLL: 'Universal Express / Single Rider'
-  },
-  {
-    id: 'forbidden-journey',
-    name: 'Harry Potter and the Forbidden Journey',
-    park: 'Universal Islands of Adventure',
-    parkShort: 'Islands of Adventure',
-    land: 'The Wizarding World of Harry Potter - Hogsmeade',
-    category: 'simulator',
-    targetAudience: 'all',
-    adrenalineLevel: 3,
-    techImmersionLevel: 5,
-    minHeightCm: 122,
-    minHeightInches: 48,
-    description: 'Simulador montado en brazos robóticos industriales KUKA. Vuelas en escoba sobre el castillo de Hogwarts, encuentras dementores gigantes y esquivas dragones.',
-    whyForGroup: 'Imprescindible para todo el grupo: la fila dentro del castillo de Hogwarts con cuadros parlantes y la oficina de Dumbledore es una atracción en sí misma.',
-    queueStrategy: 'Fila ágil y fluida. Los adultos no propensos al mareo la disfrutarán muchísimo.',
-    hasSingleRider: true,
-    virtualQueueOrLL: 'Universal Express / Single Rider'
-  },
-  {
-    id: 'spider-man',
-    name: 'The Amazing Adventures of Spider-Man',
-    park: 'Universal Islands of Adventure',
-    parkShort: 'Islands of Adventure',
-    land: 'Marvel Super Hero Island',
-    category: 'simulator',
-    targetAudience: 'all',
-    adrenalineLevel: 3,
-    techImmersionLevel: 5,
-    minHeightCm: 102,
-    minHeightInches: 40,
-    description: 'Vehículos con movimiento giroscópico 3D de alta definición, efectos de fuego real, ráfagas de aire y agua mientras luchas junto a Spider-Man contra los villanos de Marvel.',
-    whyForGroup: 'Pionero en simuladores de acción que sigue estando en la cúspide mundial. Diversión garantizada para adultos y adolescentes.',
-    queueStrategy: 'Filas moderadas después de las 14:00 hs.',
-    hasSingleRider: true,
-    virtualQueueOrLL: 'Universal Express / Single Rider'
-  },
-
-  // --- UNIVERSAL STUDIOS FLORIDA ---
-  {
-    id: 'gringotts',
-    name: 'Harry Potter and the Escape from Gringotts',
-    park: 'Universal Studios Florida',
-    parkShort: 'Universal Studios',
-    land: 'The Wizarding World of Harry Potter - Diagon Alley',
-    category: 'simulator',
-    targetAudience: 'all',
-    adrenalineLevel: 3,
     techImmersionLevel: 5,
     minHeightCm: 107,
     minHeightInches: 42,
-    description: 'Híbrido fascinante entre montaña rusa multidireccional y simulador 3D subterráneo en las bóvedas de Gringotts frente a Bellatrix Lestrange y Voldemort.',
-    whyForGroup: 'Atracción estrella que fascina a toda la familia. La antesala del banco con duendes animatrónicos y lámparas de cristal de 15 metros es asombrosa.',
-    queueStrategy: 'Entrar a primera hora apenas abre Diagon Alley.',
-    hasSingleRider: true,
-    virtualQueueOrLL: 'Universal Express / Single Rider'
-  },
-  {
-    id: 'mummy',
-    name: 'Revenge of the Mummy',
-    park: 'Universal Studios Florida',
-    parkShort: 'Universal Studios',
-    land: 'New York',
-    category: 'rollercoaster',
-    targetAudience: 'teens',
-    adrenalineLevel: 4,
-    techImmersionLevel: 4,
-    minHeightCm: 122,
-    minHeightInches: 48,
-    description: 'Montaña rusa interior psicológica con aceleraciones de 0 a 72 km/h, frenadas en falso, techo de fuego real a 100°C y escarabajos.',
-    whyForGroup: 'Favorita absoluta de los amantes de la emoción sin inversiones altas.',
-    queueStrategy: 'Single Rider muy veloz o fila Express.',
-    hasSingleRider: true,
-    virtualQueueOrLL: 'Universal Express / Single Rider'
-  },
-  {
-    id: 'rip-ride-rockit',
-    name: 'Hollywood Rip Ride Rockit',
-    park: 'Universal Studios Florida',
-    parkShort: 'Universal Studios',
-    land: 'Production Central',
-    category: 'rollercoaster',
-    targetAudience: 'teens',
-    adrenalineLevel: 4,
-    techImmersionLevel: 3,
-    minHeightCm: 130,
-    minHeightInches: 51,
-    description: 'Subida vertical de 90 grados mirando al cielo a 50 metros de altura, con pantalla táctil en el asiento para seleccionar la canción que sonará en tus oídos a 105 km/h.',
-    whyForGroup: 'Clásico de adrenalina para los 7 chicos: cada uno elige su propio hit musical.',
-    queueStrategy: 'Hacerlo al mediodía o tarde con Single Rider.',
-    hasSingleRider: true,
-    virtualQueueOrLL: 'Universal Express / Single Rider'
-  },
-  {
-    id: 'transformers',
-    name: 'TRANSFORMERS: The Ride-3D',
-    park: 'Universal Studios Florida',
-    parkShort: 'Universal Studios',
-    land: 'Production Central',
-    category: 'simulator',
-    targetAudience: 'all',
-    adrenalineLevel: 3,
-    techImmersionLevel: 5,
-    minHeightCm: 102,
-    minHeightInches: 40,
-    description: 'Simulador cinético de alta tecnología donde te sumerges en el combate entre Optimus Prime y Megatron en vehículos de movimiento dinámico.',
-    whyForGroup: 'Impresionante nivel de detalle visual y sonoro para disfrutar todos juntos.',
-    queueStrategy: 'Ideal para primera hora de la tarde.',
-    hasSingleRider: true,
-    virtualQueueOrLL: 'Universal Express'
-  },
-  {
-    id: 'men-in-black',
-    name: 'MEN IN BLACK Alien Attack',
-    park: 'Universal Studios Florida',
-    parkShort: 'Universal Studios',
-    land: 'World Expo',
-    category: 'simulator',
-    targetAudience: 'all',
-    adrenalineLevel: 2,
-    techImmersionLevel: 4,
-    minHeightCm: 107,
-    minHeightInches: 42,
-    description: 'Juego de disparos láser interactivo en autos que giran por las calles de Nueva York cazando alienígenas para acumular puntos.',
-    whyForGroup: 'Competencia grupal ideal: se dividen en 2 vehículos y compiten adultos contra jóvenes.',
-    queueStrategy: 'Fila rápida habitualmente.',
-    hasSingleRider: true,
-    virtualQueueOrLL: 'Universal Express / Single Rider'
-  },
-
-  // --- UNIVERSAL EPIC UNIVERSE ---
-  {
-    id: 'stardust-racers',
-    name: 'Stardust Racers',
-    park: 'Universal Epic Universe',
-    parkShort: 'Epic Universe',
-    land: 'Celestial Park',
-    category: 'rollercoaster',
-    targetAudience: 'teens',
-    adrenalineLevel: 5,
-    techImmersionLevel: 5,
-    minHeightCm: 122,
-    minHeightInches: 48,
-    description: 'Doble montaña rusa de lanzamiento paralelo que alcanza 100 km/h y 40 metros de altura. Ambos trenes compiten y se entrelazan en el "Celestial Spin", iluminando la noche sin luces en la vía.',
-    whyForGroup: 'La nueva joya extrema de Orlando junto a VelociCoaster: adrenalina pura para Renato, Tuto, José, Máximo, Josefina, Luisina y Bruno.',
-    queueStrategy: 'Subir al caer la tarde o de noche para disfrutar los trenes iluminados. Tiene Single Rider y casilleros gratuitos obligatorios.',
-    hasSingleRider: true,
-    virtualQueueOrLL: 'Universal Express / Single Rider / Fila regular'
-  },
-  {
-    id: 'mario-kart-bowsers-challenge',
-    name: "Mario Kart: Bowser's Challenge",
-    park: 'Universal Epic Universe',
-    parkShort: 'Epic Universe',
-    land: 'SUPER NINTENDO WORLD',
-    category: 'simulator',
-    targetAudience: 'all',
-    adrenalineLevel: 2,
-    techImmersionLevel: 5,
-    minHeightCm: 102,
-    minHeightInches: 40,
-    description: 'Recorrido interactivo con visores de realidad aumentada dentro del Castillo de Bowser: manejan el volante y lanzan caparazones a los Koopalings para ganar la Copa Dorada.',
-    whyForGroup: 'Diversión competitiva ideal para los 12 viajeros juntos (adultos vs adolescentes acumulando monedas digitales).',
-    queueStrategy: 'Ir en Rope Drop a las 09:00 AM en punto o aprovechar Single Rider.',
-    hasSingleRider: true,
-    virtualQueueOrLL: 'Universal Express / Single Rider'
-  },
-  {
-    id: 'mine-cart-madness',
-    name: 'Mine-Cart Madness (Donkey Kong)',
-    park: 'Universal Epic Universe',
-    parkShort: 'Epic Universe',
-    land: 'SUPER NINTENDO WORLD',
-    category: 'rollercoaster',
-    targetAudience: 'all',
-    adrenalineLevel: 3,
-    techImmersionLevel: 5,
-    minHeightCm: 102,
-    minHeightInches: 40,
-    description: 'Montaña rusa familiar revolucionaria con riel oculto que genera la ilusión real de saltar sobre vías rotas y barrancos en Donkey Kong Country.',
-    whyForGroup: 'Tecnología patentada única en el mundo: emocionante para los chicos y muy disfrutable para los 5 adultos.',
-    queueStrategy: 'Hacer inmediatamente después de Mario Kart en la mañana o por fila Single Rider.',
-    hasSingleRider: true,
-    virtualQueueOrLL: 'Single Rider / Fila regular'
-  },
-  {
-    id: 'battle-at-the-ministry',
-    name: 'Harry Potter and the Battle at the Ministry',
-    park: 'Universal Epic Universe',
-    parkShort: 'Epic Universe',
-    land: 'The Wizarding World of Harry Potter – Ministry of Magic',
-    category: 'dark_ride',
-    targetAudience: 'all',
-    adrenalineLevel: 3,
-    techImmersionLevel: 5,
-    minHeightCm: 102,
-    minHeightInches: 40,
-    description: 'Viajas por el Metro-Floo desde el París mágico de 1920 hasta el inmenso atrio del Ministerio británico para el juicio de Dolores Umbridge en ascensores omnidireccionales.',
-    whyForGroup: 'Escala cinematográfica al nivel de Rise of the Resistance: obligatoria para los 12 integrantes del grupo.',
-    queueStrategy: 'Priorizar en la primera hora de la mañana o verificar fila en la app oficial de Universal.',
-    hasSingleRider: true,
-    virtualQueueOrLL: 'Universal Express / Single Rider'
-  },
-  {
-    id: 'monsters-unchained',
-    name: 'Monsters Unchained: The Frankenstein Experiment',
-    park: 'Universal Epic Universe',
-    parkShort: 'Epic Universe',
-    land: 'Dark Universe',
-    category: 'dark_ride',
-    targetAudience: 'teens',
-    adrenalineLevel: 4,
-    techImmersionLevel: 5,
-    minHeightCm: 122,
-    minHeightInches: 48,
-    description: 'La atracción más oscura y tecnológicamente avanzada de Dark Universe: brazos robóticos KUKA de última generación rodeados de Drácula, el Hombre Lobo y el Monstruo de Frankenstein.',
-    whyForGroup: 'Ambientación gótica impresionante y movimientos dinámicos intensos que fascinan a adolescentes y adultos.',
-    queueStrategy: 'La fila avanza muy rápido por su alta capacidad horaria; ideal para media tarde.',
-    hasSingleRider: true,
-    virtualQueueOrLL: 'Universal Express / Single Rider'
-  },
-  {
-    id: 'curse-of-the-werewolf',
-    name: 'Curse of the Werewolf',
-    park: 'Universal Epic Universe',
-    parkShort: 'Epic Universe',
-    land: 'Dark Universe',
-    category: 'rollercoaster',
-    targetAudience: 'teens',
-    adrenalineLevel: 4,
-    techImmersionLevel: 4,
-    minHeightCm: 102,
-    minHeightInches: 40,
-    description: 'Montaña rusa giratoria (spinning coaster) familiar-intensa con lanzamiento adelante y atrás a 60 km/h atravesando el bosque maldito de Darkmoor.',
-    whyForGroup: 'Giro libre de los carros según el peso de cada grupo, haciendo cada vuelta distinta para los chicos.',
-    queueStrategy: 'Hacer junto con Monsters Unchained entre las 16:30 y 18:30 hs.',
-    hasSingleRider: true,
-    virtualQueueOrLL: 'Universal Express / Single Rider'
-  },
-  {
-    id: 'hiccups-wing-gliders',
-    name: "Hiccup's Wing Gliders",
-    park: 'Universal Epic Universe',
-    parkShort: 'Epic Universe',
-    land: 'How to Train Your Dragon – Isle of Berk',
-    category: 'rollercoaster',
-    targetAudience: 'all',
-    adrenalineLevel: 3,
-    techImmersionLevel: 4,
-    minHeightCm: 102,
-    minHeightInches: 40,
-    description: 'Montaña rusa de doble lanzamiento suave estilo Hagrid que planea sobre la laguna y los barcos vikingos de Isle of Berk a 72 km/h junto a Hipo y Chimuelo.',
-    whyForGroup: 'Ideal para subir todos juntos disfrutando las vistas completas de la isla vikinga sin inversiones extremas.',
-    queueStrategy: 'Excelente para hacer justo después del almuerzo en Mead Hall.',
+    description: 'La primera "omnicoaster" del mundo y una de las montañas rusas bajo techo más largas jamás construidas. Lanzamiento en reversa a 97 km/h en un viaje intergaláctico con rotación 360 programada y canciones legendarias (como September o Disco Inferno).',
+    whyForGroup: 'Pura euforia para arrancar los parques el 20 de enero a buen ritmo. No tiene caídas verticales violentas ni sacudones: adolescentes y adultos salen bailando y con la sonrisa de oreja a oreja.',
+    queueStrategy: 'Obligatorio Virtual Queue en app My Disney Experience a las 07:00 AM o 13:00 hs, o Lightning Lane Single Pass.',
     hasSingleRider: false,
-    virtualQueueOrLL: 'Universal Express / Fila regular'
+    virtualQueueOrLL: 'Virtual Queue (gratuito) o Lightning Lane Single Pass'
+  },
+  {
+    id: 'remy-ratatouille',
+    name: "Remy's Ratatouille Adventure",
+    park: "Disney's EPCOT",
+    parkShort: 'EPCOT',
+    visitDayLabel: 'Día 2 · 20 Ene · Disney 1/4',
+    land: 'World Showcase - France',
+    category: 'simulator',
+    targetAudience: 'all',
+    adrenalineLevel: 2,
+    techImmersionLevel: 5,
+    minHeightCm: 0,
+    minHeightInches: 0,
+    description: 'Vehículos sin rieles con lentes 3D que te encogen al tamaño de Remy para huir por la cocina del restaurante de Gusteau entre ollas hirviendo, hornos calientes y caídas cómicas.',
+    whyForGroup: 'Tecnología trackless encantadora que todo el grupo de 12 viajeros adorará.',
+    queueStrategy: 'Hacer a primera hora o en las últimas 2 horas de la tarde.',
+    hasSingleRider: true,
+    virtualQueueOrLL: 'Lightning Lane Multi Pass / Single Rider en prueba'
+  },
+  {
+    id: 'soarin',
+    name: "Soarin' Around the World",
+    park: "Disney's EPCOT",
+    parkShort: 'EPCOT',
+    visitDayLabel: 'Día 2 · 20 Ene · Disney 1/4',
+    land: 'World Nature',
+    category: 'simulator',
+    targetAudience: 'all',
+    adrenalineLevel: 2,
+    techImmersionLevel: 5,
+    minHeightCm: 102,
+    minHeightInches: 40,
+    description: 'Vuelo en ala delta frente a una pantalla IMAX de cúpula envolvente de 24 metros, sobrevolando las Pirámides de Egipto, la Torre Eiffel, las Cataratas del Iguazú y el Taj Mahal.',
+    whyForGroup: 'Simulador sumamente relajante y placentero con brisa marina y aroma a jazmín y hierba.',
+    queueStrategy: 'Fila fluida con esperas promedio de 30-40 min.',
+    hasSingleRider: false,
+    virtualQueueOrLL: 'Lightning Lane Multi Pass'
   },
 
-  // --- DISNEY'S HOLLYWOOD STUDIOS ---
+  // --- 2. DISNEY'S HOLLYWOOD STUDIOS (DÍA 3 · 21 ENE · BLOQUE DISNEY 2/4) ---
   {
     id: 'rise-of-resistance',
     name: 'Star Wars: Rise of the Resistance',
     park: "Disney's Hollywood Studios",
     parkShort: 'Hollywood Studios',
+    visitDayLabel: 'Día 3 · 21 Ene · Disney 2/4',
     land: "Star Wars: Galaxy's Edge",
     category: 'simulator',
     targetAudience: 'all',
@@ -1385,6 +1215,7 @@ export const ATTRACTIONS: Attraction[] = [
     name: 'The Twilight Zone Tower of Terror',
     park: "Disney's Hollywood Studios",
     parkShort: 'Hollywood Studios',
+    visitDayLabel: 'Día 3 · 21 Ene · Disney 2/4',
     land: 'Sunset Boulevard',
     category: 'rollercoaster',
     targetAudience: 'teens',
@@ -1393,7 +1224,7 @@ export const ATTRACTIONS: Attraction[] = [
     minHeightCm: 102,
     minHeightInches: 40,
     description: 'El ascensor de servicio del Hollywood Tower Hotel se desconecta de la gravedad y cae en picada con secuencias aleatorias generadas por computadora que te levantan del asiento.',
-    whyForGroup: 'Sensación de vacío en el estómago inigualable y vistas panorámicas de todo el parque cuando las puertas se abren arriba.',
+    whyForGroup: 'Sensación de vacío en el estómago inigualable para Renato, Tuto, José, Máximo, Josefina, Luisina y Bruno.',
     queueStrategy: 'Hacer a primera hora o durante el desfile/show Fantasmic! cuando la fila baja.',
     hasSingleRider: false,
     virtualQueueOrLL: 'Lightning Lane Multi Pass'
@@ -1403,6 +1234,7 @@ export const ATTRACTIONS: Attraction[] = [
     name: "Rock 'n' Roller Coaster Starring Aerosmith",
     park: "Disney's Hollywood Studios",
     parkShort: 'Hollywood Studios',
+    visitDayLabel: 'Día 3 · 21 Ene · Disney 2/4',
     land: 'Sunset Boulevard',
     category: 'rollercoaster',
     targetAudience: 'teens',
@@ -1421,6 +1253,7 @@ export const ATTRACTIONS: Attraction[] = [
     name: "Millennium Falcon: Smugglers Run",
     park: "Disney's Hollywood Studios",
     parkShort: 'Hollywood Studios',
+    visitDayLabel: 'Día 3 · 21 Ene · Disney 2/4',
     land: "Star Wars: Galaxy's Edge",
     category: 'simulator',
     targetAudience: 'all',
@@ -1429,7 +1262,7 @@ export const ATTRACTIONS: Attraction[] = [
     minHeightCm: 97,
     minHeightInches: 38,
     description: 'Entras a la cabina real del Halcón Milenario en tripulaciones de 6 personas: 2 pilotos que manejan la nave, 2 artilleros que disparan y 2 ingenieros que reparan.',
-    whyForGroup: 'Interacción grupal al 100%: los adolescentes aman ser pilotos y los adultos pueden tomar artillería o ingeniería.',
+    whyForGroup: 'Interacción grupal al 100%: los 12 se dividen en 2 vuelos exactos de 6 personas.',
     queueStrategy: 'Fila Single Rider muy veloz o fila regular al mediodía.',
     hasSingleRider: true,
     virtualQueueOrLL: 'Lightning Lane Multi Pass / Single Rider'
@@ -1439,6 +1272,7 @@ export const ATTRACTIONS: Attraction[] = [
     name: 'Slinky Dog Dash',
     park: "Disney's Hollywood Studios",
     parkShort: 'Hollywood Studios',
+    visitDayLabel: 'Día 3 · 21 Ene · Disney 2/4',
     land: 'Toy Story Land',
     category: 'rollercoaster',
     targetAudience: 'all',
@@ -1453,106 +1287,13 @@ export const ATTRACTIONS: Attraction[] = [
     virtualQueueOrLL: 'Lightning Lane Multi Pass'
   },
 
-  // --- DISNEY'S ANIMAL KINGDOM ---
-  {
-    id: 'flight-of-passage',
-    name: 'Avatar Flight of Passage',
-    park: "Disney's Animal Kingdom",
-    parkShort: 'Animal Kingdom',
-    land: 'Pandora - The World of Avatar',
-    category: 'simulator',
-    targetAudience: 'all',
-    adrenalineLevel: 4,
-    techImmersionLevel: 5,
-    minHeightCm: 112,
-    minHeightInches: 44,
-    description: 'Te montas sobre un simulador biomecánico individual con lentes 3D para volar sobre un Banshee alado a través de los cielos y acantilados de Pandora. Sientes el pecho del animal respirar entre tus piernas, la brisa y los aromas de la selva.',
-    whyForGroup: 'Calificada casi unánimemente como una de las 3 mejores atracciones del mundo. Imperdible absoluto para todos.',
-    queueStrategy: 'Rope drop indispensable a las 07:45 AM o comprar Lightning Lane Single Pass individual.',
-    hasSingleRider: false,
-    virtualQueueOrLL: 'Lightning Lane Single Pass / Fila regular'
-  },
-  {
-    id: 'expedition-everest',
-    name: 'Expedition Everest - Legend of the Forbidden Mountain',
-    park: "Disney's Animal Kingdom",
-    parkShort: 'Animal Kingdom',
-    land: 'Asia',
-    category: 'rollercoaster',
-    targetAudience: 'teens',
-    adrenalineLevel: 4,
-    techImmersionLevel: 4,
-    minHeightCm: 112,
-    minHeightInches: 44,
-    description: 'Montaña rusa que escala el monte Everest, encuentra las vías rotas por el Yeti mítico, se detiene al borde del precipicio y sale disparada hacia atrás a oscuras en una espiral a 80 km/h.',
-    whyForGroup: 'Fantástica para los adolescentes y adultos con ganas de emoción. Espectacular escenografía de montaña.',
-    queueStrategy: 'Tiene Single Rider casi sin espera durante la mayor parte del día.',
-    hasSingleRider: true,
-    virtualQueueOrLL: 'Lightning Lane Multi Pass / Single Rider'
-  },
-
-  // --- DISNEY'S EPCOT ---
-  {
-    id: 'cosmic-rewind',
-    name: 'Guardians of the Galaxy: Cosmic Rewind',
-    park: "Disney's EPCOT",
-    parkShort: 'EPCOT',
-    land: 'World Discovery',
-    category: 'rollercoaster',
-    targetAudience: 'all',
-    adrenalineLevel: 4,
-    techImmersionLevel: 5,
-    minHeightCm: 107,
-    minHeightInches: 42,
-    description: 'La primera "omnicoaster" del mundo y una de las montañas rusas bajo techo más largas jamás construidas. Lanzamiento en reversa a 97 km/h en un viaje intergaláctico con rotación 360 programada y canciones legendarias (como September o Disco Inferno).',
-    whyForGroup: 'Pura euforia. No tiene caídas verticales violentas ni sacudones, el riel se siente como seda. Adolescentes y adultos salen bailando y con la sonrisa de oreja a oreja.',
-    queueStrategy: 'Obligatorio Virtual Queue en app My Disney Experience a las 07:00 AM o 13:00 hs, o Lightning Lane Single Pass.',
-    hasSingleRider: false,
-    virtualQueueOrLL: 'Virtual Queue (gratuito) o Lightning Lane Single Pass'
-  },
-  {
-    id: 'remy-ratatouille',
-    name: "Remy's Ratatouille Adventure",
-    park: "Disney's EPCOT",
-    parkShort: 'EPCOT',
-    land: 'World Showcase - France',
-    category: 'simulator',
-    targetAudience: 'all',
-    adrenalineLevel: 2,
-    techImmersionLevel: 5,
-    minHeightCm: 0,
-    minHeightInches: 0,
-    description: 'Vehículos sin rieles con lentes 3D que te encogen al tamaño de Remy para huir por la cocina del restaurante de Gusteau entre ollas hirviendo, hornos calientes y caídas cómicas.',
-    whyForGroup: 'Tecnología trackless encantadora que todo el grupo adorará.',
-    queueStrategy: 'Hacer a primera hora o en las últimas 2 horas de la tarde.',
-    hasSingleRider: true,
-    virtualQueueOrLL: 'Lightning Lane Multi Pass / Single Rider en prueba'
-  },
-  {
-    id: 'soarin',
-    name: "Soarin' Around the World",
-    park: "Disney's EPCOT",
-    parkShort: 'EPCOT',
-    land: 'World Nature',
-    category: 'simulator',
-    targetAudience: 'all',
-    adrenalineLevel: 2,
-    techImmersionLevel: 5,
-    minHeightCm: 102,
-    minHeightInches: 40,
-    description: 'Vuelo en ala delta frente a una pantalla IMAX de cúpula envolvente de 24 metros, sobrevolando las Pirámides de Egipto, la Torre Eiffel, las Cataratas del Iguazú y el Taj Mahal.',
-    whyForGroup: 'Simulador sumamente relajante y placentero con brisa marina y aroma a jazmín y hierba.',
-    queueStrategy: 'Fila fluida con esperas promedio de 30-40 min.',
-    hasSingleRider: false,
-    virtualQueueOrLL: 'Lightning Lane Multi Pass'
-  },
-
-  // --- DISNEY'S MAGIC KINGDOM ---
+  // --- 3. DISNEY'S MAGIC KINGDOM (DÍA 4 · 22 ENE · BLOQUE DISNEY 3/4) ---
   {
     id: 'tron-lightcycle',
     name: 'TRON Lightcycle / Run',
     park: "Disney's Magic Kingdom",
     parkShort: 'Magic Kingdom',
+    visitDayLabel: 'Día 4 · 22 Ene · Disney 3/4',
     land: 'Tomorrowland',
     category: 'rollercoaster',
     targetAudience: 'teens',
@@ -1571,6 +1312,7 @@ export const ATTRACTIONS: Attraction[] = [
     name: 'Space Mountain',
     park: "Disney's Magic Kingdom",
     parkShort: 'Magic Kingdom',
+    visitDayLabel: 'Día 4 · 22 Ene · Disney 3/4',
     land: 'Tomorrowland',
     category: 'rollercoaster',
     targetAudience: 'teens',
@@ -1589,6 +1331,7 @@ export const ATTRACTIONS: Attraction[] = [
     name: 'Big Thunder Mountain Railroad',
     park: "Disney's Magic Kingdom",
     parkShort: 'Magic Kingdom',
+    visitDayLabel: 'Día 4 · 22 Ene · Disney 3/4',
     land: 'Frontierland',
     category: 'rollercoaster',
     targetAudience: 'all',
@@ -1607,6 +1350,7 @@ export const ATTRACTIONS: Attraction[] = [
     name: 'Seven Dwarfs Mine Train',
     park: "Disney's Magic Kingdom",
     parkShort: 'Magic Kingdom',
+    visitDayLabel: 'Día 4 · 22 Ene · Disney 3/4',
     land: 'Fantasyland',
     category: 'rollercoaster',
     targetAudience: 'all',
@@ -1619,91 +1363,460 @@ export const ATTRACTIONS: Attraction[] = [
     queueStrategy: 'Fila alta durante todo el día; hacer al final de la noche o en Rope Drop.',
     hasSingleRider: false,
     virtualQueueOrLL: 'Lightning Lane Single Pass / Fila regular'
+  },
+
+  // --- 4. DISNEY'S ANIMAL KINGDOM (DÍA 5 · 23 ENE · BLOQUE DISNEY 4/4) ---
+  {
+    id: 'flight-of-passage',
+    name: 'Avatar Flight of Passage',
+    park: "Disney's Animal Kingdom",
+    parkShort: 'Animal Kingdom',
+    visitDayLabel: 'Día 5 · 23 Ene · Disney 4/4',
+    land: 'Pandora - The World of Avatar',
+    category: 'simulator',
+    targetAudience: 'all',
+    adrenalineLevel: 4,
+    techImmersionLevel: 5,
+    minHeightCm: 112,
+    minHeightInches: 44,
+    description: 'Te montas sobre un simulador biomecánico individual con lentes 3D para volar sobre un Banshee alado a través de los cielos y acantilados de Pandora. Sientes el pecho del animal respirar entre tus piernas, la brisa y los aromas de la selva.',
+    whyForGroup: 'Calificada casi unánimemente como una de las 3 mejores atracciones del mundo. Imperdible absoluto para todos.',
+    queueStrategy: 'Rope drop indispensable a las 07:45 AM o comprar Lightning Lane Single Pass individual.',
+    hasSingleRider: false,
+    virtualQueueOrLL: 'Lightning Lane Single Pass / Fila regular'
+  },
+  {
+    id: 'expedition-everest',
+    name: 'Expedition Everest - Legend of the Forbidden Mountain',
+    park: "Disney's Animal Kingdom",
+    parkShort: 'Animal Kingdom',
+    visitDayLabel: 'Día 5 · 23 Ene · Disney 4/4',
+    land: 'Asia',
+    category: 'rollercoaster',
+    targetAudience: 'teens',
+    adrenalineLevel: 4,
+    techImmersionLevel: 4,
+    minHeightCm: 112,
+    minHeightInches: 44,
+    description: 'Montaña rusa que escala el monte Everest, encuentra las vías rotas por el Yeti mítico, se detiene al borde del precipicio y sale disparada hacia atrás a oscuras en una espiral a 80 km/h.',
+    whyForGroup: 'Fantástica para los adolescentes y adultos con ganas de emoción. Espectacular escenografía de montaña.',
+    queueStrategy: 'Tiene Single Rider casi sin espera durante la mayor parte del día.',
+    hasSingleRider: true,
+    virtualQueueOrLL: 'Lightning Lane Multi Pass / Single Rider'
+  },
+
+  // --- 5. UNIVERSAL ISLANDS OF ADVENTURE (DÍA 7 · 25 ENE · UNIVERSAL 1/3 · CON AGUSTINA) ---
+  {
+    id: 'veloci-coaster',
+    name: 'Jurassic World VelociCoaster',
+    park: 'Universal Islands of Adventure',
+    parkShort: 'Islands of Adventure',
+    visitDayLabel: 'Día 7 · 25 Ene · Universal 1/3 c/ Agustina',
+    land: 'Jurassic Park',
+    category: 'rollercoaster',
+    targetAudience: 'teens',
+    adrenalineLevel: 5,
+    techImmersionLevel: 5,
+    minHeightCm: 130,
+    minHeightInches: 51,
+    description: 'La montaña rusa de lanzamiento más extrema y premiada de Florida. 2 lanzamientos brutales (hasta 112 km/h en 2.4s), "Top Hat" de 47 metros sobre la laguna y caída con inversión en gravedad cero.',
+    whyForGroup: 'El imperdible #1 absoluto para Renato, Tuto, José, Máximo, Josefina, Luisina y Bruno al abrir el Bloque Universal junto a Agustina.',
+    queueStrategy: 'Ir directo en el Rope Drop matutino o última hora antes del cierre. Casilleros gratuitos con huella o pase incluidos antes del detector de metales.',
+    hasSingleRider: true,
+    virtualQueueOrLL: 'Universal Express aceptado / Fila regular / Single Rider'
+  },
+  {
+    id: 'hagrid-motorbike',
+    name: "Hagrid's Magical Creatures Motorbike Adventure",
+    park: 'Universal Islands of Adventure',
+    parkShort: 'Islands of Adventure',
+    visitDayLabel: 'Día 7 · 25 Ene · Universal 1/3 c/ Agustina',
+    land: 'The Wizarding World of Harry Potter - Hogsmeade',
+    category: 'rollercoaster',
+    targetAudience: 'all',
+    adrenalineLevel: 4,
+    techImmersionLevel: 5,
+    minHeightCm: 122,
+    minHeightInches: 48,
+    description: 'Montaña rusa de historia única con 7 lanzamientos, caída vertical libre en riel y motos mágicas donde viajas en la moto o en el sidecar a través del Bosque Prohibido.',
+    whyForGroup: 'Sensación de velocidad increíble pero muy suave en el recorrido; apta tanto para los chicos fanáticos de la adrenalina como para los adultos.',
+    queueStrategy: 'Hacerla en Rope Drop temprano o a la hora del almuerzo (~13:30 hs). La fila suele rondar 60-90 min.',
+    hasSingleRider: true,
+    virtualQueueOrLL: 'No acepta Express convencional en ciertas temporadas / Single Rider disponible'
+  },
+  {
+    id: 'hulk-coaster',
+    name: 'The Incredible Hulk Coaster',
+    park: 'Universal Islands of Adventure',
+    parkShort: 'Islands of Adventure',
+    visitDayLabel: 'Día 7 · 25 Ene · Universal 1/3 c/ Agustina',
+    land: 'Marvel Super Hero Island',
+    category: 'rollercoaster',
+    targetAudience: 'teens',
+    adrenalineLevel: 5,
+    techImmersionLevel: 4,
+    minHeightCm: 137,
+    minHeightInches: 54,
+    description: 'Lanzamiento propulsado por tubo gamma de 0 a 67 km/h en 2 segundos directamente hacia un giro de gravedad cero sobre el agua, con 7 inversiones y banda sonora de Patrick Stump.',
+    whyForGroup: 'Fuerza G impresionante que los adolescentes amarán desde el primer instante.',
+    queueStrategy: 'Tiene fila Single Rider muy eficiente si el grupo no tiene problema en sentarse en filas separadas.',
+    hasSingleRider: true,
+    virtualQueueOrLL: 'Universal Express / Single Rider'
+  },
+  {
+    id: 'forbidden-journey',
+    name: 'Harry Potter and the Forbidden Journey',
+    park: 'Universal Islands of Adventure',
+    parkShort: 'Islands of Adventure',
+    visitDayLabel: 'Día 7 · 25 Ene · Universal 1/3 c/ Agustina',
+    land: 'The Wizarding World of Harry Potter - Hogsmeade',
+    category: 'simulator',
+    targetAudience: 'all',
+    adrenalineLevel: 3,
+    techImmersionLevel: 5,
+    minHeightCm: 122,
+    minHeightInches: 48,
+    description: 'Simulador montado en brazos robóticos industriales KUKA. Vuelas en escoba sobre el castillo de Hogwarts, encuentras dementores gigantes y esquivas dragones.',
+    whyForGroup: 'Imprescindible para todo el grupo: la fila dentro del castillo de Hogwarts con cuadros parlantes y la oficina de Dumbledore es una atracción en sí misma.',
+    queueStrategy: 'Fila ágil y fluida. Los adultos no propensos al mareo la disfrutarán muchísimo.',
+    hasSingleRider: true,
+    virtualQueueOrLL: 'Universal Express / Single Rider'
+  },
+  {
+    id: 'spider-man',
+    name: 'The Amazing Adventures of Spider-Man',
+    park: 'Universal Islands of Adventure',
+    parkShort: 'Islands of Adventure',
+    visitDayLabel: 'Día 7 · 25 Ene · Universal 1/3 c/ Agustina',
+    land: 'Marvel Super Hero Island',
+    category: 'simulator',
+    targetAudience: 'all',
+    adrenalineLevel: 3,
+    techImmersionLevel: 5,
+    minHeightCm: 102,
+    minHeightInches: 40,
+    description: 'Vehículos con movimiento giroscópico 3D de alta definición, efectos de fuego real, ráfagas de aire y agua mientras luchas junto a Spider-Man contra los villanos de Marvel.',
+    whyForGroup: 'Pionero en simuladores de acción que sigue estando en la cúspide mundial. Diversión garantizada para adultos y adolescentes.',
+    queueStrategy: 'Filas moderadas después de las 14:00 hs.',
+    hasSingleRider: true,
+    virtualQueueOrLL: 'Universal Express / Single Rider'
+  },
+
+  // --- 6. UNIVERSAL STUDIOS FLORIDA (DÍA 8 · 26 ENE · UNIVERSAL 2/3 · CON AGUSTINA) ---
+  {
+    id: 'gringotts',
+    name: 'Harry Potter and the Escape from Gringotts',
+    park: 'Universal Studios Florida',
+    parkShort: 'Universal Studios',
+    visitDayLabel: 'Día 8 · 26 Ene · Universal 2/3 c/ Agustina',
+    land: 'The Wizarding World of Harry Potter - Diagon Alley',
+    category: 'simulator',
+    targetAudience: 'all',
+    adrenalineLevel: 3,
+    techImmersionLevel: 5,
+    minHeightCm: 107,
+    minHeightInches: 42,
+    description: 'Híbrido fascinante entre montaña rusa multidireccional y simulador 3D subterráneo en las bóvedas de Gringotts frente a Bellatrix Lestrange y Voldemort.',
+    whyForGroup: 'Atracción estrella que fascina a toda la familia. La antesala del banco con duendes animatrónicos y lámparas de cristal de 15 metros es asombrosa.',
+    queueStrategy: 'Entrar a primera hora apenas abre Diagon Alley.',
+    hasSingleRider: true,
+    virtualQueueOrLL: 'Universal Express / Single Rider'
+  },
+  {
+    id: 'mummy',
+    name: 'Revenge of the Mummy',
+    park: 'Universal Studios Florida',
+    parkShort: 'Universal Studios',
+    visitDayLabel: 'Día 8 · 26 Ene · Universal 2/3 c/ Agustina',
+    land: 'New York',
+    category: 'rollercoaster',
+    targetAudience: 'teens',
+    adrenalineLevel: 4,
+    techImmersionLevel: 4,
+    minHeightCm: 122,
+    minHeightInches: 48,
+    description: 'Montaña rusa interior psicológica con aceleraciones de 0 a 72 km/h, frenadas en falso, techo de fuego real a 100°C y escarabajos.',
+    whyForGroup: 'Favorita absoluta de los amantes de la emoción sin inversiones altas.',
+    queueStrategy: 'Single Rider muy veloz o fila Express.',
+    hasSingleRider: true,
+    virtualQueueOrLL: 'Universal Express / Single Rider'
+  },
+  {
+    id: 'rip-ride-rockit',
+    name: 'Hollywood Rip Ride Rockit',
+    park: 'Universal Studios Florida',
+    parkShort: 'Universal Studios',
+    visitDayLabel: 'Día 8 · 26 Ene · Universal 2/3 c/ Agustina',
+    land: 'Production Central',
+    category: 'rollercoaster',
+    targetAudience: 'teens',
+    adrenalineLevel: 4,
+    techImmersionLevel: 3,
+    minHeightCm: 130,
+    minHeightInches: 51,
+    description: 'Subida vertical de 90 grados mirando al cielo a 50 metros de altura, con pantalla táctil en el asiento para seleccionar la canción que sonará en tus oídos a 105 km/h.',
+    whyForGroup: 'Clásico de adrenalina para los 7 chicos: cada uno elige su propio hit musical.',
+    queueStrategy: 'Hacerlo al mediodía o tarde con Single Rider.',
+    hasSingleRider: true,
+    virtualQueueOrLL: 'Universal Express / Single Rider'
+  },
+  {
+    id: 'transformers',
+    name: 'TRANSFORMERS: The Ride-3D',
+    park: 'Universal Studios Florida',
+    parkShort: 'Universal Studios',
+    visitDayLabel: 'Día 8 · 26 Ene · Universal 2/3 c/ Agustina',
+    land: 'Production Central',
+    category: 'simulator',
+    targetAudience: 'all',
+    adrenalineLevel: 3,
+    techImmersionLevel: 5,
+    minHeightCm: 102,
+    minHeightInches: 40,
+    description: 'Simulador cinético de alta tecnología donde te sumerges en el combate entre Optimus Prime y Megatron en vehículos de movimiento dinámico.',
+    whyForGroup: 'Impresionante nivel de detalle visual y sonoro para disfrutar todos juntos.',
+    queueStrategy: 'Ideal para primera hora de la tarde.',
+    hasSingleRider: true,
+    virtualQueueOrLL: 'Universal Express'
+  },
+  {
+    id: 'men-in-black',
+    name: 'MEN IN BLACK Alien Attack',
+    park: 'Universal Studios Florida',
+    parkShort: 'Universal Studios',
+    visitDayLabel: 'Día 8 · 26 Ene · Universal 2/3 c/ Agustina',
+    land: 'World Expo',
+    category: 'simulator',
+    targetAudience: 'all',
+    adrenalineLevel: 2,
+    techImmersionLevel: 4,
+    minHeightCm: 107,
+    minHeightInches: 42,
+    description: 'Juego de disparos láser interactivo en autos que giran por las calles de Nueva York cazando alienígenas para acumular puntos.',
+    whyForGroup: 'Competencia grupal ideal: se dividen en 2 vehículos y compiten adultos contra jóvenes.',
+    queueStrategy: 'Fila rápida habitualmente.',
+    hasSingleRider: true,
+    virtualQueueOrLL: 'Universal Express / Single Rider'
+  },
+
+  // --- 7. UNIVERSAL EPIC UNIVERSE (DÍA 9 · 27 ENE · UNIVERSAL 3/3 · CON AGUSTINA) ---
+  {
+    id: 'stardust-racers',
+    name: 'Stardust Racers',
+    park: 'Universal Epic Universe',
+    parkShort: 'Epic Universe',
+    visitDayLabel: 'Día 9 · 27 Ene · Universal 3/3 c/ Agustina',
+    land: 'Celestial Park',
+    category: 'rollercoaster',
+    targetAudience: 'teens',
+    adrenalineLevel: 5,
+    techImmersionLevel: 5,
+    minHeightCm: 122,
+    minHeightInches: 48,
+    description: 'Doble montaña rusa de lanzamiento paralelo que alcanza 100 km/h y 40 metros de altura. Ambos trenes compiten y se entrelazan en el "Celestial Spin", iluminando la noche sin luces en la vía.',
+    whyForGroup: 'La nueva joya extrema de Orlando junto a VelociCoaster: gran cierre del Bloque Universal para los 7 chicos y Agustina.',
+    queueStrategy: 'Subir al caer la tarde o de noche para disfrutar los trenes iluminados. Tiene Single Rider y casilleros gratuitos obligatorios.',
+    hasSingleRider: true,
+    virtualQueueOrLL: 'Universal Express / Single Rider / Fila regular'
+  },
+  {
+    id: 'mario-kart-bowsers-challenge',
+    name: "Mario Kart: Bowser's Challenge",
+    park: 'Universal Epic Universe',
+    parkShort: 'Epic Universe',
+    visitDayLabel: 'Día 9 · 27 Ene · Universal 3/3 c/ Agustina',
+    land: 'SUPER NINTENDO WORLD',
+    category: 'simulator',
+    targetAudience: 'all',
+    adrenalineLevel: 2,
+    techImmersionLevel: 5,
+    minHeightCm: 102,
+    minHeightInches: 40,
+    description: 'Recorrido interactivo con visores de realidad aumentada dentro del Castillo de Bowser: manejan el volante y lanzan caparazones a los Koopalings para ganar la Copa Dorada.',
+    whyForGroup: 'Diversión competitiva ideal para los 12 viajeros juntos (adultos vs adolescentes acumulando monedas digitales).',
+    queueStrategy: 'Ir en Rope Drop a las 09:00 AM en punto o aprovechar Single Rider.',
+    hasSingleRider: true,
+    virtualQueueOrLL: 'Universal Express / Single Rider'
+  },
+  {
+    id: 'mine-cart-madness',
+    name: 'Mine-Cart Madness (Donkey Kong)',
+    park: 'Universal Epic Universe',
+    parkShort: 'Epic Universe',
+    visitDayLabel: 'Día 9 · 27 Ene · Universal 3/3 c/ Agustina',
+    land: 'SUPER NINTENDO WORLD',
+    category: 'rollercoaster',
+    targetAudience: 'all',
+    adrenalineLevel: 3,
+    techImmersionLevel: 5,
+    minHeightCm: 102,
+    minHeightInches: 40,
+    description: 'Montaña rusa familiar revolucionaria con riel oculto que genera la ilusión real de saltar sobre vías rotas y barrancos en Donkey Kong Country.',
+    whyForGroup: 'Tecnología patentada única en el mundo: emocionante para los chicos y muy disfrutable para los 5 adultos.',
+    queueStrategy: 'Hacer inmediatamente después de Mario Kart en la mañana o por fila Single Rider.',
+    hasSingleRider: true,
+    virtualQueueOrLL: 'Single Rider / Fila regular'
+  },
+  {
+    id: 'battle-at-the-ministry',
+    name: 'Harry Potter and the Battle at the Ministry',
+    park: 'Universal Epic Universe',
+    parkShort: 'Epic Universe',
+    visitDayLabel: 'Día 9 · 27 Ene · Universal 3/3 c/ Agustina',
+    land: 'The Wizarding World of Harry Potter – Ministry of Magic',
+    category: 'dark_ride',
+    targetAudience: 'all',
+    adrenalineLevel: 3,
+    techImmersionLevel: 5,
+    minHeightCm: 102,
+    minHeightInches: 40,
+    description: 'Viajas por el Metro-Floo desde el París mágico de 1920 hasta el inmenso atrio del Ministerio británico para el juicio de Dolores Umbridge en ascensores omnidireccionales.',
+    whyForGroup: 'Escala cinematográfica al nivel de Rise of the Resistance: obligatoria para los 12 integrantes del grupo.',
+    queueStrategy: 'Priorizar en la primera hora de la mañana o verificar fila en la app oficial de Universal.',
+    hasSingleRider: true,
+    virtualQueueOrLL: 'Universal Express / Single Rider'
+  },
+  {
+    id: 'monsters-unchained',
+    name: 'Monsters Unchained: The Frankenstein Experiment',
+    park: 'Universal Epic Universe',
+    parkShort: 'Epic Universe',
+    visitDayLabel: 'Día 9 · 27 Ene · Universal 3/3 c/ Agustina',
+    land: 'Dark Universe',
+    category: 'dark_ride',
+    targetAudience: 'teens',
+    adrenalineLevel: 4,
+    techImmersionLevel: 5,
+    minHeightCm: 122,
+    minHeightInches: 48,
+    description: 'La atracción más oscura y tecnológicamente avanzada de Dark Universe: brazos robóticos KUKA de última generación rodeados de Drácula, el Hombre Lobo y el Monstruo de Frankenstein.',
+    whyForGroup: 'Ambientación gótica impresionante y movimientos dinámicos intensos que fascinan a adolescentes y adultos.',
+    queueStrategy: 'La fila avanza muy rápido por su alta capacidad horaria; ideal para media tarde.',
+    hasSingleRider: true,
+    virtualQueueOrLL: 'Universal Express / Single Rider'
+  },
+  {
+    id: 'curse-of-the-werewolf',
+    name: 'Curse of the Werewolf',
+    park: 'Universal Epic Universe',
+    parkShort: 'Epic Universe',
+    visitDayLabel: 'Día 9 · 27 Ene · Universal 3/3 c/ Agustina',
+    land: 'Dark Universe',
+    category: 'rollercoaster',
+    targetAudience: 'teens',
+    adrenalineLevel: 4,
+    techImmersionLevel: 4,
+    minHeightCm: 102,
+    minHeightInches: 40,
+    description: 'Montaña rusa giratoria (spinning coaster) familiar-intensa con lanzamiento adelante y atrás a 60 km/h atravesando el bosque maldito de Darkmoor.',
+    whyForGroup: 'Giro libre de los carros según el peso de cada grupo, haciendo cada vuelta distinta para los chicos.',
+    queueStrategy: 'Hacer junto con Monsters Unchained entre las 16:30 y 18:30 hs.',
+    hasSingleRider: true,
+    virtualQueueOrLL: 'Universal Express / Single Rider'
+  },
+  {
+    id: 'hiccups-wing-gliders',
+    name: "Hiccup's Wing Gliders",
+    park: 'Universal Epic Universe',
+    parkShort: 'Epic Universe',
+    visitDayLabel: 'Día 9 · 27 Ene · Universal 3/3 c/ Agustina',
+    land: 'How to Train Your Dragon – Isle of Berk',
+    category: 'rollercoaster',
+    targetAudience: 'all',
+    adrenalineLevel: 3,
+    techImmersionLevel: 4,
+    minHeightCm: 102,
+    minHeightInches: 40,
+    description: 'Montaña rusa de doble lanzamiento suave estilo Hagrid que planea sobre la laguna y los barcos vikingos de Isle of Berk a 72 km/h junto a Hipo y Chimuelo.',
+    whyForGroup: 'Ideal para subir todos juntos disfrutando las vistas completas de la isla vikinga sin inversiones extremas.',
+    queueStrategy: 'Excelente para hacer justo después del almuerzo en Mead Hall.',
+    hasSingleRider: false,
+    virtualQueueOrLL: 'Universal Express / Fila regular'
   }
 ];
 
 export const UBER_ROUTES: UberRoute[] = [
   {
-    id: 'celebration-to-magic-kingdom',
-    destinationName: "Disney's Magic Kingdom (TTC)",
-    category: 'disney',
-    distanceKm: 15.8,
-    drivingMinutesNormal: 18,
-    drivingMinutesPeak: 25,
-    estCostPerUberXL: 28, // total para 12 personas = $56 (6 pax por auto)
-    pickupAdvice: 'Lobby de Celebration Suites. Salir a las 07:40 AM para apertura 09:00 AM.',
-    dropoffAdvice: 'Zona exacta: Transportation and Ticket Center (TTC) Rideshare Loop. NINGÚN auto o Uber puede dejar pasajeros en los molinetes directos de Magic Kingdom.',
-    carSyncTips: 'Desde el TTC, caminar 100 m hacia la estación y tomar el Express Monorail o el Ferryboat a través del Seven Seas Lagoon (calcular 20-25 min extras de traslado panorámico gratuito).',
-    exactZoneCoordinates: 'TTC Rideshare Lot (Postes señalizados A1-A6 frente a la boletería central)'
-  },
-  {
-    id: 'celebration-to-hollywood-studios',
-    destinationName: "Disney's Hollywood Studios",
-    category: 'disney',
-    distanceKm: 11.6,
-    drivingMinutesNormal: 14,
-    drivingMinutesPeak: 18,
-    estCostPerUberXL: 22, // total x2 = $44
-    pickupAdvice: 'Salida recomendada: 08:00 AM para apertura 08:30 / 09:00 AM.',
-    dropoffAdvice: 'Zona exacta: Rideshare Loop exclusivo ubicado a la derecha del estacionamiento general, a solo 150 metros (2 min a pie) de los molinetes de entrada.',
-    carSyncTips: 'A la salida después del show Fantasmic!, caminar directamente hacia la salida sin detenerse en los locales para pedir ambos UberXL antes del pico de saturación.',
-    exactZoneCoordinates: 'Hollywood Studios Rideshare Loop (Carril derecho peatonal frente a la entrada principal)'
-  },
-  {
     id: 'celebration-to-epcot',
-    destinationName: "Disney's EPCOT",
+    destinationName: "1. Disney's EPCOT (20 Ene · Disney 1/4)",
     category: 'disney',
     distanceKm: 13.7,
     drivingMinutesNormal: 16,
     drivingMinutesPeak: 22,
     estCostPerUberXL: 24, // total x2 = $48
-    pickupAdvice: 'Salida recomendada: 08:00 AM para ingresar temprano y estar listos con la Virtual Queue de Guardians of the Galaxy.',
+    pickupAdvice: 'Día 2 (20 Ene · arranque tranquilo): Salida recomendada 08:30 hs tras pedir Virtual Queue de Guardians of the Galaxy a las 07:00 AM.',
     dropoffAdvice: 'Zona exacta: Lote Este de Rideshare frente a la gran esfera geodésica de Spaceship Earth (a 200 m de los molinetes).',
     carSyncTips: 'Al terminar el espectáculo nocturno Luminous (21:30 hs), caminar por el lateral izquierdo de Spaceship Earth para llegar rápido a los autos.',
     exactZoneCoordinates: 'EPCOT East Parking Lot - Rideshare Pick-up & Drop-off Zone'
   },
   {
+    id: 'celebration-to-hollywood-studios',
+    destinationName: "2. Disney's Hollywood Studios (21 Ene · Disney 2/4)",
+    category: 'disney',
+    distanceKm: 11.6,
+    drivingMinutesNormal: 14,
+    drivingMinutesPeak: 18,
+    estCostPerUberXL: 22, // total x2 = $44
+    pickupAdvice: 'Día 3 (21 Ene): Salida recomendada 08:00 hs para apertura 08:30 / 09:00 hs.',
+    dropoffAdvice: 'Zona exacta: Rideshare Loop exclusivo ubicado a la derecha del estacionamiento general, a solo 150 metros (2 min a pie) de los molinetes de entrada.',
+    carSyncTips: 'A la salida después del show Fantasmic!, caminar directamente hacia la salida sin detenerse en los locales para pedir ambos UberXL antes del pico de saturación.',
+    exactZoneCoordinates: 'Hollywood Studios Rideshare Loop (Carril derecho peatonal frente a la entrada principal)'
+  },
+  {
+    id: 'celebration-to-magic-kingdom',
+    destinationName: "3. Disney's Magic Kingdom (22 Ene · TTC)",
+    category: 'disney',
+    distanceKm: 15.8,
+    drivingMinutesNormal: 18,
+    drivingMinutesPeak: 25,
+    estCostPerUberXL: 28, // total para 12 personas = $56 (6 pax por auto)
+    pickupAdvice: 'Día 4 (22 Ene): Lobby de Celebration Suites. Salir a las 07:45 hs para apertura 09:00 hs.',
+    dropoffAdvice: 'Zona exacta: Transportation and Ticket Center (TTC) Rideshare Loop. NINGÚN auto o Uber puede dejar pasajeros en los molinetes directos de Magic Kingdom.',
+    carSyncTips: 'Desde el TTC, caminar 100 m hacia la estación y tomar el Express Monorail o el Ferryboat a través del Seven Seas Lagoon (calcular 20-25 min extras de traslado panorámico gratuito).',
+    exactZoneCoordinates: 'TTC Rideshare Lot (Postes señalizados A1-A6 frente a la boletería central)'
+  },
+  {
     id: 'celebration-to-animal-kingdom',
-    destinationName: "Disney's Animal Kingdom",
+    destinationName: "4. Disney's Animal Kingdom (23 Ene · Disney 4/4)",
     category: 'disney',
     distanceKm: 10.9,
     drivingMinutesNormal: 12,
     drivingMinutesPeak: 16,
     estCostPerUberXL: 20, // total x2 = $40
-    pickupAdvice: '¡Es el parque más cercano a Celebration Suites! Salir 07:25 AM para apertura 08:00 AM.',
+    pickupAdvice: 'Día 5 (23 Ene): ¡Es el parque más cercano a Celebration Suites! Salir 07:25 hs para apertura 08:00 hs y cerrar el Bloque Disney.',
     dropoffAdvice: 'Zona exacta: Rideshare Loop este a solo 100 metros del arco de entrada principal. El acceso vehicular más rápido de todo Disney.',
     carSyncTips: 'El tráfico matutino por US-192 / World Drive hacia Animal Kingdom es sumamente despejado.',
     exactZoneCoordinates: 'Animal Kingdom Front Entrance Rideshare Loop (Carril exclusivo de vans y taxis)'
   },
   {
     id: 'celebration-to-universal',
-    destinationName: "Universal Orlando Resort (CityWalk Hub)",
+    destinationName: "5-6. Universal CityWalk · IOA & Studios (25 y 26 Ene)",
     category: 'universal',
     distanceKm: 23.3,
     drivingMinutesNormal: 22,
     drivingMinutesPeak: 30,
     estCostPerUberXL: 34, // total x2 = $68
-    pickupAdvice: 'Salida recomendada: 07:55 AM (Mar 26 Ene) / 08:05 AM (Mié 20 Ene) para llegar al Rope Drop tras pasar el control de seguridad de CityWalk.',
+    pickupAdvice: 'Bloque Universal junto a Agustina: Salir 08:05 hs (25 Ene · Islands of Adventure) y 08:00 hs (26 Ene · Universal Studios) para llegar al Rope Drop tras pasar CityWalk.',
     dropoffAdvice: 'Zona exacta: Piso 5 (Level 5) de la mega estructura central de estacionamientos (área señalizada "Guest Drop-off / Rideshare").',
     carSyncTips: 'Bajan por las escaleras mecánicas hacia la seguridad de CityWalk. Para el regreso nocturno: SUBIR al Piso 5 ANTES de pedir los 2 UberXL para no hacer esperar a los choferes.',
     exactZoneCoordinates: 'Universal Parking Garage - Level 5 Rideshare Hub (Señalización Jurassic Park / Cat in the Hat)'
   },
   {
     id: 'celebration-to-epic-universe',
-    destinationName: 'Universal Epic Universe (Nuevo Campus)',
+    destinationName: '7. Universal Epic Universe (27 Ene · Nuevo Campus)',
     category: 'universal',
     distanceKm: 20.5,
     drivingMinutesNormal: 22,
     drivingMinutesPeak: 30,
     estCostPerUberXL: 32, // total x2 = $64
-    pickupAdvice: 'Salida recomendada (Mié 27 Ene): 07:40 hs desde Celebration Suites hacia el nuevo campus sobre Epic Blvd / Universal Blvd (NO ir al parking viejo de CityWalk).',
+    pickupAdvice: 'Cierre Bloque Universal junto a Agustina (27 Ene): Salir 07:40 hs desde Celebration Suites hacia el nuevo campus sobre Epic Blvd / Universal Blvd (NO ir al parking viejo de CityWalk).',
     dropoffAdvice: 'Zona exacta: Loop de Rideshare / Drop-off exclusivo de Universal Epic Universe frente a la entrada Chronos Plaza.',
     carSyncTips: 'Confirmar en las 2 apps de Uber (Auto 1 y Auto 2) que el destino diga exactamente "Universal Epic Universe" y no "Universal Studios Florida", ya que están separados por varios kilómetros.',
     exactZoneCoordinates: 'Universal Epic Universe Rideshare Drop-off (Epic Blvd / Chronos Gate)'
   },
   {
     id: 'celebration-to-kia-center',
-    destinationName: 'Kia Center · Orlando Magic vs. Bulls (Downtown NBA)',
+    destinationName: 'Kia Center · Orlando Magic vs. Bulls (28 Ene NBA)',
     category: 'shopping',
     distanceKm: 35.0,
     drivingMinutesNormal: 32,
@@ -1713,6 +1826,19 @@ export const UBER_ROUTES: UberRoute[] = [
     dropoffAdvice: 'Zona exacta: Hughey Ave & W Church St, a pasos del acceso principal de Church Street Station.',
     carSyncTips: 'Recordar para los 12 (ocupan exactamente 6 pax por auto sin valijas): entradas digitales ya descargadas en el celular, estadio 100% cashless (sin efectivo) y política de bolsos estricta (NO mochilas de parque; solo carteras tipo sobre de hasta 4.5" x 6.5").',
     exactZoneCoordinates: 'Kia Center Rideshare Drop-off (Hughey Ave & Church St Loop)'
+  },
+  {
+    id: 'celebration-to-vineland-outlets',
+    destinationName: 'Orlando Vineland Premium Outlets (24 Ene · Libre)',
+    category: 'shopping',
+    distanceKm: 12.7,
+    drivingMinutesNormal: 15,
+    drivingMinutesPeak: 20,
+    estCostPerUberXL: 22, // total x2 = $44
+    pickupAdvice: 'Día libre 24 Ene: Mucho más cercano que I-Drive. Salida 13:30 hs tras pileta y almuerzo para Nike/Adidas.',
+    dropoffAdvice: 'Drop-off en la entrada central junto a Tommy Hilfiger y la plaza gastronómica (8200 Vineland Ave).',
+    carSyncTips: 'Cuenta con el Nike Clearance Store y Adidas Outlet, ideales para botines y zapatillas en el día libre del 24.',
+    exactZoneCoordinates: 'Vineland Outlets Center Court Drop-off Circle'
   },
   {
     id: 'celebration-to-international-outlets',
@@ -1728,19 +1854,6 @@ export const UBER_ROUTES: UberRoute[] = [
     exactZoneCoordinates: 'International Outlets Main Entrance / Food Court Valet Loop'
   },
   {
-    id: 'celebration-to-vineland-outlets',
-    destinationName: 'Orlando Vineland Premium Outlets',
-    category: 'shopping',
-    distanceKm: 12.7,
-    drivingMinutesNormal: 15,
-    drivingMinutesPeak: 20,
-    estCostPerUberXL: 22, // total x2 = $44
-    pickupAdvice: 'Mucho más cercano que I-Drive. Salida 11:15 AM.',
-    dropoffAdvice: 'Drop-off en la entrada central junto a Tommy Hilfiger y la plaza gastronómica (8200 Vineland Ave).',
-    carSyncTips: 'Cuenta con el Nike Clearance Store, con descuentos adicionales al outlet tradicional.',
-    exactZoneCoordinates: 'Vineland Outlets Center Court Drop-off Circle'
-  },
-  {
     id: 'celebration-to-florida-mall',
     destinationName: 'The Florida Mall (Apple Store & Best Buy zona)',
     category: 'shopping',
@@ -1748,7 +1861,7 @@ export const UBER_ROUTES: UberRoute[] = [
     drivingMinutesNormal: 25,
     drivingMinutesPeak: 35,
     estCostPerUberXL: 35, // total x2 = $70
-    pickupAdvice: 'Salida 11:30 AM en día de descanso.',
+    pickupAdvice: 'Salida 11:30 AM en día de descanso/compras.',
     dropoffAdvice: 'Entrada exterior de Apple Store / Dining Pavilion (8001 S Orange Blossom Trail).',
     carSyncTips: 'Es un shopping cerrado gigante ideal si el clima está fresco o lluvioso.',
     exactZoneCoordinates: 'The Florida Mall - Entrance 4 (Between Macy\'s and Apple Store)'
@@ -1761,7 +1874,7 @@ export const UBER_ROUTES: UberRoute[] = [
     drivingMinutesNormal: 6,
     drivingMinutesPeak: 9,
     estCostPerUberXL: 12, // total x2 = $24
-    pickupAdvice: 'Supermercado más cercano a Celebration Suites. Abierto de 06:00 AM a 23:00 PM.',
+    pickupAdvice: 'Supermercado más cercano a Celebration Suites (ideal el 19 Ene al llegar y el 24 Ene para reposición antes de Universal). Abierto de 06:00 AM a 23:00 PM.',
     dropoffAdvice: 'Puerta principal de Alimentos / Grocery (4444 W Vine St, Kissimmee).',
     carSyncTips: 'Pueden ir solo 2 o 3 adultos en un único Uber normal para comprar agua y snacks para todo el grupo, ahorrando un auto.',
     exactZoneCoordinates: 'Walmart Grocery Entrance Pick-up Area'
@@ -1774,7 +1887,7 @@ export const UBER_ROUTES: UberRoute[] = [
     drivingMinutesNormal: 26,
     drivingMinutesPeak: 36,
     estCostPerUberXL: 48, // total x2 = $96
-    pickupAdvice: 'Llegada Día 1 (15:35 hs): No hay traslado de agencia contratado desde MCO.',
+    pickupAdvice: 'Llegada Día 1 (19 Ene · 15:35 hs): No hay traslado de agencia contratado desde MCO.',
     dropoffAdvice: 'Rideshare Pickup en MCO (Level 2 Arrivals) hacia Lobby de Celebration Suites.',
     carSyncTips: 'Al viajar livianos a la ida se piden 2x UberXL (máximo legal: 6 pasajeros por auto = 12 viajeros). Si llevan valijas vacías para compras que no entren con 6 personas en el baúl, sumar 1 Uber estándar adicional en el momento solo para el equipaje.',
     exactZoneCoordinates: 'MCO Level 2 (Arrivals - Rideshare Pickup) ➔ Celebration Suites'

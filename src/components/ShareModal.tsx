@@ -78,16 +78,12 @@ export const ShareModal: React.FC<ShareModalProps> = ({
       `✈️ *ORLANDO 2027 · WEB APP DEL VIAJE*`,
       `📍 *Alojamiento:* Celebration Suites (Orlando) & Seacoast Suites on Miami Beach`,
       `🗓️ *Fechas:* 19 de Enero al 2 de Febrero 2027 (15 días)`,
-      `👥 *Grupo:* 12 personas (5 adultos + 7 adolescentes de 13 a 15 años)`,
-      `🚗 *Logística:* 2x UberXL (6+6 pax) + Traslado agencia a Miami + 🚐 Van Privada agencia a MIA`,
-      ``,
-      `📱 *La Web App incluye:*`,
-      `• Itinerario día por día (7 parques c/ Epic Universe, Miami Beach, Sawgrass Mills y regreso Copa)`,
-      `• Atracciones de adrenalina vs adultos con tiempos de fila`,
-      `• Calculador de rutas y división de costos 2x UberXL`,
-      `• ✅ NBA Orlando Magic vs. Bulls (28 Ene) + ✅ FIFA Women's Champions Cup (31 Ene)`,
-      `• Guía de compras: Outlets, Nike Clearance y tecnología Apple/Best Buy`,
-      `• Notas de voz grabables para no olvidar nada`,
+      `👥 *Grupo:* 12 viajeros (5 adultos + 7 adolescentes, incluyendo a Bruno)`,
+      `🏰 *Bloque Disney (4-Park Magic · 20–26 Ene):* 20 EPCOT · 21 Hollywood Studios · 22 Magic Kingdom · 23 Animal Kingdom`,
+      `🛍️ *Día Libre (24 Ene):* Descanso, pileta, outlets (Nike/Adidas) y Walmart`,
+      `🎢 *Bloque Universal (3-Day · Desde 25 Ene c/ Agustina):* 25 Islands of Adventure · 26 Universal Studios · 27 Epic Universe`,
+      `🚗 *Logística:* 2x UberXL (6+6 pax) + Traslado agencia a Miami (30 Ene) + ✅🚐 Van Privada Confirmada a MIA (2 Feb)`,
+      `🏆 *Eventos Confirmados:* ✅ NBA Magic vs. Bulls (28 Ene Kia Center) + ✅ FIFA Women's Champions Cup (31 Ene Nu Stadium)`,
       ``,
       `📲 *Abrir la Web App en tu celular:*`,
       `${appUrl}`,
@@ -99,12 +95,13 @@ export const ShareModal: React.FC<ShareModalProps> = ({
     const day = ITINERARY.find(d => d.dayNumber === dayNum) || ITINERARY[1];
     const transportLine =
       day.dayNumber === 12
-        ? `🚐 *Traslado Agencia Orlando ➔ Miami:* ${day.uberRecommendation.departureTime} hs para los 12 pasajeros hacia ${day.uberRecommendation.destination} (~${day.uberRecommendation.distanceKm} km)`
+        ? `🚐 *Traslado Agencia Orlando ➔ Miami:* ${day.uberRecommendation.departureTime} hs para los 12 viajeros hacia ${day.uberRecommendation.destination} (~${day.uberRecommendation.distanceKm} km)`
         : day.dayNumber === 15
-        ? `🚐 *Van Privada (Agencia) ➔ MIA:* ${day.uberRecommendation.departureTime} hs desde Seacoast Suites hacia ${day.uberRecommendation.destination} (12 pax + valijas)`
+        ? `✅🚐 *Van Privada Confirmada ➔ MIA:* ${day.uberRecommendation.departureTime} hs desde Seacoast Suites hacia ${day.uberRecommendation.destination} (12 viajeros + valijas)`
         : `🚗 *Salida 2x UberXL (6+6 pax):* ${day.uberRecommendation.departureTime} hs hacia ${day.uberRecommendation.destination} (~${day.uberRecommendation.distanceKm} km)`;
     const text = [
       `📅 *PLAN DEL DÍA ${day.dayNumber}: ${day.dateStr}*`,
+      day.ticketBlock ? `🎟️ *Pase:* ${day.ticketBlock.blockLabel} · ${day.ticketBlock.passName} (${day.ticketBlock.validityWindow})${day.ticketBlock.companionNote ? ` · ${day.ticketBlock.companionNote}` : ''}` : '',
       `📍 *Destino:* ${day.title}`,
       `✨ *Foco:* ${day.highlight}`,
       transportLine,
@@ -118,15 +115,15 @@ export const ShareModal: React.FC<ShareModalProps> = ({
 
   const generateUberWhatsAppMessage = () => {
     const text = [
-      `🚗 *LOGÍSTICA TRASLADOS · 12 PERSONAS*`,
+      `🚗 *LOGÍSTICA TRASLADOS · 12 VIAJEROS*`,
       `📍 *Llegada Día 1 (19 Ene · MCO):* Sin traslado de agencia. 2x UberXL livianos (6+6) + 1 Uber estándar extra solo para equipaje si llevan valijas vacías que no entren.`,
       `📍 *Parques, Estadios y Outlets (2x UberXL · 6+6 sin valijas):*`,
       `👥 *Auto 1 (6 pax):* Lorena, Celia, Juan, Renato, Máximo, Bruno`,
       `👥 *Auto 2 (6 pax):* Carolina, Fofi, Tuto, José, Josefina, Luisina`,
       `💡 *Regla de oro:* Ocupan el máximo legal de 6 pax por auto; pedir ambos autos sincronizados.`,
-      `🚐 *30 de Enero (07:00 hs):* Traslado terrestre contratado por agencia Orlando ➔ Miami para los 12 pasajeros hacia Seacoast Suites (5101 Collins Ave).`,
+      `🚐 *30 de Enero (07:00 hs):* Traslado terrestre contratado por agencia Orlando ➔ Miami para los 12 viajeros hacia Seacoast Suites (5101 Collins Ave).`,
       `⚽ *31 de Enero:* 2x UberXL (6+6) al Nu Stadium para FIFA Women's Champions Cup (solo bolsos transparentes).`,
-      `🚐 *2 de Febrero (07:15 hs):* Traslado en Van Privada contratada por agencia desde Seacoast Suites al Aeropuerto de Miami (MIA) para los 12 pasajeros con todas las valijas llenas de compras.`,
+      `✅🚐 *2 de Febrero (07:15 hs):* Van Privada CONFIRMADA desde Seacoast Suites al Aeropuerto de Miami (MIA) para los 12 viajeros con todas las valijas llenas de compras (Copa CM 440 / CM 882).`,
       ``,
       `📲 *Calculador de rutas y costos:*`,
       `${appUrl}`,
@@ -340,7 +337,7 @@ export const ShareModal: React.FC<ShareModalProps> = ({
             <div className="p-3.5 rounded-2xl bg-emerald-50/60 border border-emerald-200/70 flex items-center justify-between gap-3">
               <div className="text-xs text-emerald-950">
                 <span className="font-bold">Distribución y reglas de los 2x UberXL</span>
-                <p className="text-[11px] text-emerald-800">Auto 1 (6 pax) y Auto 2 (6 pax) sin valijas para 12 personas + Van Privada agencia a MIA.</p>
+                <p className="text-[11px] text-emerald-800">Auto 1 (6 pax) y Auto 2 (6 pax) sin valijas para 12 viajeros + ✅ Van Privada Confirmada a MIA.</p>
               </div>
               <button
                 onClick={() => sendDirectToWhatsApp(generateUberWhatsAppMessage())}

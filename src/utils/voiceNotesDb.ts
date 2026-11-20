@@ -105,24 +105,24 @@ function createSampleBeepAudioBlob(frequency: number = 440, durationMs: number =
 const DEFAULT_SAMPLE_NOTES: VoiceNote[] = [
   {
     id: 'sample-1',
-    title: 'Hagrid’s: Salir 7:15 AM de Celebration Suites',
+    title: 'Hagrid’s (25 Ene c/ Agustina): Salir 08:05 hs de Celebration',
     category: 'rides',
-    dayNumber: 2,
+    dayNumber: 7,
     authorName: 'Lorena',
     durationSeconds: 14,
     createdAt: Date.now() - 1000 * 60 * 60 * 12,
-    summaryText: 'Pedir los 2 UberXL a las 7:15 en punto desde el lobby para llegar a la cuerda de Universal Islands of Adventure antes de la apertura.',
+    summaryText: 'Pedir los 2 UberXL a las 08:05 hs desde el lobby para abrir el Bloque Universal en Islands of Adventure junto a Agustina.',
     isFavorite: true,
   },
   {
     id: 'sample-2',
-    title: 'Talles de botines para Máximo y Renato',
+    title: 'Talles de botines para el Día Libre (24 Ene Outlets)',
     category: 'shopping',
-    dayNumber: 4,
+    dayNumber: 6,
     authorName: 'Renato',
     durationSeconds: 9,
     createdAt: Date.now() - 1000 * 60 * 60 * 5,
-    summaryText: 'Revisar talle US 9.5 y 10 en Nike Clearance Store de Vineland Outlets. Chequear suela FG para césped.',
+    summaryText: 'Revisar talle US 9.5 y 10 en Nike Clearance Store y Adidas de Vineland Outlets durante el día libre del 24 de enero.',
     isFavorite: false,
   },
   {
@@ -133,7 +133,7 @@ const DEFAULT_SAMPLE_NOTES: VoiceNote[] = [
     authorName: 'Celia',
     durationSeconds: 11,
     createdAt: Date.now() - 1000 * 60 * 60 * 2,
-    summaryText: 'Comprar packs de agua mineral de 40 unidades, barras de cereal, fruta fresca y protector solar antes del primer día de parque.',
+    summaryText: 'Comprar packs de agua mineral de 40 unidades, barras de cereal, fruta fresca y protector solar antes del arranque en EPCOT el 20 de enero.',
     isFavorite: true,
   }
 ];

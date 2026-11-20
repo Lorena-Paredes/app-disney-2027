@@ -176,7 +176,7 @@ export default function App() {
           </div>
 
           <div className="text-slate-400 text-center sm:text-right">
-            12 Pasajeros · 5 Adultos & 7 Adolescentes · Traslado a Miami y Van a MIA
+            12 Viajeros · 5 Adultos & 7 Adolescentes · Traslado a Miami y ✅ Van Privada Confirmada a MIA
           </div>
         </div>
       </footer>

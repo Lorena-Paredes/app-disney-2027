@@ -64,13 +64,13 @@ export const AttractionsRadarView: React.FC = () => {
           <div>
             <div className="flex items-center gap-2 text-xs font-semibold text-amber-700 uppercase tracking-wider mb-1">
               <Zap className="w-3.5 h-3.5" />
-              <span>Radar de Atracciones · Universal & Disney</span>
+              <span>Radar de Atracciones · Bloque Disney (20–23 Ene) & Bloque Universal c/ Agustina (25–27 Ene)</span>
             </div>
             <h2 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">
-              Adrenalina Pura para los Adolescentes vs Simuladores High-Tech para Todos
+              Alertas de Adrenalina para los 7 Chicos vs Simuladores High-Tech para los 12 Viajeros
             </h2>
             <p className="text-sm text-slate-600 mt-1 max-w-3xl">
-              Filtra las mejores montañas rusas de velocidad para Renato, Tuto, José, Máximo, Josefina, Luisina y Bruno, o los simuladores inmersivos de última generación donde los 12 disfrutarán por igual.
+              Ordenadas cronológicamente parque por parque para Renato, Tuto, José, Máximo, Josefina, Luisina y Bruno (más los 5 adultos). Tocá un día en las alertas para filtrar directo ese parque.
             </p>
           </div>
 
@@ -94,9 +94,10 @@ export const AttractionsRadarView: React.FC = () => {
                 onClick={() => {
                   const appUrl = window.location.href.split('#')[0];
                   const msg = [
-                    `🎢 *AVANCE DE ATRACCIONES · ORLANDO 2027*`,
+                    `🎢 *AVANCE DE ATRACCIONES · ORLANDO 2027 (12 VIAJEROS)*`,
                     `✅ Llevamos completadas *${completedCount} de ${totalCount} atracciones* (${progressPercent}% del desafío).`,
-                    `⚡ Foco: VelociCoaster, Hagrid's, Hulk, Cosmic Rewind, Tron y Rise of the Resistance.`,
+                    `🏰 *Disney (20–23 Ene):* Cosmic Rewind (20), Rise/Tower/Rock'n'Roller (21), TRON/Space Mtn (22), Avatar/Everest (23).`,
+                    `🎢 *Universal c/ Agustina (25–27 Ene):* VelociCoaster/Hagrid/Hulk (25), Gringotts/Mummy/Rockit (26), Stardust Racers/Monsters/Mario Kart (27).`,
                     ``,
                     `📲 Ver lista completa y marcar atracciones: ${appUrl}`,
                   ].join('\n');
@@ -109,6 +110,67 @@ export const AttractionsRadarView: React.FC = () => {
                 <span>WhatsApp</span>
               </button>
             </div>
+          </div>
+        </div>
+
+        {/* Alertas de Atracciones Recomendadas para los 7 Chicos en Orden Cronológico Exacto */}
+        <div className="mt-4 pt-4 border-t border-slate-100">
+          <div className="flex items-center justify-between gap-2 mb-2.5">
+            <div className="flex items-center gap-1.5 text-xs font-extrabold text-amber-900 uppercase tracking-wider">
+              <Flame className="w-4 h-4 text-amber-500" />
+              <span>Alertas Recomendadas para los 7 Chicos (Orden Exacto de Parques)</span>
+            </div>
+            {selectedPark !== 'all' && (
+              <button
+                onClick={() => setSelectedPark('all')}
+                className="text-[11px] font-semibold text-blue-600 hover:text-blue-800"
+              >
+                Ver todos los parques
+              </button>
+            )}
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-7 gap-2">
+            {[
+              { parkShort: 'EPCOT', date: '20 Ene', block: 'Disney 1/4', topRides: 'Cosmic Rewind · Test Track', theme: 'disney' },
+              { parkShort: 'Hollywood Studios', date: '21 Ene', block: 'Disney 2/4', topRides: 'Tower of Terror · Rock \'n\' Roller · Rise', theme: 'disney' },
+              { parkShort: 'Magic Kingdom', date: '22 Ene', block: 'Disney 3/4', topRides: 'TRON Lightcycle · Space Mountain', theme: 'disney' },
+              { parkShort: 'Animal Kingdom', date: '23 Ene', block: 'Disney 4/4', topRides: 'Avatar Flight · Expedition Everest', theme: 'disney' },
+              { parkShort: 'Islands of Adventure', date: '25 Ene', block: 'Univ. 1/3 c/ Agus', topRides: 'VelociCoaster · Hagrid\'s · Hulk', theme: 'universal' },
+              { parkShort: 'Universal Studios', date: '26 Ene', block: 'Univ. 2/3 c/ Agus', topRides: 'Mummy · Rip Ride Rockit · Gringotts', theme: 'universal' },
+              { parkShort: 'Epic Universe', date: '27 Ene', block: 'Univ. 3/3 c/ Agus', topRides: 'Stardust Racers · Monsters · Werewolf', theme: 'universal' },
+            ].map(alert => {
+              const isSelected = selectedPark === alert.parkShort;
+              return (
+                <button
+                  key={alert.parkShort}
+                  onClick={() => setSelectedPark(isSelected ? 'all' : alert.parkShort)}
+                  className={`text-left p-2.5 rounded-xl border transition-all ${
+                    isSelected
+                      ? alert.theme === 'disney'
+                        ? 'bg-blue-600 text-white border-blue-600 shadow-xs'
+                        : 'bg-indigo-600 text-white border-indigo-600 shadow-xs'
+                      : alert.theme === 'disney'
+                      ? 'bg-blue-50/50 border-blue-200 hover:bg-blue-100/70 text-slate-900'
+                      : 'bg-indigo-50/50 border-indigo-200 hover:bg-indigo-100/70 text-slate-900'
+                  }`}
+                >
+                  <div className="flex items-center justify-between gap-1 text-[10px] font-bold">
+                    <span className={isSelected ? 'text-white' : alert.theme === 'disney' ? 'text-blue-700' : 'text-indigo-700'}>
+                      {alert.date}
+                    </span>
+                    <span className={`px-1.5 py-0.2 rounded ${isSelected ? 'bg-white/20 text-white' : 'bg-white text-slate-600 border border-slate-200'}`}>
+                      {alert.block}
+                    </span>
+                  </div>
+                  <div className="text-xs font-extrabold mt-1 truncate">
+                    {alert.parkShort}
+                  </div>
+                  <div className={`text-[10px] mt-0.5 leading-snug line-clamp-2 ${isSelected ? 'text-white/90' : 'text-slate-600'}`}>
+                    ⚡ {alert.topRides}
+                  </div>
+                </button>
+              );
+            })}
           </div>
         </div>
 
@@ -201,8 +263,17 @@ export const AttractionsRadarView: React.FC = () => {
                 {/* Header row: Park & Land badge + Check-in button */}
                 <div className="flex items-start justify-between gap-3">
                   <div className="space-y-1">
-                    <div className="flex items-center gap-2 text-[11px] text-slate-500 font-medium">
+                    <div className="flex flex-wrap items-center gap-1.5 text-[11px] text-slate-500 font-medium">
                       <span className="font-bold text-slate-800">{ride.parkShort}</span>
+                      {ride.visitDayLabel && (
+                        <span className={`px-1.5 py-0.2 rounded text-[10px] font-bold ${
+                          ride.visitDayLabel.includes('Disney')
+                            ? 'bg-blue-50 text-blue-700 border border-blue-200'
+                            : 'bg-indigo-50 text-indigo-700 border border-indigo-200'
+                        }`}>
+                          {ride.visitDayLabel}
+                        </span>
+                      )}
                       <span>·</span>
                       <span>{ride.land}</span>
                     </div>

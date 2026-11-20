@@ -17,7 +17,7 @@ export const DailyItineraryView: React.FC<DailyItineraryViewProps> = ({
   onOpenUberCalc,
   onOpenSupermarkets
 }) => {
-  const [selectedDayNumber, setSelectedDayNumber] = useState<number>(2); // Default to Day 2 (first park: Universal IOA)
+  const [selectedDayNumber, setSelectedDayNumber] = useState<number>(2); // Default to Day 2 (first park: Disney's EPCOT)
   const [filterType, setFilterType] = useState<'all' | 'park' | 'shopping'>('all');
   const [userNotes, setUserNotes] = useState<Record<number, string>>({});
   const [editingNote, setEditingNote] = useState<boolean>(false);
@@ -89,12 +89,23 @@ export const DailyItineraryView: React.FC<DailyItineraryViewProps> = ({
               >
                 <span>✅ ¡Entradas listas! · Dom 31: FIFA Nu Stadium</span>
               </button>
+              <button
+                onClick={() => {
+                  setFilterType('all');
+                  setSelectedDayNumber(15);
+                  setEditingNote(false);
+                }}
+                className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-indigo-600 hover:bg-indigo-700 text-white text-[11px] font-extrabold normal-case tracking-normal shadow-sm shadow-indigo-600/30 transition-transform active:scale-95"
+                title="Ir directo al Martes 2 de Febrero (Van Privada Confirmada al Aeropuerto MIA y vuelos Copa)"
+              >
+                <span>✅ Van Privada Confirmada · 2 Feb MIA</span>
+              </button>
             </div>
             <h2 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">
-              7 Parques (c/ Epic Universe), NBA Kia Center, FIFA en Miami & Regreso Copa
+              Bloque Disney (20–23 Ene), Día Libre (24 Ene), Bloque Universal c/ Agustina (25–27 Ene), NBA & Miami
             </h2>
             <p className="text-sm text-slate-600 mt-1 max-w-3xl">
-              Orlando del 19 al 29 de enero (7 parques + NBA), traslado contratado en el paquete a Seacoast Suites on Miami Beach (30 ene), doble jornada FIFA (31 ene), Sawgrass Mills y última playa (1 feb) y vuelos Copa Airlines a Rosario (2 feb).
+              Grupo completo de <strong>12 viajeros</strong> (5 adultos + 7 adolescentes, incluyendo a Bruno) en Celebration Suites (2x UberXL). Orden exacto de parques respetando las ventanas de cada pase, NBA Magic vs. Bulls (28 ene), traslado a Miami (30 ene), FIFA Nu Stadium (31 ene) y <strong>Van Privada Confirmada</strong> a MIA + Copa Airlines (2 feb).
             </p>
           </div>
 
@@ -124,6 +135,103 @@ export const DailyItineraryView: React.FC<DailyItineraryViewProps> = ({
             >
               Compras & Eventos ({ITINERARY.filter(d => d.type === 'shopping' || d.type === 'sports').length})
             </button>
+          </div>
+        </div>
+
+        {/* Resumen de Bloques de Parques y Ventanas de Pases */}
+        <div className="mt-4 pt-4 border-t border-slate-100 grid grid-cols-1 md:grid-cols-3 gap-2.5 text-xs">
+          <div className="p-3 rounded-xl bg-blue-50/70 border border-blue-200">
+            <div className="flex items-center justify-between gap-2 mb-1.5">
+              <span className="font-extrabold text-blue-950 uppercase tracking-wider text-[11px]">
+                🏰 Bloque Disney (4 Días)
+              </span>
+              <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-blue-600 text-white">
+                4-Park Magic · 20–26 Ene
+              </span>
+            </div>
+            <div className="flex flex-wrap gap-1.5">
+              {[
+                { day: 2, label: '20 Ene · EPCOT' },
+                { day: 3, label: '21 Ene · Hollywood St.' },
+                { day: 4, label: '22 Ene · Magic Kingdom' },
+                { day: 5, label: '23 Ene · Animal Kingdom' },
+              ].map(item => (
+                <button
+                  key={item.day}
+                  onClick={() => {
+                    setFilterType('all');
+                    setSelectedDayNumber(item.day);
+                    setEditingNote(false);
+                  }}
+                  className={`px-2 py-0.5 rounded-md text-[11px] font-semibold transition-colors ${
+                    selectedDayNumber === item.day
+                      ? 'bg-blue-700 text-white'
+                      : 'bg-white text-blue-900 border border-blue-200 hover:bg-blue-100'
+                  }`}
+                >
+                  {item.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="p-3 rounded-xl bg-purple-50/70 border border-purple-200">
+            <div className="flex items-center justify-between gap-2 mb-1.5">
+              <span className="font-extrabold text-purple-950 uppercase tracking-wider text-[11px]">
+                🛍️ Día Libre & Compras
+              </span>
+              <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-purple-600 text-white">
+                24 Ene · Pausa Clave
+              </span>
+            </div>
+            <button
+              onClick={() => {
+                setFilterType('all');
+                setSelectedDayNumber(6);
+                setEditingNote(false);
+              }}
+              className={`w-full text-left px-2.5 py-1.5 rounded-lg text-[11px] font-semibold transition-colors ${
+                selectedDayNumber === 6
+                  ? 'bg-purple-700 text-white'
+                  : 'bg-white text-purple-950 border border-purple-200 hover:bg-purple-100'
+              }`}
+            >
+              24 Ene · Descanso, pileta, outlets (Nike/Adidas) y Walmart
+            </button>
+          </div>
+
+          <div className="p-3 rounded-xl bg-indigo-50/70 border border-indigo-200">
+            <div className="flex items-center justify-between gap-2 mb-1.5">
+              <span className="font-extrabold text-indigo-950 uppercase tracking-wider text-[11px]">
+                🎢 Bloque Universal (3 Días)
+              </span>
+              <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-indigo-600 text-white">
+                3-Day · Desde 25 Ene c/ Agustina
+              </span>
+            </div>
+            <div className="flex flex-wrap gap-1.5">
+              {[
+                { day: 7, label: '25 Ene · Islands of Adv.' },
+                { day: 8, label: '26 Ene · Universal Studios' },
+                { day: 9, label: '27 Ene · Epic Universe' },
+              ].map(item => (
+                <button
+                  key={item.day}
+                  onClick={() => {
+                    setFilterType('all');
+                    setSelectedDayNumber(item.day);
+                    setEditingNote(false);
+                  }}
+                  className={`px-2 py-0.5 rounded-md text-[11px] font-semibold transition-colors ${
+                    selectedDayNumber === item.day
+                      ? 'bg-indigo-700 text-white'
+                      : 'bg-white text-indigo-900 border border-indigo-200 hover:bg-indigo-100'
+                  }`}
+                >
+                  {item.label}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
 
@@ -209,6 +317,34 @@ export const DailyItineraryView: React.FC<DailyItineraryViewProps> = ({
           </div>
         )}
 
+        {/* Ticket Block & Validity Window Banner */}
+        {activeDay.ticketBlock && (
+          <div className={`px-6 py-2.5 flex flex-wrap items-center justify-between gap-2 border-b text-xs ${
+            activeDay.ticketBlock.theme === 'disney'
+              ? 'bg-blue-600 text-white border-blue-500'
+              : activeDay.ticketBlock.theme === 'universal'
+              ? 'bg-indigo-700 text-white border-indigo-600'
+              : 'bg-purple-700 text-white border-purple-600'
+          }`}>
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="px-2.5 py-0.5 rounded-md bg-white/15 font-extrabold uppercase tracking-wider text-[11px]">
+                🎟️ {activeDay.ticketBlock.blockLabel}
+              </span>
+              <span className="font-bold">
+                {activeDay.ticketBlock.passName}
+              </span>
+              <span className="text-white/85">
+                · {activeDay.ticketBlock.validityWindow}
+              </span>
+            </div>
+            {activeDay.ticketBlock.companionNote && (
+              <span className="px-2.5 py-0.5 rounded-full bg-amber-400 text-slate-950 font-extrabold text-[11px] shadow-xs">
+                ✨ {activeDay.ticketBlock.companionNote}
+              </span>
+            )}
+          </div>
+        )}
+
         {/* Day Header */}
         <div className="p-6 bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 text-white">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
@@ -238,12 +374,13 @@ export const DailyItineraryView: React.FC<DailyItineraryViewProps> = ({
                   const appUrl = window.location.href.split('#')[0];
                   const text = [
                     `📅 *PLAN DÍA ${activeDay.dayNumber}: ${activeDay.dateStr}*${activeDay.statusBadge ? ` (${activeDay.statusBadge})` : ''}`,
+                    activeDay.ticketBlock ? `🎟️ *Pase:* ${activeDay.ticketBlock.blockLabel} · ${activeDay.ticketBlock.passName} (${activeDay.ticketBlock.validityWindow})${activeDay.ticketBlock.companionNote ? ` · ${activeDay.ticketBlock.companionNote}` : ''}` : '',
                     `📍 *Destino:* ${activeDay.title}`,
                     `✨ *Foco:* ${activeDay.highlight}`,
                     isDay12PrivateCombi
-                      ? `🚐 *Traslado Agencia Orlando ➔ Miami:* ${activeDay.uberRecommendation.departureTime} hs para los 12 pasajeros hacia ${activeDay.uberRecommendation.destination} (~${activeDay.uberRecommendation.distanceKm} km)`
+                      ? `🚐 *Traslado Agencia Orlando ➔ Miami:* ${activeDay.uberRecommendation.departureTime} hs para los 12 viajeros hacia ${activeDay.uberRecommendation.destination} (~${activeDay.uberRecommendation.distanceKm} km)`
                       : isDay15PrivateVan
-                      ? `🚐 *Van Privada (Agencia) ➔ MIA:* ${activeDay.uberRecommendation.departureTime} hs desde Seacoast Suites hacia ${activeDay.uberRecommendation.destination} (12 pax + valijas)`
+                      ? `✅🚐 *Van Privada Confirmada ➔ MIA:* ${activeDay.uberRecommendation.departureTime} hs desde Seacoast Suites hacia ${activeDay.uberRecommendation.destination} (12 viajeros + valijas)`
                       : `🚗 *Salida 2x UberXL (6+6 pax):* ${activeDay.uberRecommendation.departureTime} hs hacia ${activeDay.uberRecommendation.destination} (~${activeDay.uberRecommendation.distanceKm} km)`,
                     activeDay.quickServiceRecommendation ? `🍔 *Almuerzo sugerido:* ${activeDay.quickServiceRecommendation.name}` : '',
                     ``,
@@ -311,31 +448,31 @@ export const DailyItineraryView: React.FC<DailyItineraryViewProps> = ({
             </div>
           </div>
         ) : isDay15PrivateVan ? (
-          <div className="p-4 sm:p-5 bg-indigo-50/80 border-b border-indigo-100 flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div className="p-4 sm:p-5 bg-emerald-50/90 border-b border-emerald-200 flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div className="flex items-start gap-3">
-              <div className="w-9 h-9 rounded-xl bg-indigo-600 text-white flex items-center justify-center shrink-0 mt-0.5">
+              <div className="w-9 h-9 rounded-xl bg-emerald-600 text-white flex items-center justify-center shrink-0 mt-0.5">
                 <Bus className="w-5 h-5" />
               </div>
               <div>
                 <div className="flex flex-wrap items-center gap-2">
-                  <span className="text-xs font-bold text-indigo-900 uppercase tracking-wider">
-                    🚐 Traslado en Van Privada Contratada por Agencia (Sin Uber)
+                  <span className="text-xs font-extrabold text-emerald-950 uppercase tracking-wider">
+                    ✅🚐 Van Privada Confirmada · Hotel Miami ➔ Aeropuerto MIA (Sin Uber)
                   </span>
-                  <span className="text-[11px] text-indigo-800 bg-indigo-100 px-2 py-0.5 rounded font-semibold">
+                  <span className="text-[11px] text-emerald-900 bg-emerald-100 px-2 py-0.5 rounded font-bold border border-emerald-300">
                     Salida: 07:15 hs
                   </span>
                 </div>
                 <p className="text-xs text-slate-700 mt-1">
-                  <strong>Trayecto al aeropuerto:</strong> Hotel Seacoast Suites on Miami Beach ➔ Aeropuerto Internacional de Miami (MIA · ~{activeDay.uberRecommendation.distanceKm} km · vuelo Copa CM 283 a las 11:21 hs).
+                  <strong>Trayecto al aeropuerto:</strong> Hotel Seacoast Suites on Miami Beach ➔ Aeropuerto Internacional de Miami (MIA · ~{activeDay.uberRecommendation.distanceKm} km · vuelo <strong>Copa CM 440 a las 11:21 hs</strong> + conexión <strong>CM 882 PTY ➔ Rosario</strong>).
                 </p>
                 <p className="text-xs text-slate-600 mt-0.5">
-                  <strong>Capacidad total:</strong> Ideal para trasladar cómodamente a los <strong>12 pasajeros con todas las valijas llenas de compras</strong>.
+                  <strong>Capacidad confirmada:</strong> Traslado privado confirmado para los <strong>12 viajeros con todas las valijas llenas de compras</strong>.
                 </p>
               </div>
             </div>
 
-            <div className="px-3 py-1.5 bg-white text-indigo-800 border border-indigo-200 rounded-lg text-xs font-semibold shrink-0">
-              Van Privada Agencia ✓
+            <div className="px-3 py-1.5 bg-emerald-600 text-white rounded-lg text-xs font-extrabold shrink-0 shadow-xs">
+              ✅ Van Privada Confirmada
             </div>
           </div>
         ) : (
@@ -521,7 +658,7 @@ export const DailyItineraryView: React.FC<DailyItineraryViewProps> = ({
                   <span>Tips de Experto · Optimización y Logística del Día</span>
                 </div>
                 <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-indigo-100 text-indigo-800 border border-indigo-200">
-                  {isDay15PrivateVan ? '12 Viajeros · Van Privada Agencia' : isDay12PrivateCombi ? '12 Viajeros · Traslado Agencia' : '12 Viajeros · 2x UberXL (6+6)'}
+                  {isDay15PrivateVan ? '12 Viajeros · ✅ Van Privada Confirmada' : isDay12PrivateCombi ? '12 Viajeros · Traslado Agencia' : '12 Viajeros · 2x UberXL (6+6)'}
                 </span>
               </div>
               <ul className="space-y-2">

@@ -71,12 +71,17 @@ export const UberCalculatorView: React.FC = () => {
             </div>
           </div>
 
-          <div className="p-3.5 bg-emerald-50 border border-emerald-200 rounded-xl flex items-start gap-2.5">
+          <div className="p-3.5 bg-emerald-50 border border-emerald-300 rounded-xl flex items-start gap-2.5 shadow-2xs">
             <Bus className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
             <div>
-              <span className="font-bold text-emerald-950">Día 15 (Mar 2 Feb · 07:15 hs):</span>
-              <p className="text-emerald-900 mt-0.5 leading-relaxed">
-                🚐 <strong>Traslado en Van Privada contratada por agencia</strong> desde Seacoast Suites al Aeropuerto de Miami (MIA, vuelo 11:21 hs), ideal para los <strong>12 pasajeros con todas las valijas llenas de compras</strong>.
+              <div className="flex flex-wrap items-center gap-1.5">
+                <span className="font-bold text-emerald-950">Día 15 (Mar 2 Feb · 07:15 hs):</span>
+                <span className="px-1.5 py-0.5 rounded bg-emerald-600 text-white text-[10px] font-extrabold">
+                  ✅ CONFIRMADA
+                </span>
+              </div>
+              <p className="text-emerald-900 mt-1 leading-relaxed">
+                🚐 <strong>Van Privada Confirmada</strong> desde Seacoast Suites al Aeropuerto de Miami (MIA, vuelo Copa CM 440 11:21 hs + CM 882), ideal para los <strong>12 viajeros con todas las valijas llenas de compras</strong>.
               </p>
             </div>
           </div>
@@ -369,11 +374,11 @@ export const UberCalculatorView: React.FC = () => {
               </div>
             </div>
 
-            {/* Total Highlight for the 11 People */}
+            {/* Total Highlight for the 12 Travelers */}
             <div className="mt-5 p-4 rounded-xl bg-slate-900 text-white space-y-3">
               <div>
                 <div className="text-[11px] text-slate-400 uppercase tracking-wider font-semibold">
-                  Total para los 2 UberXL (12 personas)
+                  Total para los 2 UberXL (12 viajeros)
                 </div>
                 <div className="text-3xl font-extrabold text-amber-400 font-mono mt-0.5 tabular-nums">
                   ${totalFor2Cars.toFixed(2)} <span className="text-sm font-sans text-slate-300">USD</span>

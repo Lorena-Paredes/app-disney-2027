@@ -13,7 +13,7 @@ import {
 import { useLiveWaitTimes } from '../utils/useLiveWaitTimes';
 
 export const InteractiveMapsView: React.FC = () => {
-  const [selectedParkId, setSelectedParkId] = useState<string>('magic-kingdom');
+  const [selectedParkId, setSelectedParkId] = useState<string>('epcot');
   const [brandFilter, setBrandFilter] = useState<'all' | 'disney' | 'universal' | 'nba'>('all');
   const [categoryFilter, setCategoryFilter] = useState<'all' | RideCategory>('all');
   const [intensityFilter, setIntensityFilter] = useState<'all' | RideIntensity>('all');
@@ -325,13 +325,13 @@ export const InteractiveMapsView: React.FC = () => {
           <div>
             <div className="flex items-center gap-2 text-xs font-semibold text-blue-700 uppercase tracking-wider mb-1">
               <MapIcon className="w-3.5 h-3.5" />
-              <span>Mapa con Coordenadas Exactas & Tiempos en Vivo</span>
+              <span>Mapas en Orden Exacto de Visita (20 al 28 Ene) & Tiempos en Vivo</span>
             </div>
             <h2 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">
-              Ubicación de Cada Juego dentro de los Parques
+              Ubicación de Cada Juego: Bloque Disney (20–23), Universal c/ Agustina (25–27) & NBA (28)
             </h2>
             <p className="text-sm text-slate-600 mt-1 max-w-3xl">
-              Pines interactivos con la ubicación exacta de montañas rusas, simuladores y paseos familiares. Tocá cualquier juego de la lista para hacer zoom inmediato en el plano o tocá los pines en el mapa para ver tiempos de espera y consejos del grupo.
+              Pines interactivos ordenados exactamente según nuestro calendario de parques (12 viajeros). Tocá cualquier juego de la lista o de las alertas para los 7 chicos para hacer zoom inmediato en el plano.
             </p>
           </div>
 
@@ -374,7 +374,7 @@ export const InteractiveMapsView: React.FC = () => {
           </div>
         </div>
 
-        {/* Carrusel Selector de Parques */}
+        {/* Carrusel Selector de Parques (Orden Cronológico Exacto) */}
         <div className="mt-5 pt-4 border-t border-slate-100 flex items-center gap-2 overflow-x-auto pb-2 scrollbar-thin">
           {filteredParks.map(park => {
             const isSelected = park.id === selectedParkId;
@@ -385,29 +385,29 @@ export const InteractiveMapsView: React.FC = () => {
                   setSelectedParkId(park.id);
                   setSelectedRideId(null);
                 }}
-                className={`flex flex-col text-left px-3.5 py-2.5 rounded-xl border transition-all shrink-0 min-w-[170px] ${
+                className={`flex flex-col text-left px-3.5 py-2.5 rounded-xl border transition-all shrink-0 min-w-[186px] ${
                   isSelected
                     ? 'border-blue-600 bg-blue-50/80 shadow-xs ring-1 ring-blue-600'
                     : 'border-slate-200 bg-white hover:border-slate-300 hover:bg-slate-50'
                 }`}
               >
-                <div className="flex items-center justify-between w-full">
-                  <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded border ${
+                <div className="flex items-center justify-between w-full gap-1.5">
+                  <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded border whitespace-nowrap ${
                     park.brand === 'disney' ? 'bg-blue-100 text-blue-800 border-blue-200' :
                     park.brand === 'universal' ? 'bg-indigo-100 text-indigo-800 border-indigo-200' :
-                    'bg-blue-100 text-blue-900 border-blue-300'
+                    'bg-emerald-100 text-emerald-900 border-emerald-300'
                   }`}>
-                    {park.brand === 'disney' ? 'Disney World' : park.brand === 'universal' ? 'Universal' : 'Kia Center NBA'}
+                    {park.visitDateLabel || (park.brand === 'disney' ? 'Disney World' : park.brand === 'universal' ? 'Universal' : 'Kia Center NBA')}
                   </span>
                   <span className="text-[10px] text-slate-500 font-mono">
-                    {park.rides.length} puntos
+                    {park.rides.length} pts
                   </span>
                 </div>
                 <div className="text-xs font-bold text-slate-900 mt-1 line-clamp-1">
-                  {park.name}
-                </div>
-                <div className="text-[11px] text-slate-500 truncate mt-0.5">
                   {park.shortName}
+                </div>
+                <div className="text-[10px] font-medium text-slate-500 truncate mt-0.5">
+                  {park.passBlockLabel || park.name}
                 </div>
               </button>
             );
@@ -428,11 +428,18 @@ export const InteractiveMapsView: React.FC = () => {
                 <Compass className="w-4 h-4" />
               </div>
               <div>
-                <h3 className="font-bold text-slate-900 text-sm sm:text-base leading-tight">
-                  {activePark.name}
-                </h3>
+                <div className="flex flex-wrap items-center gap-1.5">
+                  <h3 className="font-bold text-slate-900 text-sm sm:text-base leading-tight">
+                    {activePark.name}
+                  </h3>
+                  {activePark.visitDateLabel && (
+                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-100 text-blue-800 border border-blue-200">
+                      {activePark.visitDateLabel}
+                    </span>
+                  )}
+                </div>
                 <p className="text-[11px] text-slate-500">
-                  Explorá los pines sobre los senderos del parque
+                  {activePark.passBlockLabel ? `${activePark.passBlockLabel} · ` : ''}Explorá los pines sobre los senderos del parque
                 </p>
               </div>
             </div>
@@ -533,7 +540,39 @@ export const InteractiveMapsView: React.FC = () => {
 
         {/* COLUMNA DERECHA: LISTA CATEGORIZADA DE JUEGOS (5 Columnas) */}
         <div className="lg:col-span-5 space-y-4">
-          
+          {/* Alertas de Atracciones Recomendadas para los 7 Chicos en este Parque */}
+          {activePark.rides.some(r => r.intensity === 'high') && (
+            <div className="bg-amber-50/90 rounded-2xl p-3.5 border border-amber-200 shadow-xs">
+              <div className="flex items-center justify-between gap-2 mb-2">
+                <div className="flex items-center gap-1.5 text-[11px] font-extrabold text-amber-950 uppercase tracking-wider">
+                  <Flame className="w-3.5 h-3.5 text-amber-600" />
+                  <span>Alerta Top para los 7 Chicos · {activePark.visitDateLabel || activePark.shortName}</span>
+                </div>
+                <span className="text-[10px] font-bold text-amber-800 bg-amber-100 px-1.5 py-0.5 rounded">
+                  Prioridad
+                </span>
+              </div>
+              <div className="flex flex-wrap gap-1.5">
+                {activePark.rides
+                  .filter(r => r.intensity === 'high')
+                  .map(ride => (
+                    <button
+                      key={ride.id}
+                      onClick={() => handleSelectRide(ride)}
+                      className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all border ${
+                        selectedRideId === ride.id
+                          ? 'bg-amber-600 text-white border-amber-600 shadow-xs'
+                          : 'bg-white text-amber-950 border-amber-300 hover:bg-amber-100'
+                      }`}
+                    >
+                      <Zap className="w-3 h-3 shrink-0" />
+                      <span>{ride.name}</span>
+                    </button>
+                  ))}
+              </div>
+            </div>
+          )}
+
           {/* Panel de Filtros & Búsqueda de Juegos */}
           <div className="bg-white rounded-2xl p-4 border border-slate-200 shadow-xs space-y-3">
             
@@ -544,7 +583,7 @@ export const InteractiveMapsView: React.FC = () => {
                 type="text"
                 value={searchQuery}
                 onChange={e => setSearchQuery(e.target.value)}
-                placeholder="Buscar juego (ej: TRON, Hagrid, VelociCoaster)..."
+                placeholder="Buscar juego (ej: Cosmic Rewind, TRON, VelociCoaster, Stardust)..."
                 className="w-full text-xs pl-9 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all"
               />
             </div>
